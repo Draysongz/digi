@@ -1,16 +1,23 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import Hero from "./Hero/Hero";
+import WithSubnavigation from "./Navbar/WithSubnavigation";
+
 const Home = () => {
   return (
-    <div className='Container'>
-    Hello
-    <ul>
-      <li><Link to='/options'>Options page</Link></li>
-     
+    <>
+      <WithSubnavigation />
+      <Hero />
 
-    </ul>
-    </div>
-  )
-}
+      <div className="Container">
+        <ul>
+          <li>
+            <Link to="/options">Options page</Link>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+};
 
-export default Home
+export default Home;
