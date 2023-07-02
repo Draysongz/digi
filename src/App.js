@@ -7,6 +7,8 @@ import Forgot from './Components/Forgot'
 import Reset from './Components/Reset'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import MainDashboard from './Components/Dashboard/MainDashboard'
+
 function App() {
   return (
     <div className="App">
@@ -17,6 +19,7 @@ function App() {
         <Route path='/login' element = {<Login />} />
         <Route path='/forgot' element={<Forgot/>} />
         <Route path='/reset' element={<Reset/>} />
+        <Route path='/dashboard' element={<MainDashboard/>} />
       </Routes>
       <ToastContainer />
     </div>

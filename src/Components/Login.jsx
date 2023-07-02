@@ -20,7 +20,7 @@ const Login = () => {
 
   const loginUser = async (e)=>{
     e.preventDefault()
-    const auth = getAuth()
+    const auth = getAuth(app)
     try {
       const userCredentials = await signInWithEmailAndPassword(auth, email, password)
       const user = userCredentials.user
