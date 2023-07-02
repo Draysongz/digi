@@ -8,14 +8,6 @@ const Home = () => {
     <>
       <WithSubnavigation />
       <Hero />
-
-      <div className="Container">
-        <ul>
-          <li>
-            <Link to="/options">Options page</Link>
-          </li>
-        </ul>
-      </div>
     </>
   );
 };
