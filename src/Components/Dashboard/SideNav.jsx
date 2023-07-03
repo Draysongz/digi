@@ -5,20 +5,18 @@ import {
   CloseButton,
   Flex,
   Icon,
+  Image,
   useColorModeValue,
   Link,
   Drawer,
   DrawerContent,
   Text,
   useDisclosure,
-  Image,
-  useColorMode
+  useColorMode,
 } from "@chakra-ui/react";
-import {FiCompass, FiSettings, FiMenu, FiLogOut} from 'react-icons/fi'
+import { FiCompass, FiSettings, FiMenu, FiLogOut } from "react-icons/fi";
 import { BiSolidDashboard, BiSolidNotepad } from "react-icons/bi";
 import { FaBitcoin, FaPaypal, FaGift } from "react-icons/fa";
-
-
 
 const LinkItems = [
   { name: "Overview", icon: BiSolidDashboard },
@@ -33,7 +31,7 @@ const LinkItems = [
 
 export default function SideNav({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
- 
+
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
@@ -62,10 +60,8 @@ export default function SideNav({ children }) {
   );
 }
 
-
-
 const SidebarContent = ({ onClose, ...rest }) => {
-    const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -80,7 +76,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <Image
           alignItems={"center"}
           justifyContent={"space-between"}
-          src={ colorMode === "light" ? "./images/digimartExch.png" : "./images/logoWhite.png"
+          src={
+            colorMode === "light"
+              ? "./images/digimartExch.png"
+              : "./images/logoWhite.png"
           }
           width="150px"
         />
@@ -94,7 +93,6 @@ const SidebarContent = ({ onClose, ...rest }) => {
     </Box>
   );
 };
-
 
 const NavItem = ({ icon, children, ...rest }) => {
   return (
@@ -132,8 +130,9 @@ const NavItem = ({ icon, children, ...rest }) => {
   );
 };
 
-
 const MobileNav = ({ onOpen, ...rest }) => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -153,9 +152,16 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Logo
-      </Text>
+      <Image
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        src={
+          colorMode === "light"
+            ? "./images/digimartExch.png"
+            : "./images/logoWhite.png"
+        }
+        width="150px"
+      />
     </Flex>
   );
 };
