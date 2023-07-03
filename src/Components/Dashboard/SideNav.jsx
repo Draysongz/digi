@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import {
   IconButton,
   Box,
@@ -11,20 +11,16 @@ import {
   DrawerContent,
   Text,
   useDisclosure,
-  BoxProps,
-  FlexProps,
+  Image,
+  useColorMode
 } from "@chakra-ui/react";
-import { FiCompass, FiSettings, FiMenu, FiLogOut } from "react-icons/fi";
+import {FiCompass, FiSettings, FiMenu, FiLogOut} from 'react-icons/fi'
 import { BiSolidDashboard, BiSolidNotepad } from "react-icons/bi";
 import { FaBitcoin, FaPaypal, FaGift } from "react-icons/fa";
-import { IconType } from "react-icons";
-import { ReactText } from "react";
 
-interface LinkItemProps {
-  name: string;
-  icon: IconType;
-}
-const LinkItems: Array<LinkItemProps> = [
+
+
+const LinkItems = [
   { name: "Overview", icon: BiSolidDashboard },
   { name: "Crypto", icon: FaBitcoin },
   { name: "Giftcards", icon: FaGift },
@@ -35,8 +31,9 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Logout", icon: FiLogOut },
 ];
 
-export default function SideNav({ children }: { children: ReactNode }) {
+export default function SideNav({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+ 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
@@ -65,11 +62,10 @@ export default function SideNav({ children }: { children: ReactNode }) {
   );
 }
 
-interface SidebarProps extends BoxProps {
-  onClose: () => void;
-}
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+
+const SidebarContent = ({ onClose, ...rest }) => {
+    const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -84,10 +80,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <Image
           alignItems={"center"}
           justifyContent={"space-between"}
-          src={
-            colorMode === "light"
-              ? "./images/digimartExch.png"
-              : "./images/logoWhite.png"
+          src={ colorMode === "light" ? "./images/digimartExch.png" : "./images/logoWhite.png"
           }
           width="150px"
         />
@@ -102,11 +95,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   );
 };
 
-interface NavItemProps extends FlexProps {
-  icon: IconType;
-  children: ReactText;
-}
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+
+const NavItem = ({ icon, children, ...rest }) => {
   return (
     <Link
       href="#"
@@ -142,10 +132,8 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   );
 };
 
-interface MobileProps extends FlexProps {
-  onOpen: () => void;
-}
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+
+const MobileNav = ({ onOpen, ...rest }) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
