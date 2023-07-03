@@ -14,7 +14,7 @@ import {
   useDisclosure,
   useColorMode,
 } from "@chakra-ui/react";
-import { FiCompass, FiSettings, FiMenu, FiLogOut } from "react-icons/fi";
+import { FiUser, FiSettings, FiMenu, FiLogOut } from "react-icons/fi";
 import { BiSolidDashboard, BiSolidNotepad } from "react-icons/bi";
 import { FaBitcoin, FaPaypal, FaGift } from "react-icons/fa";
 
@@ -24,7 +24,7 @@ const LinkItems = [
   { name: "Giftcards", icon: FaGift },
   { name: "Paypal", icon: FaPaypal },
   { name: "Transaction", icon: BiSolidNotepad },
-  { name: "Profile", icon: FiCompass },
+  { name: "Profile", icon: FiUser },
   { name: "Setting", icon: FiSettings },
   { name: "Logout", icon: FiLogOut },
 ];
@@ -72,7 +72,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex
+        h="20"
+        alignItems="center"
+        mx="8"
+        mb={"5"}
+        justifyContent="space-between"
+      >
         <Image
           alignItems={"center"}
           justifyContent={"space-between"}
@@ -104,8 +110,8 @@ const NavItem = ({ icon, children, ...rest }) => {
       <Flex
         align="center"
         p="4"
-        mx="4"
-        borderRadius="lg"
+        mx="8"
+        borderRadius="xl"
         role="group"
         cursor="pointer"
         _hover={{
@@ -145,13 +151,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
       justifyContent="flex-start"
       {...rest}
     >
-      <IconButton
-        variant="outline"
-        onClick={onOpen}
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
-
       <Image
         alignItems={"center"}
         justifyContent={"space-between"}
@@ -161,6 +160,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
             : "./images/logoWhite.png"
         }
         width="150px"
+      />
+
+      <IconButton
+        variant="outline"
+        onClick={onOpen}
+        aria-label="open menu"
+        icon={<FiMenu />}
       />
     </Flex>
   );
