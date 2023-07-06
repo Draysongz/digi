@@ -65,7 +65,11 @@ export default function WithSubnavigation() {
           <Image
             alignItems={"center"}
             justifyContent={"space-between"}
-            src={colorMode === "light" ? "./images/digimartExch.png" : "./images/logoWhite.png"}
+            src={
+              colorMode === "light"
+                ? "./images/digimartExch.png"
+                : "./images/logoWhite.png"
+            }
             width="150px"
           />
         </Flex>
@@ -94,11 +98,13 @@ export default function WithSubnavigation() {
             fontSize={"sm"}
             fontWeight={600}
             variant="outline"
-            colorScheme="#1808A3"
             color={"#1808A3"}
             bg={"white"}
             onClick={() => navigate("/login")}
             cursor="pointer"
+            _hover={{
+              bg: "#E8E6F6",
+            }}
           >
             Login
           </Button>
@@ -107,10 +113,11 @@ export default function WithSubnavigation() {
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
+            // variants="solid"
             color={"white"}
             bg={"#1808A3"}
             _hover={{
-              bg: "blue.400",
+              bg: "#31CD31",
             }}
             onClick={() => navigate("/register")}
             cursor="pointer"
