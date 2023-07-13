@@ -1,16 +1,18 @@
-import React from 'react'
-import './css/dashboard.css'
-import SideNav from './SideNav'
-import Dash from './Dash'
-
+import React from "react";
+// import "./css/dashboard.css";
+import Dash from "./Dash";
+import { Flex } from "@chakra-ui/react";
+import { SideBarFunc } from "./SideBarFunc";
 
 const MainDashboard = () => {
   return (
-    <div className='dash-cont'>
-      <SideNav />
-      <Dash />
-    </div>
-  )
-}
+    <>
+      <Flex flexDir={["column", "column", "row"]}>
+        <SideBarFunc />
+        <Dash />
+      </Flex>
+    </>
+  );
+};
 
 export default MainDashboard;
