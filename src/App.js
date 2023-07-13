@@ -8,8 +8,22 @@ import Reset from './Components/Reset'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import MainDashboard from './Components/Dashboard/MainDashboard'
+import CryptoDash from './Components/Dashboard/Crypto/CryptoDash'
 
 function App() {
+  window.addEventListener('load', showText)
+
+  function showText(){
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/64afbf6794cf5d49dc634bb2/1h5787csn';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+  }
   return (
     <div className="App">
       <Routes>
@@ -20,6 +34,7 @@ function App() {
         <Route path='/forgot' element={<Forgot/>} />
         <Route path='/reset' element={<Reset/>} />
         <Route path='/dashboard' element={<MainDashboard/>} />
+        <Route path='/crypto' element={<CryptoDash />} />
       </Routes>
       <ToastContainer />
     </div>
