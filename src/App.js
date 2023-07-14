@@ -10,23 +10,27 @@ import "react-toastify/dist/ReactToastify.css";
 import MainDashboard from "./Components/Dashboard/MainDashboard";
 import Transactions from "./Components/Dashboard/Transactions";
 import CryptoDash from "./Components/Dashboard/Crypto/CryptoDash";
+import {useEffect} from 'react
 
 function App() {
-  window.addEventListener("load", showText);
-
-  function showText() {
-    var Tawk_API = Tawk_API || {},
-      Tawk_LoadStart = new Date();
-    (function () {
-      var s1 = document.createElement("script"),
-        s0 = document.getElementsByTagName("script")[0];
-      s1.async = true;
-      s1.src = "https://embed.tawk.to/64afbf6794cf5d49dc634bb2/1h5787csn";
-      s1.charset = "UTF-8";
-      s1.setAttribute("crossorigin", "*");
-      s0.parentNode.insertBefore(s1, s0);
-    })();
-  }
+  useEffect(() => {
+    const showText = () => {
+      var Tawk_API=Tawk_API||{};
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/64afbf6794cf5d49dc634bb2/1h5787csn';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    };
+    
+    window.addEventListener('load', showText);
+    
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('load', showText);
+    };
+  }, []);
   return (
     <div className="App">
       <Routes>
