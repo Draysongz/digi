@@ -23,13 +23,8 @@ function App() {
       s1.setAttribute('crossorigin','*');
       s0.parentNode.insertBefore(s1,s0);
     };
-    
-    window.addEventListener('load', showText);
-    
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('load', showText);
-    };
+
+    showText()
   }, []);
   return (
     <div className="App">
