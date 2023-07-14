@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import MainDashboard from "./Components/Dashboard/MainDashboard";
 import Transactions from "./Components/Dashboard/Transactions";
 import CryptoDash from "./Components/Dashboard/Crypto/CryptoDash";
-import {useEffect} from 'react
+import {useEffect} from 'react'
 
 function App() {
   useEffect(() => {
