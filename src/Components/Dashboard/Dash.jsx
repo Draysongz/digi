@@ -94,6 +94,8 @@ const Dash = () => {
                   bgColor="#FFF"
                   fontFamily="Lato, sans-Serif"
                   fontWeight="bold"
+                  minW='2.5rem'
+                  w='8rem'
                 >
                   Paypal
                 </Button>
