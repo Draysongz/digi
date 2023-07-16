@@ -62,7 +62,8 @@ export const SideBarFunc = () => {
               mr={"1"}
             />
             {/* Mobile */}
-            <IconButton
+            {/* <IconButton
+              justifySelf={"flex-end"}
               onClick={onToggle}
               icon={
                 isOpen ? (
@@ -74,8 +75,8 @@ export const SideBarFunc = () => {
               variant={"outline"}
               aria-label={"Toggle Navigation"}
               display={{ md: "none" }}
-              ml={"100px"}
-            />
+              ml={"auto"}
+            /> */}
           </Flex>
           <Flex
             mt={10}
@@ -198,27 +199,6 @@ export const SideBarFunc = () => {
             </Link>
 
             <Link
-              onClick={() => navigate("/profile")}
-              padding="10px"
-              borderRadius="2xl"
-              _hover={{
-                textDecor: "none",
-                bg: "#E8E6F6",
-                color: "#1808A3",
-              }}
-              display={["none", "none", "flex", "flex", "flex"]}
-            >
-              <Icon as={FiUser} fontSize="4xl" p={1} />
-              <Text
-                p={1}
-                fontSize="lg"
-                display={["none", "none", "none", "flex", "flex"]}
-              >
-                Profile
-              </Text>
-            </Link>
-
-            <Link
               onClick={() => navigate("/settings")}
               padding="10px"
               borderRadius="2xl"
@@ -263,29 +243,29 @@ export const SideBarFunc = () => {
         </Flex>
 
         <Flex
-          align={"center"}
-          justifyContent={"flex-start"}
+          alignItems="center"
+          ml={{ base: 0 }}
+          px={{ base: 5 }}
           borderBottom="1px"
           borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+          flexWrap="unset"
         >
           {/* Mobile */}
           <Image
-            align={"center"}
             src={
               colorMode === "light"
                 ? "./images/digimartExch.png"
                 : "./images/logoWhite.png"
             }
             width="150px"
-            mr={"1"}
+            mr={"auto"}
             display={["flex", "flex", "none", "none"]}
           />
           <IconButton
-            left={"55vw"}
+            justifySelf={"flex-end"}
             aria-label="Open Menu"
             size="lg"
-            // ml={"10rem"}
-            mr={2}
+            ml={{ base: "8em", sm: "18em", md: "30em" }}
             icon={<HamburgerIcon />}
             onClick={() => changeDisplay("flex")}
             display={["flex", "flex", "none", "none"]}
@@ -432,26 +412,6 @@ export const SideBarFunc = () => {
               display={["flex", "flex", "flex", "flex", "flex"]}
             >
               Transaction
-            </Text>
-          </Link>
-
-          <Link
-            onClick={() => navigate("/profile")}
-            _hover={{
-              textDecor: "none",
-              bg: "white",
-              color: "#1808A3",
-            }}
-            padding="20px"
-            display={["flex", "flex", "flex", "flex", "flex"]}
-          >
-            <Icon as={FiUser} fontSize="4xl" p={1} />
-            <Text
-              p={1}
-              fontSize="lg"
-              display={["flex", "flex", "flex", "flex", "flex"]}
-            >
-              Profile
             </Text>
           </Link>
 
