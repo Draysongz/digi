@@ -7,13 +7,11 @@ import {
   CardBody,
   Box,
   Text,
-  HStack,
   Spacer,
   Heading,
   Image,
   Button,
 } from "@chakra-ui/react";
-import { BellIcon } from "@chakra-ui/icons";
 import bitcard from "../assets/bitcard.png";
 import bitcoin from "../assets/bitcoin.png";
 import notis from "../assets/notis.svg";

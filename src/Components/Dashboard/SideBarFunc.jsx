@@ -12,9 +12,9 @@ import {
   useDisclosure,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FiUser, FiSettings, FiMenu, FiLogOut } from "react-icons/fi";
+import { FiSettings, FiLogOut } from "react-icons/fi";
 import { BiSolidDashboard, BiSolidNotepad } from "react-icons/bi";
-import { FaBitcoin, FaPaypal, FaGift, FaGratipay } from "react-icons/fa";
+import { FaBitcoin, FaPaypal, FaGift } from "react-icons/fa";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 export const SideBarFunc = () => {
