@@ -30,6 +30,7 @@ export const SideBarFunc = () => {
       color={useColorModeValue("#000", "gray.200")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      h={[null, null, "100vh"]}
     >
       <Flex
         flexDir={["row", "row", "column", "column", "column"]}
@@ -38,7 +39,6 @@ export const SideBarFunc = () => {
         left="1rem"
         align="center"
         justifyContent={"space-between"}
-        h={[null, null, "100vh"]}
       >
         {/* Desktop */}
         <Flex
