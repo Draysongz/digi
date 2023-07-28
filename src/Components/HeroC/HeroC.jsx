@@ -182,7 +182,7 @@ const HeroC = () => {
                     <Flex p='20px' direction={'column'} gap={8} alignItems={['center', 'center', 'start']}>
                     <Text fontSize={['25px', '28px', '32px']} 
                     color={'#1808A3'} 
-                    textAlign={'justify'}
+                    textAlign={'center'}
                     fontFamily='Lato sans-serif'>100% Guaranteed & trusted</Text>
                     <Heading fontFamily='Lato sans-serif'
                     color={'#111111'}
