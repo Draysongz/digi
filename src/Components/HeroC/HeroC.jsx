@@ -180,13 +180,13 @@ const HeroC = () => {
 
                 <Box p='20px' mt='-40px'>
                     <Flex p='20px' direction={'column'} gap={8} alignItems={['center', 'center', 'start']}>
-                    <Text fontSize={['27px', '28px', '32px']} 
+                    <Text fontSize={['25px', '28px', '32px']} 
                     color={'#1808A3'} 
                     textAlign={'justify'}
                     fontFamily='Lato sans-serif'>100% Guaranteed & trusted</Text>
                     <Heading fontFamily='Lato sans-serif'
                     color={'#111111'}
-                    fontSize={['25px', '32px', '52px']}
+                    fontSize={['28px', '32px', '52px']}
                     textAlign={['center', 'center',  'justify']}
                     mt={'-30px'}
                     fontWeight={'700'}>Trade your Cryptos,<br/> Giftcards,and Paypal<br/> Funds for cash instantly.</Heading>
