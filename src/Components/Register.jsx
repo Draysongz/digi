@@ -1,16 +1,25 @@
 import React, {useState} from 'react'
 import './css/register.css'
 import logo from './assets/logoWhite.png'
-import hands from './assets/hands.png'
 import GImage from './assets/GImage.png'
 import {Link} from 'react-router-dom'
-import eyes from './assets/eyes.svg'
 import {toast} from 'react-toastify'
 import { app,  } from './firebase/Firebase'
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
+import {
+  Flex,
+  Box,
+  Text,
+  Button,
+  Heading,
+  Image,
+  Container
+} from '@chakra-ui/react'
+import frame from './assets/frame.png'
+import girls from './assets/girls.png'
 
 const Register = () => {
   const [password, setPassword] = useState('')
@@ -86,50 +95,24 @@ const navigate= useNavigate()
     }
   }
   return (
-    <div className='Container'>
-       <div className="left">
-          <div className="child">
-          <img src={logo} alt="digimart" className="whitelogo" />
-          <img src={hands} alt="handshake" className="hands" width='550' />
-          </div>
-       </div>
+    <Flex
+    maxWidth="4xl"
+    minHeight="100vh"
+    minWidth={['70vw', '98vw', "98.7vw", "98.7vw"]}
+    bgSize={'cover'}
+    bgRepeat={'no-repeat'}
+    bg={'#080339'}
+    dir={'row'}>
+      <Flex direction={'column'} bgImage={frame} bgSize={'cover'} p='20px' gap={5} w={'50%'}>
+        <Box>
+          <Image src={logo} alt='logo' />
+        </Box>
+        <Flex justifyContent={'center'} alignItems={'center'}>
+          <Image src={girls} alr='girls' width={'80'} />
+        </Flex>
+      </Flex>
 
-       <div className="right">
-         <h2 className="regisHead">Register</h2>
-         <form action="" className="registrationForm" >
-           <input type='text' placeholder='First name' value={firstname} className='firstName' 
-           onChange={(e)=> setFirstname(e.target.value)} />
-
-           <input type="text" placeholder='Last name' value={lastname} className="lastName"
-            onChange={(e)=> setLastname(e.target.value)} />
-           <input type="email" placeholder='Email' className="email" value={email}
-            onChange={(e)=> setEmail(e.target.value)} />
-           <input type="number" className="number" value={phone} placeholder='Phone number'
-           onChange={(e)=> setPhone(e.target.value)} />
-           <span className="pass">
-           <input type={showPassword? 'text' : 'password'} value={password} onChange={(e)=> setPassword(e.target.value)} className="password" placeholder='Password' />
-           <img src={eyes} alt="visibility" className="eyes" onClick={handlePasswordToggle} />
-           </span>
-           <span className="con">
-           <input type={showConfirm? 'text': 'password'} value={confirm} onChange={(e)=> setConfirm(e.target.value)} placeholder='Confirm password' className="confirm" />
-           <img src={eyes} alt="visibility" className="eyes" onClick={handleConfirmToggle} />
-           </span>
-           
-           <button className="register" type='submit' onClick={onSubmit}>
-            CREATE AN ACCOUNT 
-          </button>
-          <p className="or"><hr className='left-line' /> or <hr className='right-line' /></p>
-          <button className="google" type='button' onClick={loginWithGoogle}>
-            <span className="goog">
-            <img src={GImage} alt='google' className='googl' width='40'/>
-            </span> 
-            <span className="words">Signup with Google</span>
-            
-          </button>
-          <p className="loginW">Already have an account? <Link className='log' to='/login'>Login</Link></p>
-         </form>
-       </div>
-    </div>
+    </Flex>
   )
 }
 

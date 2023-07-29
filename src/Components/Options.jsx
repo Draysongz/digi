@@ -7,11 +7,9 @@ import excitedMan from './assets/excitedMan.png'
 import {
   Flex,
   Box,
-  Text,
   Button,
   Heading,
   Image,
-  Container
 } from '@chakra-ui/react'
 
 
