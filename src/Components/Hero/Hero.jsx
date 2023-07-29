@@ -65,12 +65,15 @@ export default function SplitScreen() {
           </Stack>
         </Stack>
       </Flex>
-      <Flex flex={1}>
+      <Flex flex={1}  mr={'10px'}>
         <Image
+
           alt={"Login Image"}
           // objectFit={"fill"}
-          padding={"40px"}
+          padding={['20px', '30px','40px']}
           src={"./images/Group 1000001411.png"}
+          width={'100'}
+          
         />
       </Flex>
     </Stack>

@@ -29,15 +29,18 @@ import {
   import cards from '../assets/cards.png'
   import funds from '../assets/funds.png'
   import img from '../assets/img.png'
+  import newLogo from '../assets/newlogo.png'
+  import twitter from '../assets/twitter.png'
+  import fb from '../assets/fb.png'
+  import linkedin from '../assets/linkedin.png'
 
 
 const HeroC = () => {
   return (
     <Container
     maxWidth="4xl"
-    py="20px"
-    minHeight="100vh"
-    minWidth="98vw"
+    border={'2px solid blue'}
+    minWidth={['97vw', '98vw', '98.8vw', "98.5vw"]}
     mt='-10px'
   >
     <Flex direction='column' gap={20}>
@@ -188,22 +191,22 @@ const HeroC = () => {
                 </Box>
 
                 <Box p='20px' mt='-40px'>
-                    <Flex p='20px' direction={'column'} gap={8} alignItems={['center', 'center', 'start']}>
+                    <Flex p='20px' direction={'column'} gap={8} alignItems={['center', 'center', 'center', 'start']}>
                     <Text fontSize={['22px', '28px', '32px']} 
                     color={'#1808A3'} 
-                    textAlign={'center'}
+                    textAlign={['center', 'center', 'center', 'center']}
                     fontFamily='Lato sans-serif'>100% Guaranteed & trusted</Text>
                     <Heading fontFamily='Lato sans-serif'
                     color={'#111111'}
                     fontSize={['28px', '32px', '52px']}
-                    textAlign={['center', 'center',  'left']}
+                    textAlign={['center', 'center', 'center',  'left']}
                     mt={'-30px'}
                     fontWeight={'700'}>Trade your Cryptos,<br/> Giftcards,and Paypal<br/> Funds for cash instantly.</Heading>
                      <Text
                          fontFamily='Lato sans-serif'
                          fontSize={['19px', '20px', '24px']}
-                         w={['75vw', '45vw', '30vw']}
-                         textAlign={['center', 'center', 'justify']}
+                         w={['75vw', '45vw', '45vw', '30vw']}
+                         textAlign={['center', 'center', 'center', 'justify']}
                          lineHeight={'95%'}>Trade your bitcoins and get paid to your bank account instantly. No stress</Text>
                     <Button
                     fontFamily='Lato sans-serif'
@@ -279,7 +282,7 @@ const HeroC = () => {
                             fontFamily='Lato sans-serif'
                             fontSize={['17px', '20px', '20px']}
                             fontWeight={'bold'}
-                            >Sell Giftcards on DigiMart</Heading>
+                            >Sell Paypal funds  on DigiMart</Heading>
                             <Text
                              fontFamily='Lato sans-serif'
                              textAlign={'center'}
@@ -551,8 +554,51 @@ const HeroC = () => {
                 </AccordionItem>
             </Accordion>
         </Box>
-        <br/>
-        <br/>
+
+
+        <Flex bg={'#0E0562'} direction={['column-reverse', 'column', 'column', 'row']} minH={'60vh'} p='20px'  ml='-20px' w={['100vw', '95vw', '98.7vw', '98.7vw']}  justifyContent={'space-around'}>
+            {/* first side */}
+            <Flex direction={'column'} gap={5} alignItems={['center', 'center', 'center', 'flex-start']}>
+                <Image src={newLogo} alt='digimart' width={['70%', '90%', '80%', '80%']} />
+                <Flex justifyContent={['space-between', 'space-around', 'space-around','space-around' ] } minW={['30vw', '30vw', '10vw']} >
+                    <Image src={linkedin} alt='linkedin'/>
+                    <Image src={fb} alt='facebook'/>
+                    <Image src={twitter}alt='twitter' />
+                </Flex>
+                <Text color={'white'} fontFamily={'Lato sans-serif'}>© 2023 DigiMart, All rights reserved</Text>
+            </Flex>
+
+              {/* second side */}
+              <Flex direction={'column'} gap={5}>
+                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Lato sans-serif'}>Products</Heading>
+                <Text color={'white'}>Trade Crypto</Text>
+                <Text color={'white'}>Buy Giftcards</Text>
+                <Text color={'white'}>Buy Paypal Funds</Text>
+              </Flex>
+
+              {/* third side */}
+              <Flex direction={'column'} gap={5}>
+                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Lato sans-serif'}>About</Heading>
+                <Text color={'white'}>About DigiMart</Text>
+                <Text color={'white'}>Blog</Text>
+                <Text color={'white'}>News</Text>
+              </Flex>
+
+              {/* fourth side */}
+              <Flex direction={'column'} gap={5}>
+                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Lato sans-serif'}>Help</Heading>
+                <Text color={'white'}>Terms & conditions</Text>
+                <Text color={'white'}>Privacy policy</Text>
+              </Flex>
+
+              {/* fifth side */}
+              <Flex direction={'column'} gap={5}>
+                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Lato sans-serif'}>Contact Us</Heading>
+                <Text color={'white'}>Email address:<br/>Hellodigimart@gmail.com</Text>
+                <Text color={'white'}>Phone:<br/>+2347042263619</Text>
+                
+              </Flex>
+        </Flex>
     </Flex>
   </Container>
   )
