@@ -27,7 +27,6 @@ const Options = () => {
     minWidth={['70vw', '98vw', "98.7vw", "98.7vw"]}
     bgImage={authBg}
     bgSize={'cover'}
-    border={'2px solid red'}
     bgRepeat={'no-repeat'}
     direction={'column'}
   >
@@ -35,7 +34,7 @@ const Options = () => {
       <Image src={logo} alt='digimart' width={['40%', '40%', '20%']} />
       </Box>
       
-      <Flex direction={'column'} justifyContent={'center'} border={'2px solid green'} alignItems={'center'} width={['90vw', '90vw','95vw', '96vw']} pos={'relative'} top={-7} overflow={'hidden'} minH={'84vh'}>
+      <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} width={['90vw', '90vw','95vw', '96vw']} pos={'relative'} top={-7} overflow={'hidden'} minH={'84vh'}>
         <Box ml={['6rem', '10rem', '12rem']} mt={'1rem'} >
         <Image src={excitedMan} alt='excited man' width={['70%', '60%','70%', '55%']}/>
         </Box>

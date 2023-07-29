@@ -39,7 +39,6 @@ const HeroC = () => {
   return (
     <Container
     maxWidth="4xl"
-    border={'2px solid blue'}
     minWidth={['97vw', '98vw', '98.8vw', "98.5vw"]}
     mt='-10px'
   >
