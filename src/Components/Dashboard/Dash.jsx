@@ -102,6 +102,7 @@ const [userdata, setUserdata]= useState([])
                     border: "2px solid green",
                   }}
                   bgColor="#FFF"
+                  color={useColorModeValue("gray.900", "white")}
                   fontFamily="Lato, sans-Serif"
                   fontWeight="bold"
                 >

@@ -16,6 +16,7 @@ import { FiSettings, FiLogOut } from "react-icons/fi";
 import { BiSolidDashboard, BiSolidNotepad } from "react-icons/bi";
 import { FaBitcoin, FaPaypal, FaGift } from "react-icons/fa";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import LogoutModal, { MobileLogoutModal } from "./LogoutModal";
 
 export const SideBarFunc = () => {
   const navigate = useNavigate();
@@ -219,26 +220,7 @@ export const SideBarFunc = () => {
               </Text>
             </Link>
 
-            <Link
-              onClick={() => navigate("/logout")}
-              padding="10px"
-              borderRadius="2xl"
-              _hover={{
-                textDecor: "none",
-                bg: "#E8E6F6",
-                color: "#1808A3",
-              }}
-              display={["none", "none", "flex", "flex", "flex"]}
-            >
-              <Icon as={FiLogOut} fontSize="4xl" p={1} />
-              <Text
-                p={1}
-                fontSize="lg"
-                display={["none", "none", "none", "flex", "flex"]}
-              >
-                Logout
-              </Text>
-            </Link>
+            <LogoutModal />
           </Flex>
         </Flex>
 
@@ -435,24 +417,7 @@ export const SideBarFunc = () => {
             </Text>
           </Link>
 
-          <Link
-            _hover={{
-              textDecor: "none",
-              bg: "white",
-              color: "#1808A3",
-            }}
-            padding="20px"
-            display={["flex", "flex", "flex", "flex", "flex"]}
-          >
-            <Icon as={FiLogOut} fontSize="4xl" p={1} />
-            <Text
-              p={1}
-              fontSize="lg"
-              display={["flex", "flex", "flex", "flex", "flex"]}
-            >
-              Logout
-            </Text>
-          </Link>
+          <MobileLogoutModal />
         </Flex>
       </Flex>
     </Flex>

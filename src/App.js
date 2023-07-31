@@ -12,6 +12,11 @@ import Transactions from "./Components/Dashboard/Transactions";
 import CryptoDash from "./Components/Dashboard/Crypto/CryptoDash";
 import Setting from "./Components/Dashboard/Setting";
 import { useEffect } from "react";
+import SellCrypto from "./Components/Dashboard/Crypto/SellCrypto";
+import SellConverter from "./Components/Dashboard/Crypto/SellConverter";
+import SellCheckout from "./Components/Dashboard/Crypto/SellCheckout";
+import SellProof from "./Components/Dashboard/Crypto/SellProof";
+import SellFinalCheckout from "./Components/Dashboard/Crypto/SellFinalCheckout";
 
 function App() {
   useEffect(() => {
@@ -41,6 +46,11 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/crypto" element={<CryptoDash />} />
         <Route path="/settings" element={<Setting />} />
+        <Route path="/sellcrypto" element={<SellCrypto />} />
+        <Route path="/sellconverter" element={<SellConverter />} />
+        <Route path="/sellcheckout" element={<SellCheckout />} />
+        <Route path="/sellproof" element={<SellProof />} />
+        <Route path="/sellfinalcheckout" element={<SellFinalCheckout />} />
       </Routes>
       <ToastContainer />
     </div>
