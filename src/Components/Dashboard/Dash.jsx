@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Flex,
@@ -20,8 +20,38 @@ import paypl from "../assets/paypl.png";
 import gift from "../assets/gift.png";
 import giftcard from "../assets/giftcard.png";
 import { NotifIcon } from "./NotifBadge";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
+import { app } from "../firebase/Firebase";
 
 const Dash = () => {
+const [userdata, setUserdata]= useState([])
+  useEffect(() => {
+    const auth = getAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user.uid);
+        const db = getFirestore(app);
+        const docRef = doc(db, 'users', user.uid); // Fetch the user document using user's UID
+        getDoc(docRef)
+          .then((docSnap) => {
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              console.log('User data:', userData);
+              setUserdata(userData)
+            } else {
+              console.log('User document not found.');
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching user data:', error.message);
+          });
+      }
+    });
+
+    return () => unsubscribe(); // Clean up the listener when the component unmounts
+  }, []);
   return (
     <Container
       maxWidth="4xl"
@@ -42,7 +72,7 @@ const Dash = () => {
                 fontWeight="400"
                 fontFamily="Lato, sans-Serif"
               >
-                Hi Chidinma, Welcome
+                Hi {userdata.firstName}, Welcome
               </Heading>
             </Box>
             <Spacer />

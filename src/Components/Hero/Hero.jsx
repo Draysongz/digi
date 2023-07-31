@@ -57,7 +57,7 @@ export default function SplitScreen() {
               _hover={{
                 bg: "#31CD31",
               }}
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/options")}
               cursor="pointer"
             >
               Trade Now

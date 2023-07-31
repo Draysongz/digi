@@ -32,6 +32,7 @@ import {
   import newLogo from '../assets/newlogo.png'
   import twitter from '../assets/twitter.png'
   import fb from '../assets/fb.png'
+  import { Link } from 'react-router-dom';
   import linkedin from '../assets/linkedin.png'
 
 
@@ -61,7 +62,7 @@ const HeroC = () => {
             </Box>
             
             <SimpleGrid p="10px" spacing={8} minChildWidth="250px" justifyItems='center' alignItems='center' >
-                <Card minH='30vh' bg='#0E0562' >
+                <Card minH='30vh' maxH={['50vh', '50vh', '50vh']} bg='#0E0562' >
                     <CardBody p='20px'>
                         <Flex direction='column' color='white' alignItems='center' gap={4}>
                             <Circle size='50px' bg='#fff'>
@@ -77,7 +78,7 @@ const HeroC = () => {
                     </CardBody>
                 </Card>
 
-                <Card minH='30vh'  bg='#0E0562' >
+                <Card minH='30vh' maxH={['50vh', '50vh', '50vh']}   bg='#0E0562' >
                     <CardBody p='20px'>
                         <Flex direction='column' color='white' alignItems='center' gap={4}>
                             <Circle size='50px' bg='#fff'>
@@ -93,7 +94,7 @@ const HeroC = () => {
                     </CardBody>
                 </Card>
 
-                <Card minH='30vh'  bg='#0E0562' >
+                <Card minH='30vh' maxH={['50vh', '50vh', '50vh']}   bg='#0E0562' >
                     <CardBody p='20px'>
                         <Flex direction='column' color='white' alignItems='center' gap={4}>
                             <Circle size='50px' bg='#fff'>
@@ -207,7 +208,7 @@ const HeroC = () => {
                          w={['75vw', '45vw', '45vw', '30vw']}
                          textAlign={['center', 'center', 'center', 'justify']}
                          lineHeight={'95%'}>Trade your bitcoins and get paid to your bank account instantly. No stress</Text>
-                    <Button
+                    <Link to='/options'><Button
                     fontFamily='Lato sans-serif'
                     bg={'#1808A3'}
                     color='#fff' 
@@ -216,7 +217,7 @@ const HeroC = () => {
                     _hover={{"bgColor": '#31CD31', "color" : '#000'}}
                     >
                         Trade Now
-                    </Button>
+                    </Button></Link>
                     </Flex>
                 </Box>
             </Flex>
@@ -315,7 +316,7 @@ const HeroC = () => {
                              textAlign={['center', 'center', 'center']}>Why settle for less when you can have even MORE!, 
                              Sign up today, and enjoy the best of rates...</Text> 
 
-                             <Button
+                             <Link to='/options'><Button
                     fontFamily='Lato sans-serif'
                     bg={'#1808A3'}
                     color='#fff' 
@@ -324,7 +325,7 @@ const HeroC = () => {
                     _hover={{"bgColor": '#31CD31', "color" : '#000'}}
                     >
                         Get Started
-                    </Button>
+                    </Button></Link>
             </Flex>
         </Flex>
 
