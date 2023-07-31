@@ -604,4 +604,4 @@ const HeroC = () => {
   )
 }
 
-export default HeroC
+export default HeroC;
