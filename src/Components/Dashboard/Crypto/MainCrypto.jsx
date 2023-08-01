@@ -37,7 +37,7 @@ const MainCrypto = () => {
             <Box textAlign="justify">
               <Heading
                 as="h3"
-                fontfamily="Lato, sans-Serif"
+                fontFamily="Lato, sans-Serif"
                 fontWeight="500"
                 fontSize={["20px", "28px", "40px"]}
               >

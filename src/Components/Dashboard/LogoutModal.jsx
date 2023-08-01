@@ -16,12 +16,26 @@ import {
   Stack,
   Heading,
 } from "@chakra-ui/react";
-
+import { getAuth, signOut } from "firebase/auth";
 import { FiLogOut } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 export default function LogoutModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate= useNavigate()
 
+  const logout = async(e)=>{
+    e.preventDefault()
+    try {
+      const auth = getAuth();
+      await signOut(auth);
+      console.log('User signed out successfully.');
+      navigate('/login')
+    } catch (error) {
+      // An error happened.
+      console.error('Sign-out error:', error.message);
+    }
+  }
   return (
     <>
       <Link
@@ -68,6 +82,7 @@ export default function LogoutModal() {
                   bg: "#3626c7",
                 }}
                 rounded={"2xl"}
+                onClick={logout}
               >
                 Log out
               </Button>
@@ -84,7 +99,18 @@ export default function LogoutModal() {
 
 export function MobileLogoutModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const logout = async(e)=>{
+    e.preventDefault()
+    try {
+      const auth = getAuth();
+      await signOut(auth);
+      console.log('User signed out successfully.');
+    } catch (error) {
+      // An error happened.
+      console.error('Sign-out error:', error.message);
+    }
+  }
+ 
   return (
     <>
       <Link
@@ -130,6 +156,7 @@ export function MobileLogoutModal() {
                   bg: "#3626c7",
                 }}
                 rounded={"2xl"}
+                onClick={logout}
               >
                 Log out
               </Button>

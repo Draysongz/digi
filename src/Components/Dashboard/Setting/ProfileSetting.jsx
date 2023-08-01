@@ -16,8 +16,45 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { ProfileModal } from "../Setting";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, getDoc, doc } from "firebase/firestore";
+import { app } from "../../firebase/Firebase";
+import {toast} from 'react-toastify'
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function UserProfileEdit() {
+  const navigate = useNavigate()
+  const [userdata, setUserdata]= useState([])
+  useEffect(() => {
+    const auth = getAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user.uid);
+        const db = getFirestore(app);
+        const docRef = doc(db, 'users', user.uid); // Fetch the user document using user's UID
+        getDoc(docRef)
+          .then((docSnap) => {
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              console.log('User data:', userData);
+              setUserdata(userData)
+            } else {
+              console.log('User document not found.');
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching user data:', error.message);
+          });
+      }else{
+        navigate('/login')
+      }
+    });
+
+    return () => unsubscribe(); // Clean up the listener when the component unmounts
+  }, []);
   return (
     <Flex
       minH={"10vh"}
@@ -60,13 +97,13 @@ export default function UserProfileEdit() {
           <Box>
             <FormControl id="firstName" isRequired>
               <FormLabel>First Name</FormLabel>
-              <Input placeholder="Ugwu" type="text" />
+              <Input placeholder="Ugwu" type="text" disabled value={userdata.firstName}  />
             </FormControl>
           </Box>
           <Box>
             <FormControl id="lastName">
               <FormLabel>Last Name</FormLabel>
-              <Input placeholder="Chidinma" type="text" />
+              <Input placeholder="Chidinma" type="text"  disabled value={userdata.lastName}  />
             </FormControl>
           </Box>
         </Stack>
@@ -75,6 +112,8 @@ export default function UserProfileEdit() {
           <Input
             placeholder="your-email@example.com"
             _placeholder={{ color: "gray.500" }}
+            disabled
+            value={userdata.Email} 
             type="email"
           />
         </FormControl>
@@ -84,6 +123,7 @@ export default function UserProfileEdit() {
             placeholder="+2347042263618"
             _placeholder={{ color: "gray.500" }}
             type="tel"
+            disabled value={userdata.Number} 
           />
         </FormControl>
         <Stack spacing={6} direction={["column", "row"]}>

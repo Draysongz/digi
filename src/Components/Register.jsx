@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 import './css/register.css'
 import logo from './assets/logoWhite.png'
-import GImage from './assets/GImage.png'
 import {Link} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import { app,  } from './firebase/Firebase'
 import { getFirestore } from "firebase/firestore";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore"; 
+import {  doc, setDoc } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import {
@@ -41,6 +40,8 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [errors, setErrors] = useState({});
+
 
   const handlePasswordToggle = ()=>{
     setShowPassword(!showPassword)
@@ -51,7 +52,6 @@ const Register = () => {
   }
   
   const formattedCountryCode= countryCode? countryCode: '+234'
-  console.log(`${formattedCountryCode}${phone}`);
   const fullPhone = `${formattedCountryCode}${phone}`
 
 
@@ -60,14 +60,44 @@ const navigate= useNavigate()
 const onSubmit = async (e) => {
   e.preventDefault();
   setIsLoading(true)
-  const auth = getAuth(app);
+  
+  // Perform form validation checks
+  const formErrors = {};
 
-  if (password !== confirm) {
+  if (!firstname.trim()) {
+    formErrors.firstname = 'First name is required';
+  }else if (!lastname.trim()) {
+    formErrors.lastname = 'Last name is required';
+  }else if (!email.trim()) {
+    formErrors.email = 'Email is required';
+  }else if(!phone.trim()){
+    formErrors.phone = 'Phone number is required'
+  }else if(!gender.trim()){
+    formErrors.gender = 'Gender is required'
+  }else if(!password.trim()){
+    formErrors.password = 'Password is required'
+  }else if(!confirm.trim()){
+    formErrors.confirm = 'Please confirm your password'
+  }
+  // Add more validation checks for phone, gender, password, and confirm password
+
+  setErrors(formErrors);
+
+  // Check if there are any errors
+  if (Object.keys(formErrors).length > 0) {
+    setIsLoading(false);
+    return;
+  }
+  
+  const auth = getAuth(app);
+  if (password.trim() !== confirm.trim()) {
     console.log('Passwords do not match');
     toast.error('Passwords do not match');
+    setIsLoading(false)
   } else {
     try {
       // Create user with email and password
+      console.log(firstname, lastname, phone, )
       await setTimeout(()=>{
         setIsLoading(false)}, 3000)
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
@@ -132,7 +162,7 @@ const onSubmit = async (e) => {
     bgRepeat={'no-repeat'}
     bg={'#080339'}
     dir={'row'}>
-      <Flex direction={'column'} bgImage={frame} bgSize={'cover'} p='20px' gap={5} w={'50%'}>
+      <Flex direction={'column'} display={['none', 'none', 'none', 'block']} bgImage={frame} bgSize={'cover'} p='20px' gap={5} w={'50%'}>
         <Box>
           <Image src={logo} alt='logo' />
         </Box>
@@ -145,37 +175,45 @@ const onSubmit = async (e) => {
       <Heading fontFamily={'Lato sans-serif'} >Register</Heading> 
       <FormControl p='10px' >
       <Center mt='1rem'>
-          <Flex direction='column' gap={3} alignItems={'center'} justifyContent={'center'} justifyItems={'center'}>
+          <Flex direction='column' gap={['4', '7', '8', '3']} alignItems={'center'} justifyContent={'center'} justifyItems={'center'}>
 
-          <Input variant={'flushed'} w={['85vw','85vw', '85vw', '28vw']} placeholder='First name' onChange={(e)=>setFirstname(e.target.value)} value={firstname} isRequired/>
-          <Input variant={'flushed'} w={['85vw','85vw', '85vw', '28vw']} isRequired placeholder='Last name' onChange={(e)=>setLastname(e.target.value)} value={lastname}/>
-          <Input variant={'flushed'} w={['85vw','85vw', '85vw', '28vw']} placeholder='Email address' onChange={(e)=>setEmail(e.target.value)} value={email} isRequired/>
+          <Input variant={'flushed'} w={['85vw','85vw', '85vw', '28vw']} placeholder='First name' 
+          onChange={(e)=>{setFirstname(e.target.value); setErrors({ ...errors, firstname: '' }) }} value={firstname} isRequired/>
+          {errors.firstname && <Text color="red"  fontSize={'14px'} mt={'-2rem'}>{errors.firstname}</Text>}
+          <Input variant={'flushed'} w={['85vw','85vw', '85vw', '28vw']} isRequired placeholder='Last name' onChange={(e)=>{setLastname(e.target.value); setErrors({ ...errors, lastname: '' }) }} value={lastname}/>
+          {errors.lastname && <Text color="red"  fontSize={'14px'} mt={'-2rem'}>{errors.lastname}</Text>}
+          <Input variant={'flushed'} w={['85vw','85vw', '85vw', '28vw']} placeholder='Email address' onChange={(e)=>{setEmail(e.target.value); setErrors({ ...errors, email: '' })}} value={email} isRequired/>
+          {errors.email && <Text color="red"  fontSize={'14px'} mt={'-2rem'}>{errors.email}</Text>}
           <HStack>
-            <Select w={'7vw'} variant={'flushed'} onChange={(e)=>setCountryCode(e.target.value)} value={countryCode} >
+            <Select w={['25vw', '25vw', '15vw', '7vw']} variant={'flushed'} onChange={(e)=>setCountryCode(e.target.value)} value={countryCode} >
             <option data-image='./assets/naija.svg' value='+234'>+234</option>
             <option value='+1'>+1</option>
             </Select>
-            <Input type='tel' w={['78vw','78vw', '78vw', '20vw']} placeholder='9012345678'onChange={(e)=>setPhone(e.target.value)} value={phone} variant={'flushed'} isRequired/>
+            <Input type='tel' w={['58vw','58vw', '68vw', '20vw']} placeholder='9012345678'onChange={(e)=>{setPhone(e.target.value); setErrors({ ...errors, phone: '' })}} value={phone} variant={'flushed'} isRequired/>
           </HStack>
-          <Select onChange={(e)=>setGender(e.target.value)} value={gender} variant={'flushed'} isRequired>
+          {errors.phone && <Text color="red" fontSize={'14px'}>{errors.phone}</Text>}
+          <Select onChange={(e)=>{setGender(e.target.value); setErrors({ ...errors, gender: '' })}} value={gender} variant={'flushed'} isRequired>
             <option>Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </Select>
+          {errors.gender && <Text color="red"  fontSize={'14px'} mt={'-2rem'}>{errors.gender}</Text>}
           <InputGroup size='md'>
-            <Input type={showPassword ? "text" : "password"} variant={'flushed'} pr='4.5rem'placeholder='Password' isRequired onChange={(e)=>setPassword(e.target.value)} value={password}/>
+            <Input type={showPassword ? "text" : "password"} variant={'flushed'} pr='4.5rem'placeholder='Password' isRequired onChange={(e)=>{setPassword(e.target.value); setErrors({ ...errors, password: '' })}} value={password}/>
             <InputRightElement width={'4.5rem'} onClick={handlePasswordToggle} cursor={'pointer'}>
               {showPassword ? <ViewIcon/>: <ViewOffIcon/> }
             </InputRightElement>
           </InputGroup>
+          {errors.password && <Text color="red"  fontSize={'14px'} mt={'-2rem'}>{errors.password}</Text>}
           <InputGroup size='md'>
-            <Input type={showConfirm ? "text" : "password"} variant={'flushed'} pr='4.5rem'placeholder='Confirm password'onChange={(e)=>setConfirm(e.target.value)} value={confirm} isRequired/>
+            <Input type={showConfirm ? "text" : "password"} variant={'flushed'} pr='4.5rem'placeholder='Confirm password'onChange={(e)=>{setConfirm(e.target.value); setErrors({ ...errors, confirm: '' })}} value={confirm} isRequired/>
             <InputRightElement width={'4.5rem'} onClick={handleConfirmToggle} cursor={'pointer'}>
               {showConfirm ? <ViewIcon/>: <ViewOffIcon/> }
             </InputRightElement>
           </InputGroup>
+          {errors.confirm && <Text color="red"  fontSize={'14px'} >{errors.confirm}</Text>}
           <Flex direction={'column'} gap={3}>
-          <Button bg={'#1808A3'} borderRadius={'full'} minH={'7vh'} color={'white'} w={['85vw', '85vw', '85vw', '27vw']} _hover={{bg : '#31CD31'}} isLoading={isLoading} onClick={onSubmit}loadingText='creating'>CREATE AN ACCOUNT</Button>
+          <Button bg={'#1808A3'} borderRadius={'full'} minH={'7vh'} color={'white'} w={['85vw', '85vw', '85vw', '27vw']} _hover={{bg : '#31CD31'}} isLoading={isLoading} onClick={onSubmit} loadingText='creating'>CREATE AN ACCOUNT</Button>
           <Flex justifyContent={'center'} alignItems={'center'} alignContent={'center'}>
             <hr style={{display: 'block', width : '5vw', border : '1px solid #C9C9C', 'marginTop' : '.3rem'}} />
             <Text>or</Text>

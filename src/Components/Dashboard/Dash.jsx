@@ -21,10 +21,13 @@ import gift from "../assets/gift.png";
 import giftcard from "../assets/giftcard.png";
 import { NotifIcon } from "./NotifBadge";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
+import { getFirestore, getDoc, doc } from "firebase/firestore";
 import { app } from "../firebase/Firebase";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Dash = () => {
+  const navigate= useNavigate()
 const [userdata, setUserdata]= useState([])
   useEffect(() => {
     const auth = getAuth();
@@ -47,6 +50,9 @@ const [userdata, setUserdata]= useState([])
           .catch((error) => {
             console.error('Error fetching user data:', error.message);
           });
+      }else{
+        toast.error('please login')
+        navigate('/login')
       }
     });
 
