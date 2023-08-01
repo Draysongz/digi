@@ -26,38 +26,9 @@ import { app } from "../firebase/Firebase";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const Dash = () => {
+const Dash = ({userData}) => {
   const navigate= useNavigate()
-const [userdata, setUserdata]= useState([])
-  useEffect(() => {
-    const auth = getAuth();
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user.uid);
-        const db = getFirestore(app);
-        const docRef = doc(db, 'users', user.uid); // Fetch the user document using user's UID
-        getDoc(docRef)
-          .then((docSnap) => {
-            if (docSnap.exists()) {
-              const userData = docSnap.data();
-              console.log('User data:', userData);
-              setUserdata(userData)
-            } else {
-              console.log('User document not found.');
-            }
-          })
-          .catch((error) => {
-            console.error('Error fetching user data:', error.message);
-          });
-      }else{
-        toast.error('please login')
-        navigate('/login')
-      }
-    });
-
-    return () => unsubscribe(); // Clean up the listener when the component unmounts
-  }, []);
   return (
     <Container
       maxWidth="4xl"
@@ -78,7 +49,7 @@ const [userdata, setUserdata]= useState([])
                 fontWeight="400"
                 fontFamily="Lato, sans-Serif"
               >
-                Hi {userdata.firstName}, Welcome
+                Hi {userData.firstName}, Welcome
               </Heading>
             </Box>
             <Spacer />

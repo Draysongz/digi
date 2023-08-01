@@ -117,7 +117,6 @@ const onSubmit = async (e) => {
       toast.success('Registration successful');
       navigate('/login');
     } catch (error) {
-      const errorCode = error.code;
       const errorMessage = error.message;
       await setTimeout(()=>{
         setIsLoading(false)}, 4000)
@@ -143,7 +142,6 @@ const onSubmit = async (e) => {
       toast('registration successful')
     } catch (error) {
       // Handle Errors here.
-     
     const errorCode = error.code;
     const errorMessage = error.message;
     // The email of the user's account used.

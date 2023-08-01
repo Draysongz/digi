@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { getAuth, verifyPasswordResetCode, confirmPasswordReset } from 'firebase/auth';
 import {toast} from 'react-toastify'
 import { app } from './firebase/Firebase';
+import { Flex, Spinner } from '@chakra-ui/react';
 
 const Reset = () => {
   const [password, setPassword] = useState('');
@@ -64,7 +65,9 @@ const Reset = () => {
 
   if (isLoading) {
     // Display a loading spinner while verifying the code
-    return <div>Loading...</div>;
+    <Flex align="center" justify="center" height="100vh">
+    <Spinner size="xl" color="blue.500" />
+  </Flex>
   }
 
   if (!isVerified) {
