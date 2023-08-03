@@ -43,14 +43,17 @@ export default function SellProof() {
   const location = useLocation();
   const { state } = location;
   const { coinUnit, cryptoSymbol, amount } = state;
+  const [isUploadComplete, setIsUploadComplete] = useState(false);
 
   const goBack = () => {
     navigate(-1);
   };
  
+
+
   const handleUploadComplete = (url) => {
     setDownloadURL(url);
-    console.log(url);
+    setIsUploadComplete(true);
   };
 
   useEffect(() => {

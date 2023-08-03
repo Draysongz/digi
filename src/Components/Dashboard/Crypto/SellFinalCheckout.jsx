@@ -28,7 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { BackButton } from "../Goback";
 import { CopyIcon } from "@chakra-ui/icons";
 import { useLocation } from "react-router-dom";
-import { getFirestore,addDoc, collection } from "firebase/firestore";
+import { getFirestore,addDoc, collection, Timestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase/Firebase";
 
@@ -63,6 +63,7 @@ export default function SellFinalCheckout() {
     return { date: formattedDate, time: formattedTime };
   }
   const { date, time } = getCurrentFormattedDate();
+  const timestamp= Timestamp.now()
  
 
   const createTransaction= async (e)=>{
@@ -82,8 +83,7 @@ export default function SellFinalCheckout() {
         },
         status: 'pending',
         transactionType: 'sell',
-        Date: date,
-        Time: time
+        time: timestamp
       })
       setTransactionSaved(true);
     }catch(error){

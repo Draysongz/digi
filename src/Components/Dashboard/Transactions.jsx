@@ -14,13 +14,14 @@ import {
   Stack,
   useColorModeValue,
   HStack,
+  Spinner
 } from "@chakra-ui/react";
 import { SideBarFunc } from "./SideBarFunc";
 import amazon from "../assets/amazon.png";
 import eth from "../assets/ETH.png";
 import { NotifIcon } from "./NotifBadge";
 import { app } from "../firebase/Firebase";
-import { getFirestore, collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 
@@ -30,25 +31,55 @@ export default function Transactions() {
   const [user, setUser] = useState(null);
   const [transactions, setTransactions] = useState([]);
   
+ // Function to format time strings to "hh:mm" format
+ const formatDateAndTime = (timestamp) => {
+  const dateObject = timestamp.toDate(); // Convert Firestore Timestamp to JavaScript Date
+  const date = dateObject.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).replace(/\//g, "-");;
+
+  const time = dateObject.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  return {
+    formattedDate: date,
+    formattedTime: time,
+  };
+};
 
 
-  const fetchTransactions = (user) => {
-    console.log("Fetching transactions for user:", user.uid);
-    const transactionsRef = collection(db, "transactions");
-    const userTransactionsQuery = query(transactionsRef, where("userId", "==", user.uid));
-    
-    // Subscribe to real-time updates for the user's transactions
-    const unsubscribe = onSnapshot(userTransactionsQuery, (snapshot) => {
-      const userTransactions = snapshot.docs.map((doc) => doc.data());
-      console.log(userTransactions)
+const fetchTransactions = (user) => {
+  console.log("Fetching transactions for user:", user.uid);
+  const transactionsRef = collection(db, "transactions");
+  const userTransactionsQuery = query(
+    transactionsRef,
+    where("userId", "==", user.uid),
+    orderBy("time", "desc")
+  );
+
+  const unsubscribe = onSnapshot(userTransactionsQuery, (snapshot) => {
+    const userTransactions = snapshot.docs.map((doc) => {
+      const data = doc.data();
+      const { formattedDate, formattedTime } = formatDateAndTime(data.time);
+      return {
+        ...data,
+        formattedDate,
+        formattedTime,
+      };
+    });
+      console.log(userTransactions);
       setTransactions(userTransactions);
     });
-
-    // Clean up the subscription when component unmounts
+  
+    // Clean up the subscription when the component unmounts
     return () => unsubscribe();
   };
-
-
+  
   useEffect(() => {
     // Subscribe to authentication state changes
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -68,11 +99,23 @@ export default function Transactions() {
   }, [auth]);
 
  
+  const tableBgColor = useColorModeValue("white", "gray.800");
+  const flexBgColor = useColorModeValue('gray.50', 'gray.800')
+  const flexColor = useColorModeValue('gray.900', 'white')
 
-
-
-
-
+  if (transactions.length === 0) {
+    return (
+      <Flex align="center" justify="center" height="100vh">
+        <Spinner
+          size="xl"
+          color="blue.500"
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+        />
+      </Flex>
+    );
+  }
   return (
     <>
       <Flex
@@ -80,8 +123,8 @@ export default function Transactions() {
         maxW="2000px"
         flexDir={["column", "column", "row"]}
         overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
-        color={useColorModeValue("gray.900", "white")}
+        bg={flexBgColor}
+        color={flexColor}
       >
         <SideBarFunc />
         <Box alignItems="center" mt={10} mx={"10vw"}>
@@ -123,7 +166,7 @@ export default function Transactions() {
                 </Thead>
                 <br></br>
                 <Tbody
-                  bg={useColorModeValue("white", "gray.800")}
+                  bg={tableBgColor}
                   rounded={"full"}
                 >
                   {transactions.map((transaction) => {
@@ -159,11 +202,11 @@ export default function Transactions() {
 }> {transaction.status}</Text>
             </HStack>
           </Td>
-          <Td>{transaction.Date}</Td>
+          <Td>{transaction.formattedDate}</Td>
           <Td isNumeric color="#31CD31">
             {transaction.transactionType === 'sell'? `-${transaction.coinUnit.toFixed(6)}${transaction.cryptoSymbol}`: `+${transaction.coinUnit.toFixed(6)}${transaction.cryptoSymbol}`}
           </Td>
-          <Td>{transaction.Time}</Td>
+          <Td>{transaction.formattedTime}</Td>
         </Tr>
       );
     } else {

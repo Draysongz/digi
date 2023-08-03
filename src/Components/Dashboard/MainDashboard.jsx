@@ -47,7 +47,9 @@ const MainDashboard = () => {
   if (userdata === null) {
     return (
       <Flex align="center" justify="center" height="100vh">
-        <Spinner size="xl" color="blue.500" />
+        <Spinner size="xl" color="blue.500" thickness='4px'
+  speed='0.65s'
+  emptyColor='gray.200' />
       </Flex>
     );
   }
