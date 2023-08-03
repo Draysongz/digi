@@ -45,11 +45,31 @@ import { SideBarFunc } from "../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../Goback";
 
+
 export default function SellCrypto() {
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
+
+
+
+  const handleCardClick = (cryptoName, cryptoSymbol) => {
+    // You can do any additional logic here if needed before navigating
+    if(cryptoName === 'Binance Smartchain'){
+      cryptoName = 'Binancecoin'
+    }else if(cryptoName === 'Avalanche'){
+      cryptoName= "avalanche-2"
+    }else if(cryptoName === 'Polygon'){
+      cryptoName='matic-network'
+    }else if(cryptoName === 'USD Coin'){
+      cryptoName = 'usd-coin'
+    }else if(cryptoName === 'Shiba Inu'){
+      cryptoName = 'shiba-inu'
+    }
+    navigate("/sellconverter", { state: { cryptoName, cryptoSymbol } });
+  };
+
   return (
     <>
       <Flex
@@ -106,7 +126,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
-                  onClick={() => navigate("/sellconverter")}
+                  onClick={() => handleCardClick("Bitcoin", "BTC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -130,6 +150,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Ethereum", "ETH")}
                 >
                   <CardHeader>
                     <HStack>
@@ -154,6 +175,7 @@ export default function SellCrypto() {
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   size={"md"}
+                  onClick={() => handleCardClick("TETHER", "USDT")}
                 >
                   <CardHeader>
                     <HStack>
@@ -177,6 +199,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Binance Smartchain", "BSC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -200,6 +223,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("USD Coin", "USDC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -223,6 +247,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Ripple", "XRP")}
                 >
                   <CardHeader>
                     <HStack>
@@ -234,7 +259,7 @@ export default function SellCrypto() {
                         alt="Dan Abramov"
                       />
                       <VStack align={"start"} alignContent="start">
-                        <Heading size={"xs"}>XRP</Heading>
+                        <Heading size={"xs"}>Ripple</Heading>
                         <Text fontSize="xs">XRP</Text>
                       </VStack>
                     </HStack>
@@ -246,6 +271,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Cardano", "ADA")}
                 >
                   <CardHeader>
                     <HStack>
@@ -257,7 +283,7 @@ export default function SellCrypto() {
                         alt="Dan Abramov"
                       />
                       <VStack align={"start"} alignContent="start">
-                        <Heading size={"xs"}>Cardona</Heading>
+                        <Heading size={"xs"}>Cardano</Heading>
                         <Text fontSize="xs">ADA</Text>
                       </VStack>
                     </HStack>
@@ -269,6 +295,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Solana", "SOL")}
                 >
                   <CardHeader>
                     <HStack>
@@ -292,6 +319,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Tron", "TRX")}
                 >
                   <CardHeader>
                     <HStack>
@@ -315,6 +343,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Litecoin", "LTC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -338,6 +367,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Polkadot", "DOT")}
                 >
                   <CardHeader>
                     <HStack>
@@ -361,6 +391,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Polygon", "MATIC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -384,6 +415,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Shiba Inu", "SHIB")}
                 >
                   <CardHeader>
                     <HStack>
@@ -396,7 +428,7 @@ export default function SellCrypto() {
                       />
                       <VStack align={"start"} alignContent="start">
                         <Heading size={"xs"}>Shiba Inu</Heading>
-                        <Text fontSize="xs">SHIBA</Text>
+                        <Text fontSize="xs">SHIB</Text>
                       </VStack>
                     </HStack>
                   </CardHeader>
@@ -407,6 +439,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Avalanche", "AVAX")}
                 >
                   <CardHeader>
                     <HStack>
@@ -430,6 +463,7 @@ export default function SellCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("DAI", "DAI")}
                 >
                   <CardHeader>
                     <HStack>

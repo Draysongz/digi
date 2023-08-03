@@ -32,13 +32,33 @@ import { useNavigate } from "react-router-dom";
 import { BackButton } from "../Goback";
 import { CopyIcon } from "@chakra-ui/icons";
 import FileUpload from "./FileUpload";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function SellProof() {
   const navigate = useNavigate();
+  const [transactionHash, setTransactionHash] = useState("");
+  const [downloadURL, setDownloadURL] = useState("");
+  const location = useLocation();
+  const { state } = location;
+  const { coinUnit, cryptoSymbol, amount } = state;
 
   const goBack = () => {
     navigate(-1);
   };
+ 
+  const handleUploadComplete = (url) => {
+    setDownloadURL(url);
+    console.log(url);
+  };
+
+  useEffect(() => {
+    console.log("Updated downloadURL:", downloadURL);
+    // Perform any actions using the updated downloadURL here, if needed
+  }, [downloadURL]);
+ 
+ 
   return (
     <>
       <Flex
@@ -107,14 +127,16 @@ export default function SellProof() {
                     type="number"
                     placeholder="Kindly Paste crypto transaction hash"
                     borderRadius="10px"
+                    value={transactionHash}
+                    onChange={(e)=>setTransactionHash(e.target.value)}
                   />
                 </InputGroup>
               </HStack>
               <Text my={5}>OR</Text>{" "}
               <Text color={"gray.500"}>Upload transanction screenshot</Text>
-              <FileUpload />
+              <FileUpload onUploadComplete={handleUploadComplete} />
               <Button
-                onClick={() => navigate("/sellfinalcheckout")}
+                onClick={() => navigate("/sellfinalcheckout", {state: {coinUnit, cryptoSymbol, amount, downloadURL, transactionHash}})}
                 width={"240px"}
                 color="#fff"
                 bg="#1808A3"

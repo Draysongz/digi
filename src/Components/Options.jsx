@@ -3,13 +3,13 @@ import logo from "./assets/logoWhite.png";
 import authBg from "./assets/authBg.png";
 import { Link } from "react-router-dom";
 import excitedMan from "./assets/excitedMan.png";
-
+import { motion } from "framer-motion";
 import { Flex, Box, Button, Heading, Image } from "@chakra-ui/react";
 
 const Options = () => {
   const [isLoading, setIsLoading] = useState(false);
   return (
-    <Flex
+    <Flex as={motion.div}
       maxWidth="4xl"
       p="20px"
       minHeight="100vh"
@@ -18,6 +18,9 @@ const Options = () => {
       bgSize={"cover"}
       bgRepeat={"no-repeat"}
       direction={"column"}
+      initial={{opacity:0}}
+      animate={{opacity:1}}
+      transition='3s'
     >
       <Box>
         <Image src={logo} alt="digimart" width={["40%", "40%", "20%"]} />

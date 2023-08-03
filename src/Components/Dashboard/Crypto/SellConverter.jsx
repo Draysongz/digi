@@ -23,19 +23,63 @@ import {
   Input,
   color,
 } from "@chakra-ui/react";
-import { ChevronLeftIcon, RepeatIcon, UpDownIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+import {RepeatIcon, UpDownIcon } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { NotifIcon } from "../NotifBadge";
 import { SideBarFunc } from "../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../Goback";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from 'axios'
 
 export default function SellConverter() {
   const navigate = useNavigate();
+  const [coinUnit, setCoinUnit] = useState('')
+  const [amount, setAmount] = useState(0)
+  const [usdPrice, setUsdPrice] = useState(0);
+  const [usdAmount, setUsdAmount] = useState(0)
   const goBack = () => {
     navigate(-1);
   };
+  const location = useLocation();
+  const { state } = location;
+  const { cryptoName, cryptoSymbol } = state;
+
+
+  const fetchUsdPrice = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoName.toLowerCase()}&vs_currencies=usd`
+      );
+      const { usd } = response.data[cryptoName.toLowerCase()];
+      console.log(usd)
+      setUsdPrice(usd);
+    } catch (error) {
+      console.error("Error fetching USD price:", error);
+    }
+  };
+
+  // Fetch the USD price whenever the selected cryptocurrency changes
+  useEffect(() => {
+    fetchUsdPrice();
+  }, [cryptoName]);
+
+  const calculateUnit = () => {
+    const rate = 860;
+    const price = usdPrice;
+    const amountInNaira = amount; 
+    const usdAmount = amountInNaira / rate;
+    const unit = usdAmount / price;
+    setCoinUnit(unit);
+    setUsdAmount(usdAmount)
+  };
+
+  useEffect(() => {
+    calculateUnit(); // Trigger the calculation whenever amount state changes
+  }, [amount]);
+
   return (
     <>
       <Flex
@@ -99,8 +143,11 @@ export default function SellConverter() {
                       width={"25rem"}
                       height={"60px"}
                       type="number"
-                      placeholder={"#0.00"}
+                      placeholder={'₦0.00'}
                       borderRadius="10px"
+                      onChange={(e) => {
+                        setAmount(e.target.value);
+                      }}
                     />
                   </InputGroup>
                   <Icon as={RepeatIcon} size={"4xl"} />
@@ -114,7 +161,7 @@ export default function SellConverter() {
                     }}
                     rounded={"lg"}
                   >
-                    $0.00
+                 {usdAmount ? `$${usdAmount.toFixed(2)}` : "$0.00"}
                   </Button>
                 </HStack>
                 <Icon
@@ -138,13 +185,15 @@ export default function SellConverter() {
                     width={"25rem"}
                     height={"60px"}
                     type="number"
-                    placeholder="BTC Units"
+                    placeholder={`${cryptoSymbol} units`}
                     borderRadius="10px"
+                    disabled
+                    value={coinUnit}
                   />
                 </InputGroup>
                 <Button
                   marginTop={5}
-                  onClick={() => navigate("/sellcheckout")}
+                  onClick={() => navigate("/sellcheckout", {state: {coinUnit, cryptoSymbol, amount}})}
                   width={{ base: "15rem", md: "25rem" }}
                   height={"50px"}
                   color="#fff"

@@ -30,7 +30,7 @@ import { SideBarFunc } from "../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../Goback";
 import { CopyIcon } from "@chakra-ui/icons";
-
+import { useLocation } from "react-router-dom";
 export default function SellCheckout() {
   const navigate = useNavigate();
 
@@ -44,6 +44,9 @@ export default function SellCheckout() {
   //     alert(`You have copied "${copyText}"`);
   //   };
   // };
+  const location = useLocation();
+  const { state } = location;
+  const { coinUnit, cryptoSymbol, amount } = state;
 
   const goBack = () => {
     navigate(-1);
@@ -84,7 +87,7 @@ export default function SellCheckout() {
               <Heading size={"md"} color="#1808A3">
                 Checkout
               </Heading>
-              <Text>Kindly make payment for 0.5BTC to the wallet address </Text>
+              <Text>Kindly make payment for {coinUnit}{cryptoSymbol} to the wallet address </Text>
               <Text>below to complete the transaction.</Text>
               <br></br>
               <Text color={"gray.500"}>Copy wallet address</Text>
@@ -118,7 +121,7 @@ export default function SellCheckout() {
 
               <Button
                 mt={5}
-                onClick={() => navigate("/sellproof")}
+                onClick={() => navigate("/sellproof", {state: {coinUnit, cryptoSymbol, amount}})}
                 width={{ base: "20rem", md: "25rem" }}
                 color="#fff"
                 bg="#1808A3"

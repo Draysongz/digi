@@ -18,7 +18,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import successful from "./CryptoAssets/successful.png";
-import { FiLogOut } from "react-icons/fi";
+
 
 export default function TransCompModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();

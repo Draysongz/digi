@@ -17,8 +17,11 @@ import SellConverter from "./Components/Dashboard/Crypto/SellConverter";
 import SellCheckout from "./Components/Dashboard/Crypto/SellCheckout";
 import SellProof from "./Components/Dashboard/Crypto/SellProof";
 import SellFinalCheckout from "./Components/Dashboard/Crypto/SellFinalCheckout";
+import 'aos/dist/aos.css';
+
 
 function App() {
+
   useEffect(() => {
     const showText = () => {
       var Tawk_API = Tawk_API || {};

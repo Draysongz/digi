@@ -20,11 +20,10 @@ import paypl from "../assets/paypl.png";
 import gift from "../assets/gift.png";
 import giftcard from "../assets/giftcard.png";
 import { NotifIcon } from "./NotifBadge";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, getDoc, doc } from "firebase/firestore";
-import { app } from "../firebase/Firebase";
+
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 
 const Dash = ({userData}) => {
   const navigate= useNavigate()
@@ -82,6 +81,7 @@ const Dash = ({userData}) => {
                   color={useColorModeValue("gray.900", "white")}
                   fontFamily="Lato, sans-Serif"
                   fontWeight="bold"
+                  onClick={()=> navigate('/crypto')}
                 >
                   Trade Crypto
                 </Button>
