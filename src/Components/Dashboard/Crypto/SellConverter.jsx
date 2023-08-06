@@ -33,13 +33,22 @@ import { BackButton } from "../Goback";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from 'axios'
+import { toHaveClass } from "@testing-library/jest-dom/matchers";
 
 export default function SellConverter() {
   const navigate = useNavigate();
   const [coinUnit, setCoinUnit] = useState('')
-  const [amount, setAmount] = useState(0)
+  const [amount, setAmount] = useState('');
   const [usdPrice, setUsdPrice] = useState(0);
   const [usdAmount, setUsdAmount] = useState(0)
+ 
+  const [isAmountVisible, setIsAmountVisible] = useState(true);
+
+  const toggleFields = () => {
+    setIsAmountVisible((prevIsAmountVisible) => !prevIsAmountVisible);
+    
+   
+  };
   const goBack = () => {
     navigate(-1);
   };
@@ -47,6 +56,14 @@ export default function SellConverter() {
   const { state } = location;
   const { cryptoName, cryptoSymbol } = state;
 
+  const fetchUsdPricePeriodically = () => {
+    toast.info('fetching price....')
+    setInterval(() => {
+      fetchUsdPrice();
+      toast.success('price updated.')
+      console.log(usdPrice)
+    }, 30000); 
+  };
 
   const fetchUsdPrice = async () => {
     try {
@@ -66,19 +83,53 @@ export default function SellConverter() {
     fetchUsdPrice();
   }, [cryptoName]);
 
+  useEffect(() => {
+    fetchUsdPricePeriodically();
+  }, []);
+ 
   const calculateUnit = () => {
     const rate = 860;
     const price = usdPrice;
-    const amountInNaira = amount; 
+    const amountInNaira = parseFloat(amount);
     const usdAmount = amountInNaira / rate;
     const unit = usdAmount / price;
     setCoinUnit(unit);
     setUsdAmount(usdAmount)
   };
 
-  useEffect(() => {
-    calculateUnit(); // Trigger the calculation whenever amount state changes
-  }, [amount]);
+  const calculateAmount=()=>{
+    const rate = 860;
+    const unit = parseFloat(coinUnit)
+    const amountInNaira= unit * usdPrice * rate
+    const usdAmount = amountInNaira / rate
+    setUsdAmount(usdAmount)
+    toast(amountInNaira)
+    setAmount(amountInNaira)
+  }
+
+useEffect(() => {
+  // Trigger the calculation whenever amount state changes
+  if (isAmountVisible) {
+    calculateUnit();
+  } else {
+    calculateAmount();
+  }
+}, [isAmountVisible ? amount : coinUnit]);
+
+
+  const navigateToSellCheckout = () => {
+    // Validate the required field (amount) before proceeding
+    if (amount <= 0) {
+      toast.error('Please enter a valid amount.');
+      return;
+    }
+
+    navigate("/sellcheckout", { state: { coinUnit, cryptoSymbol, amount } });
+  };
+
+
+  const nairaPlaceholder ='₦0.00'
+
 
   return (
     <>
@@ -143,11 +194,16 @@ export default function SellConverter() {
                       width={"25rem"}
                       height={"60px"}
                       type="number"
-                      placeholder={'₦0.00'}
-                      borderRadius="10px"
-                      onChange={(e) => {
-                        setAmount(e.target.value);
-                      }}
+                  borderRadius="10px"
+                  placeholder={isAmountVisible ? nairaPlaceholder : `${cryptoSymbol} units`}
+                    value={isAmountVisible ? amount : coinUnit}
+                  onChange={(e) => {
+                    if (isAmountVisible) {
+                      setAmount(e.target.value);
+                    } else {
+                      setCoinUnit(e.target.value);
+                    }
+                  }}
                     />
                   </InputGroup>
                   <Icon as={RepeatIcon} size={"4xl"} />
@@ -169,6 +225,7 @@ export default function SellConverter() {
                   size={"4xl"}
                   position={"relative"}
                   left={"10em"}
+                  onClick={toggleFields}
                 />
                 <InputGroup
                   marginTop={5}
@@ -185,15 +242,22 @@ export default function SellConverter() {
                     width={"25rem"}
                     height={"60px"}
                     type="number"
-                    placeholder={`${cryptoSymbol} units`}
                     borderRadius="10px"
-                    disabled
-                    value={coinUnit}
+                    placeholder={isAmountVisible ? `${cryptoSymbol} units` : nairaPlaceholder}
+                    disabled // Fix the disabled attribute
+                    value={isAmountVisible ? coinUnit : amount}
+                    onChange={(e) => {
+                      if (isAmountVisible) {
+                        setCoinUnit(e.target.value);
+                      } else {
+                        setAmount(e.target.value);
+                      }
+                    }}
                   />
                 </InputGroup>
                 <Button
                   marginTop={5}
-                  onClick={() => navigate("/sellcheckout", {state: {coinUnit, cryptoSymbol, amount}})}
+                  onClick={navigateToSellCheckout}
                   width={{ base: "15rem", md: "25rem" }}
                   height={"50px"}
                   color="#fff"

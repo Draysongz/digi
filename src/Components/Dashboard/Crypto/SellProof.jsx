@@ -44,6 +44,7 @@ export default function SellProof() {
   const { state } = location;
   const { coinUnit, cryptoSymbol, amount } = state;
   const [isUploadComplete, setIsUploadComplete] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const goBack = () => {
     navigate(-1);
@@ -56,10 +57,18 @@ export default function SellProof() {
     setIsUploadComplete(true);
   };
 
-  useEffect(() => {
-    console.log("Updated downloadURL:", downloadURL);
-    // Perform any actions using the updated downloadURL here, if needed
-  }, [downloadURL]);
+ 
+    useEffect(() => {
+      console.log("Updated downloadURL:", downloadURL);
+      // Perform any actions using the updated downloadURL here, if needed
+  
+      // Step 2: Validate the form
+      if (transactionHash || isUploadComplete) {
+        setIsFormValid(true);
+      } else {
+        setIsFormValid(false);
+      }
+    }, [downloadURL, transactionHash, isUploadComplete]);
  
  
   return (
@@ -98,7 +107,7 @@ export default function SellProof() {
               <Heading size={"md"} color="#1808A3">
                 Upload payment proof
               </Heading>
-              <Text>Kindly upload payment proof to recieve crypto</Text>
+              <Text>Kindly upload payment proof to recieve cash</Text>
               <Flex bg={"#FF372B"} p={1}>
                 <Image src={exclaim} size="12px" mx={2} />
                 <Text color={"#CC1616"} fontSize="12px">
@@ -139,8 +148,23 @@ export default function SellProof() {
               <Text color={"gray.500"}>Upload transanction screenshot</Text>
               <FileUpload onUploadComplete={handleUploadComplete} />
               <Button
-                onClick={() => navigate("/sellfinalcheckout", {state: {coinUnit, cryptoSymbol, amount, downloadURL, transactionHash}})}
+                onClick={() => {
+                  if (isFormValid) {
+                  navigate("/sellfinalcheckout", {
+                    state: {
+                      coinUnit,
+                      cryptoSymbol,
+                      amount,
+                      downloadURL,
+                      transactionHash,
+                    },
+                  });
+                } else {
+                  toast.error("Please provide transaction hash or upload a file.");
+                }
+              }}
                 width={"240px"}
+                disabled={!isFormValid}
                 color="#fff"
                 bg="#1808A3"
                 _hover={{

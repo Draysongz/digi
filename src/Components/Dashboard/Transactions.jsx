@@ -198,12 +198,12 @@ const fetchTransactions = (user) => {
               >
                 {transaction.transactionType}
               </Text>
-              <Text fontWeight={'semibold'} color={transaction.status === 'pending' ? 'yellow.300' : transaction.status === 'unsuccessful' ? 'red.300' : '#31CD31'
+              <Text fontWeight={'semibold'} color={transaction.status === 'pending' ? 'yellow.300' : transaction.status === 'unsuccessful' ? 'red.500' : '#31CD31'
 }> {transaction.status}</Text>
             </HStack>
           </Td>
           <Td>{transaction.formattedDate}</Td>
-          <Td isNumeric color="#31CD31">
+          <Td isNumeric color={transaction.transactionType === 'sell'? "red.500" : "#31CD31"}>
             {transaction.transactionType === 'sell'? `-${transaction.coinUnit.toFixed(6)}${transaction.cryptoSymbol}`: `+${transaction.coinUnit.toFixed(6)}${transaction.cryptoSymbol}`}
           </Td>
           <Td>{transaction.formattedTime}</Td>

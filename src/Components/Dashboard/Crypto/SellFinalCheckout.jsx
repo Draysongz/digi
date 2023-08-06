@@ -31,6 +31,7 @@ import { useLocation } from "react-router-dom";
 import { getFirestore,addDoc, collection, Timestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase/Firebase";
+import { toast } from "react-toastify";
 
 
 export default function SellFinalCheckout() {
@@ -66,30 +67,38 @@ export default function SellFinalCheckout() {
   const timestamp= Timestamp.now()
  
 
-  const createTransaction= async (e)=>{
-    
-    try{
+  const createTransaction = async (e) => {
+  
+
+    // Validate the required fields before proceeding
+    if (!accountNumber || !bankName || !accountName) {
+      toast.error("Please fill in all the required fields.");
+      return;
+    }
+
+    try {
       await addDoc(collection(db, 'transactions'), {
-        userId : user.uid,
+        userId: user.uid,
         coinUnit: coinUnit,
         cryptoSymbol: cryptoSymbol,
         amount: `₦${amount}`,
         transactionHash: transactionHash,
         Imageproof: downloadURL,
-        details:{
+        details: {
           bankName: bankName,
           accountNumber: accountNumber,
-          accountName: accountName
+          accountName: accountName,
         },
         status: 'pending',
         transactionType: 'sell',
-        time: timestamp
-      })
+        time: timestamp,
+      });
       setTransactionSaved(true);
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
+
   const goBack = () => {
     navigate(-1);
   };
@@ -131,7 +140,7 @@ export default function SellFinalCheckout() {
               </Heading>
               <Text>Kindly input your bank account details below.</Text>
               <br></br>
-              <Text color={"gray.500"}>Input account below</Text>
+              <Text color={"gray.500"}>Input account number below</Text>
               <Stack justifyContent={"space-between"} spacing={5}>
                 <InputGroup
                   // value={copyText}
