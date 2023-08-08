@@ -5,23 +5,16 @@ import {
   Icon,
   Text,
   Stack,
-  Image,
-  IconButton,
   Button,
   useDisclosure,
   useColorMode,
   useColorModeValue,
   VStack,
   InputRightElement,
-  SimpleGrid,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
   HStack,
   InputGroup,
   Input,
-  color,
+
 } from "@chakra-ui/react";
 import {RepeatIcon, UpDownIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -33,7 +26,6 @@ import { BackButton } from "../Goback";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from 'axios'
-import { toHaveClass } from "@testing-library/jest-dom/matchers";
 
 export default function SellConverter() {
   const navigate = useNavigate();
@@ -57,12 +49,10 @@ export default function SellConverter() {
   const { cryptoName, cryptoSymbol } = state;
 
   const fetchUsdPricePeriodically = () => {
-    toast.info('fetching price....')
     setInterval(() => {
       fetchUsdPrice();
-      toast.success('price updated.')
       console.log(usdPrice)
-    }, 30000); 
+    }, 10000); 
   };
 
   const fetchUsdPrice = async () => {

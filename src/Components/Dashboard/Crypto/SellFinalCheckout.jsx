@@ -268,6 +268,7 @@ export default function SellFinalCheckout() {
                   bg: "#3626c7",
                 }}
                 rounded={"full"}
+                onClick={()=> navigate('/crypto')}
               >
                 OK
               </Button>
