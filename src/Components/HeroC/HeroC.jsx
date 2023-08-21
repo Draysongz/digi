@@ -120,13 +120,13 @@ const HeroC = () => {
                 <Box ml={['0px', '40px', '60px']}>
                     <Text fontSize={['27px', '28px', '32px']} 
                     color={'#1808A3'} 
-                    textAlign={'center'}
+                    textAlign={'left'}
                     fontFamily='Lato sans-serif'>How to trade on DigiMart</Text>
 
                     <Heading fontFamily='Lato sans-serif'
                     color={'#111111'}
                     fontSize={['28px', '32px', '52px']}
-                    textAlign={'center'}
+                    textAlign={'left'}
                     fontWeight={'700'}>Trade your Assets in 3 <br/> simple steps...</Heading>
 
                     {/* Steps */}

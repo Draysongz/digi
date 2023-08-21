@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Dash from "./Dash";
-import { Flex, Spinner } from "@chakra-ui/react";
+import { Flex, Spinner, position } from "@chakra-ui/react";
 import { SideBarFunc } from "./SideBarFunc";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +57,7 @@ const MainDashboard = () => {
   // Render the dashboard content when the user is logged in
   return (
     <Flex flexDir={["column", "column", "row"]}>
-      <SideBarFunc />
+      <SideBarFunc  />
       <Dash userData={userdata} />
     </Flex>
   );
