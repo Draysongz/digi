@@ -12,7 +12,7 @@ function FileUploadSingle({ onUploadComplete }) {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleImageChange = (e) => {
-    e.persist()
+    e.persist();
     const file = e.target.files[0];
     setTransactionScreenshot(file);
   };
@@ -37,26 +37,29 @@ function FileUploadSingle({ onUploadComplete }) {
         (async () => {
           // Get a reference to Firebase Storage
           const userId = user.uid;
-          const storageRef = ref(storage, `users/${userId}/images/${transactionScreenshot.name}`);
+          const storageRef = ref(
+            storage,
+            `users/${userId}/images/${transactionScreenshot.name}`
+          );
 
           const snapshot = await uploadBytes(storageRef, transactionScreenshot);
-          console.log('Uploaded a blob or file!');
+          console.log("Uploaded a blob or file!");
           const downloadURL = await getDownloadURL(storageRef);
           onUploadComplete(downloadURL);
           return downloadURL;
         })(),
         {
-          pending: 'Uploading, please wait...', // Displayed while the promise is pending
-          success: 'Upload successful', // Displayed when the promise resolves successfully
-          error: 'Upload failed', // Displayed when the promise rejects with an error
+          pending: "Uploading, please wait...", // Displayed while the promise is pending
+          success: "Upload successful", // Displayed when the promise resolves successfully
+          error: "Upload failed", // Displayed when the promise rejects with an error
           autoClose: 5000, // Close after 5 seconds
         }
       );
 
       setIsFileUploaded(true);
     } catch (error) {
-      console.error('Error uploading image:', error);
-      toast.error('Upload failed');
+      console.error("Error uploading image:", error);
+      toast.error("Upload failed");
     } finally {
       setIsProcessing(false); // Stop processing
     }
@@ -64,11 +67,22 @@ function FileUploadSingle({ onUploadComplete }) {
 
   return (
     <Box my={5}>
-      <InputGroup bgImage={upload} bgRepeat={"no-repeat"} bgSize="500px">
+      <InputGroup
+        bgImage={upload}
+        bgRepeat={"no-repeat"}
+        bgSize={"auto"}
+        height={"300px"}
+        alignContent={"center"}
+        width={{ base: "20em", sm: "25em", md: "72.5%" }}
+      >
         <Input type="file" onChange={handleImageChange} />{" "}
-        {transactionScreenshot && `${transactionScreenshot.name} - ${transactionScreenshot.type}`}
+        {transactionScreenshot &&
+          `${transactionScreenshot.name} - ${transactionScreenshot.type}`}
       </InputGroup>{" "}
-       <Button onClick={handleSubmit} disabled={isProcessing || !transactionScreenshot}>
+      <Button
+        onClick={handleSubmit}
+        disabled={isProcessing || !transactionScreenshot}
+      >
         {isProcessing ? <Spinner size="sm" mr={2} /> : null}
         Upload
       </Button>

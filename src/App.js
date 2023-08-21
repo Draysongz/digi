@@ -17,11 +17,16 @@ import SellConverter from "./Components/Dashboard/Crypto/SellConverter";
 import SellCheckout from "./Components/Dashboard/Crypto/SellCheckout";
 import SellProof from "./Components/Dashboard/Crypto/SellProof";
 import SellFinalCheckout from "./Components/Dashboard/Crypto/SellFinalCheckout";
-import 'aos/dist/aos.css';
-
+import "aos/dist/aos.css";
+import BuyCrypto from "./Components/Dashboard/Crypto/Buy/BuyCrypto";
+import VerificationPage from "./Components/Dashboard/Crypto/Buy/VerificationPage";
+import BvnPage from "./Components/Dashboard/Crypto/Buy/BvnPage";
+import BuyConverter from "./Components/Dashboard/Crypto/Buy/BuyConverter";
+import BuyProof from "./Components/Dashboard/Crypto/Buy/BuyProof";
+import BuyCheckout from "./Components/Dashboard/Crypto/Buy/BuyCheckout";
+import NinPage from "./Components/Dashboard/Crypto/Buy/NinPage";
 
 function App() {
-
   useEffect(() => {
     const showText = () => {
       var Tawk_API = Tawk_API || {};
@@ -54,6 +59,13 @@ function App() {
         <Route path="/sellcheckout" element={<SellCheckout />} />
         <Route path="/sellproof" element={<SellProof />} />
         <Route path="/sellfinalcheckout" element={<SellFinalCheckout />} />
+        <Route path="/buycrypto" element={<BuyCrypto />} />
+        <Route path="/bvnpg" element={<BvnPage />} />
+        <Route path="/ninpg" element={<NinPage />} />
+        <Route path="/buyconverter" element={<BuyConverter />} />
+        <Route path="/buyproof" element={<BuyProof />} />
+        <Route path="/buycheckout" element={<BuyCheckout />} />
+        <Route path="/verificationpg" element={<VerificationPage />} />
       </Routes>
       <ToastContainer />
     </div>
