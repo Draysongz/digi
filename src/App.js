@@ -25,6 +25,7 @@ import BuyConverter from "./Components/Dashboard/Crypto/Buy/BuyConverter";
 import BuyProof from "./Components/Dashboard/Crypto/Buy/BuyProof";
 import BuyCheckout from "./Components/Dashboard/Crypto/Buy/BuyCheckout";
 import NinPage from "./Components/Dashboard/Crypto/Buy/NinPage";
+import BuyFinalCheckout from "./Components/Dashboard/Crypto/Buy/BuyFinalCheckout";
 
 function App() {
   useEffect(() => {
@@ -66,6 +67,7 @@ function App() {
         <Route path="/buyproof" element={<BuyProof />} />
         <Route path="/buycheckout" element={<BuyCheckout />} />
         <Route path="/verificationpg" element={<VerificationPage />} />
+        <Route path="/buyfinalcheckout" element={<BuyFinalCheckout/>} />
       </Routes>
       <ToastContainer />
     </div>

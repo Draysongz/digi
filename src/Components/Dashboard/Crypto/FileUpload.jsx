@@ -73,9 +73,10 @@ function FileUploadSingle({ onUploadComplete }) {
         bgSize={"auto"}
         height={"300px"}
         alignContent={"center"}
-        width={{ base: "20em", sm: "25em", md: "72.5%" }}
+        width={{ base: "20em", sm: "25em", md: "59%" }}
+        
       >
-        <Input type="file" onChange={handleImageChange} />{" "}
+        <Input type="file" onChange={handleImageChange} border={'none'} p={2} />{" "}
         {transactionScreenshot &&
           `${transactionScreenshot.name} - ${transactionScreenshot.type}`}
       </InputGroup>{" "}

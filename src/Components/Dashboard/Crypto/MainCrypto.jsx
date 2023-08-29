@@ -99,7 +99,8 @@ const MainCrypto = () => {
                     </Text>
                   </Box>
                   <Box mt={20}>
-                    <Button rightIcon={<ArrowForwardIcon />}>Buy</Button>
+                    <Button rightIcon={<ArrowForwardIcon />}
+                    onClick={() => navigate("/buycrypto")}>Buy</Button>
                   </Box>
                 </Box>
 

@@ -145,6 +145,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Ethereum", "ETH")}
                 >
                   <CardHeader>
                     <HStack>
@@ -169,6 +170,7 @@ export default function BuyCrypto() {
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   size={"md"}
+                  onClick={() => handleCardClick("TETHER", "USDT")}
                 >
                   <CardHeader>
                     <HStack>
@@ -192,6 +194,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Binance Smartchain", "BSC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -215,6 +218,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("USD Coin", "USDC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -238,6 +242,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Ripple", "XRP")}
                 >
                   <CardHeader>
                     <HStack>
@@ -261,6 +266,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Cardano", "ADA")}
                 >
                   <CardHeader>
                     <HStack>
@@ -272,7 +278,7 @@ export default function BuyCrypto() {
                         alt="Dan Abramov"
                       />
                       <VStack align={"start"} alignContent="start">
-                        <Heading size={"xs"}>Cardona</Heading>
+                        <Heading size={"xs"}>Cardano</Heading>
                         <Text fontSize="xs">ADA</Text>
                       </VStack>
                     </HStack>
@@ -284,6 +290,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Solana", "SOL")}
                 >
                   <CardHeader>
                     <HStack>
@@ -307,6 +314,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Tron", "TRX")}
                 >
                   <CardHeader>
                     <HStack>
@@ -330,6 +338,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Litecoin", "LTC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -353,6 +362,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Polkadot", "DOT")}
                 >
                   <CardHeader>
                     <HStack>
@@ -376,6 +386,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Polygon", "MATIC")}
                 >
                   <CardHeader>
                     <HStack>
@@ -399,6 +410,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Shiba Inu", "SHIB")}
                 >
                   <CardHeader>
                     <HStack>
@@ -422,6 +434,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("Avalanche", "AVAX")}
                 >
                   <CardHeader>
                     <HStack>
@@ -445,6 +458,7 @@ export default function BuyCrypto() {
                   as={"button"}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
+                  onClick={() => handleCardClick("DAI", "DAI")}
                 >
                   <CardHeader>
                     <HStack>

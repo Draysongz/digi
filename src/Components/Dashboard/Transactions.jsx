@@ -204,7 +204,7 @@ const fetchTransactions = (user) => {
           </Td>
           <Td>{transaction.formattedDate}</Td>
           <Td isNumeric color={transaction.transactionType === 'sell'? "red.500" : "#31CD31"}>
-            {transaction.transactionType === 'sell'? `-${transaction.coinUnit.toFixed(6)}${transaction.cryptoSymbol}`: `+${transaction.coinUnit.toFixed(6)}${transaction.cryptoSymbol}`}
+            {transaction.transactionType === 'sell'? `-${transaction.coinUnit}${transaction.cryptoSymbol}`: `+${transaction.coinUnit}${transaction.cryptoSymbol}`}
           </Td>
           <Td>{transaction.formattedTime}</Td>
         </Tr>

@@ -6,6 +6,7 @@ import {
   Stack,
   Image,
   Button,
+  Spinner,
   useDisclosure,
   useColorMode,
   useColorModeValue,
@@ -19,78 +20,95 @@ import {
   ModalHeader,
   ModalFooter,
   Center,
+  color,
 } from "@chakra-ui/react";
-import successful from "../CryptoAssets/successful.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NotifIcon } from "../../NotifBadge";
 import { SideBarFunc } from "../../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../Goback";
 import { ChevronDownIcon, CopyIcon } from "@chakra-ui/icons";
 import { useLocation } from "react-router-dom";
-import { getFirestore, addDoc, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { app } from "../../../firebase/Firebase";
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 export default function BuyCheckout() {
+  
+  const bgColor = useColorModeValue("gray.50", "gray.800");
+  const textColor = useColorModeValue("gray.900", "white");
+  const [accountData, setAccountData] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
-  const [accountNumber, setAccountNumber] = useState(0);
-  const [bankName, setBankName] = useState("");
-  const [accountName, setAccountName] = useState("");
-  const [transactionSaved, setTransactionSaved] = useState(false);
+  
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const { state } = location;
-  const { coinUnit, cryptoSymbol, amount, downloadURL, transactionHash } =
-    state;
+  const { coinUnit, cryptoSymbol, amount } = state;
 
-  const db = getFirestore(app);
-  const auth = getAuth();
-  const user = auth.currentUser;
-
-  function getCurrentFormattedDate() {
-    const currentDate = new Date();
-    const day = currentDate.getDate().toString().padStart(2, "0");
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based
-    const year = currentDate.getFullYear().toString();
-    const hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes().toString().padStart(2, "0");
-    const amOrPm = hours >= 12 ? "pm" : "am";
-    const formattedHours = (hours % 12 || 12).toString(); // Convert to 12-hour format
-    const formattedDate = `${day}-${month}-${year}`;
-    const formattedTime = `${formattedHours}:${minutes}${amOrPm}`;
-
-    return { date: formattedDate, time: formattedTime };
-  }
-  const { date, time } = getCurrentFormattedDate();
-
-  const createTransaction = async (e) => {
-    try {
-      await addDoc(collection(db, "transactions"), {
-        userId: user.uid,
-        coinUnit: coinUnit,
-        cryptoSymbol: cryptoSymbol,
-        amount: `₦${amount}`,
-        transactionHash: transactionHash,
-        Imageproof: downloadURL,
-        details: {
-          bankName: bankName,
-          accountNumber: accountNumber,
-          accountName: accountName,
-        },
-        status: "pending",
-        transactionType: "sell",
-        Date: date,
-        Time: time,
-      });
-      setTransactionSaved(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const goBack = () => {
     navigate(-1);
   };
+
+  const getDetails = async()=>{
+    const db = getFirestore(app)
+
+    const accountsCollection = collection(db, 'accounts')
+
+    try {
+      getDocs(accountsCollection)
+        .then((querySnapshot) => {
+          const data = [];
+          querySnapshot.forEach((doc) => {
+            data.push({ id: doc.id, ...doc.data() });
+          });
+          // Set the data in state
+          setAccountData(data);
+         
+        })
+        .catch((error) => {
+          // Handle any errors
+          throw new Error(error.message);
+        })
+        .finally(() => {
+          // Set loading to false when the operation is complete
+          setLoading(false);
+        });
+    } catch (error) {
+      // Handle any errors from the try block
+      setError(error.message);
+      setLoading(false);
+    }
+  }
+
+  useEffect(()=>{
+    getDetails()
+  }, [])
+
+  if (accountData.length === 0) {
+    return (
+      <Flex align="center" justify="center" height="100vh">
+        <Spinner size="xl" color="blue.500" thickness='4px'
+  speed='0.65s'
+  emptyColor='gray.200' />
+      </Flex>
+    );
+  }
+  console.log(accountData)
+
+    // Function to copy the content to the clipboard
+    const copyToClipboard = (content) => {
+      navigator.clipboard.writeText(content)
+        .then(() => {
+          alert(`Copied: ${content}`);
+        })
+        .catch((error) => {
+          console.error("Copy failed:", error);
+        });
+    };
+
   return (
     <>
       <Flex
@@ -98,8 +116,8 @@ export default function BuyCheckout() {
         maxW="2000px"
         flexDir={["column", "column", "row"]}
         overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
-        color={useColorModeValue("gray.900", "white")}
+        bg={ bgColor}
+        color={textColor}
       >
         <SideBarFunc />
         <Box
@@ -128,11 +146,11 @@ export default function BuyCheckout() {
                 Checkout
               </Heading>
               <Text maxW={{ base: "20em", md: "30em" }}>
-                Kindly make a payment of N00,000 to the account details below
+                Kindly make a payment of {`₦${amount}`} to the account details below
               </Text>
 
               <br></br>
-              <Text color={"gray.500"}>Input account below</Text>
+              <Text color={"gray.500"}>Account Number</Text>
               <Stack justifyContent={"space-between"} spacing={5} mb={5}>
                 <InputGroup
                   // value={copyText}
@@ -144,11 +162,13 @@ export default function BuyCheckout() {
                   borderRadius="10px"
                   mr={2}
                   width={{ base: "20em", sm: "25em", md: "30em" }}
+                
                 >
                   {" "}
                   <InputRightElement
                     as={"button"}
                     // onClick={copyToClipboard}
+                    onClick={() => copyToClipboard(accountData[0].Number)}
                     pointerEvents="auto"
                     children={<CopyIcon color="gray" />}
                     borderRightRadius="lg"
@@ -158,8 +178,9 @@ export default function BuyCheckout() {
                     type="number"
                     placeholder="1465675651"
                     borderRadius="10px"
-                    onChange={(e) => setAccountNumber(e.target.value)}
-                    value={accountNumber}
+                    value={accountData[0].Number}
+                    isDisabled
+                    _disabled={{color:'black'}}
                   />
                 </InputGroup>
 
@@ -189,8 +210,9 @@ export default function BuyCheckout() {
                     type="text"
                     placeholder="Wema bank"
                     borderRadius="10px"
-                    onChange={(e) => setBankName(e.target.value)}
-                    value={bankName}
+                    value={accountData[0].Bank}
+                    isDisabled
+                    _disabled={{color:'black'}}
                   />
                 </InputGroup>
 
@@ -207,18 +229,20 @@ export default function BuyCheckout() {
                   width={{ base: "20em", sm: "25em", md: "30em" }}
                 >
                   <Input
-                    type="test"
+                    type="text"
                     placeholder="John Doe"
                     borderRadius="10px"
-                    onChange={(e) => setAccountName(e.target.value)}
-                    value={accountName}
+                    value={accountData[0].Name}
+                    isDisabled
+                    _disabled={{color:'black'}}
                   />
                 </InputGroup>
               </Stack>
               <Button
                 onClick={() => {
-                  navigate("/buyproof");
-                  createTransaction();
+                  navigate("/buyproof", {
+                    state: { coinUnit, cryptoSymbol, amount, accountData },
+                  })
                 }}
                 width={{ base: "15rem", md: "25rem" }}
                 height={"50px"}
@@ -233,7 +257,6 @@ export default function BuyCheckout() {
                 Continue
               </Button>
 
-              {transactionSaved}
             </Box>
           </Stack>
         </Box>

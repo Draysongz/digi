@@ -33,14 +33,14 @@ import { toast } from "react-toastify";
 
 export default function BuyProof() {
   const navigate = useNavigate();
-  const [transactionHash, setTransactionHash] = useState("");
   const [downloadURL, setDownloadURL] = useState("");
   const location = useLocation();
-  const [transactionSaved, setTransactionSaved] = useState(false);
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+
   const { state } = location;
-  const { coinUnit, cryptoSymbol, amount } = state;
+const { coinUnit, cryptoSymbol, amount, accountData} = state
 
   const goBack = () => {
     navigate(-1);
@@ -48,7 +48,7 @@ export default function BuyProof() {
 
   const handleUploadComplete = (url) => {
     setDownloadURL(url);
-    console.log(url);
+    setIsFileUploaded(true)
   };
 
   useEffect(() => {
@@ -99,17 +99,6 @@ export default function BuyProof() {
               <Text color={"gray.500"}>Upload transanction screenshot</Text>
               <FileUpload onUploadComplete={handleUploadComplete} />
               <Button
-                onClick={() =>
-                  navigate({
-                    state: {
-                      coinUnit,
-                      cryptoSymbol,
-                      amount,
-                      downloadURL,
-                      transactionHash,
-                    },
-                  })
-                }
                 width={"240px"}
                 color="#fff"
                 bg="#1808A3"
@@ -118,10 +107,11 @@ export default function BuyProof() {
                 }}
                 rounded={"2xl"}
                 mb={20}
+                onClick={onOpen}
               >
                 Continue
               </Button>
-              {transactionSaved && (
+              {isFileUploaded && (
                 <Modal onClose={onClose} isOpen={isOpen} isCentered>
                   <ModalOverlay />
                   <ModalContent p={5}>
@@ -132,7 +122,7 @@ export default function BuyProof() {
                         <Box alignSelf={"center"} mb={10}>
                           {" "}
                           <Heading size={"md"} align={"center"} mx={10} mb={5}>
-                            Transanction completed
+                            Transaction received
                           </Heading>
                           <Center>
                             <Image p={5} src={successful} boxSize="150px" />
@@ -152,6 +142,11 @@ export default function BuyProof() {
                             bg: "#3626c7",
                           }}
                           rounded={"full"}
+                          onClick={() => {
+                            navigate("/buyfinalcheckout", {
+                              state: { coinUnit, cryptoSymbol, amount, accountData, downloadURL },
+                            })
+                          }}
                         >
                           OK
                         </Button>
