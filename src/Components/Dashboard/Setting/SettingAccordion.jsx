@@ -19,7 +19,7 @@ import UserProfileEdit from "./ProfileSetting";
 export default function PasswordAccordion() {
   return (
     <Accordion allowToggle>
-      <AccordionItem align={"flex-start"}>
+      <AccordionItem align={"flex-start"} border={'none'}>
         <AccordionButton
           justifyContent={{ base: "space-between", md: "flex-start" }}
           _expanded={{ bg: "white", color: "#1808A3" }}
@@ -32,6 +32,7 @@ export default function PasswordAccordion() {
             bg: "#E8E6F6",
             color: "#1808A3",
           }}
+          width={['85vw', '85vw', "69vw"]}
           fontSize={"lg"}
         >
           <Box as="span" flex="1" textAlign="left" p={1}>
@@ -45,12 +46,12 @@ export default function PasswordAccordion() {
         </AccordionPanel>
       </AccordionItem>
 
-      <AccordionItem mt={3} mb={3} align={"flex-start"}>
+      <AccordionItem mt={3} mb={3} align={"flex-start"} border={'none'}>
         <AccordionButton
           justifyContent={{ base: "space-between", md: "flex-start" }}
           _expanded={{ bg: "white", color: "#1808A3" }}
           height="70px"
-          // width="69vw"
+          width={['85vw', '85vw', "69vw"]}
           border={"1px solid"}
           borderColor={useColorModeValue("white", "gray.900")}
           borderRadius={"lg"}

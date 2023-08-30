@@ -17,44 +17,50 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import { ProfileModal } from "../Setting";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, getDoc, doc } from "firebase/firestore";
+import { getFirestore, getDoc, doc, onSnapshot } from "firebase/firestore";
 import { app } from "../../firebase/Firebase";
-import {toast} from 'react-toastify'
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 
+
 export default function UserProfileEdit() {
+
   const navigate = useNavigate()
   const [userdata, setUserdata]= useState([])
   useEffect(() => {
     const auth = getAuth();
-
+  
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log(user.uid);
         const db = getFirestore(app);
-        const docRef = doc(db, 'users', user.uid); // Fetch the user document using user's UID
-        getDoc(docRef)
-          .then((docSnap) => {
-            if (docSnap.exists()) {
-              const userData = docSnap.data();
-              console.log('User data:', userData);
-              setUserdata(userData)
-            } else {
-              console.log('User document not found.');
-            }
-          })
-          .catch((error) => {
-            console.error('Error fetching user data:', error.message);
-          });
-      }else{
-        navigate('/login')
+        const docRef = doc(db, 'users', user.uid);
+  
+        // Listen for changes to the user's document
+        const unsubscribeDoc = onSnapshot(docRef, (docSnap) => {
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            console.log('User data:', userData);
+            setUserdata(userData);
+          } else {
+            console.log('User document not found.');
+          }
+        });
+  
+        return () => {
+          unsubscribeDoc(); // Clean up the document listener
+        };
+      } else {
+        navigate('/login');
       }
     });
-
-    return () => unsubscribe(); // Clean up the listener when the component unmounts
+  
+    return () => {
+      unsubscribe(); // Clean up the auth listener
+    };
   }, []);
+  
   return (
     <Flex
       minH={"10vh"}
@@ -76,7 +82,7 @@ export default function UserProfileEdit() {
           <FormLabel>User Icon</FormLabel>
           <Stack direction={["column", "row"]} spacing={6}>
             <Center>
-              <Avatar size="xl" src="https://bit.ly/sage-adebayo">
+              <Avatar size="xl" src={userdata.userDp}>
                 <AvatarBadge
                   as={IconButton}
                   size="sm"

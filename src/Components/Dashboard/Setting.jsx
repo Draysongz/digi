@@ -5,36 +5,38 @@ import {
   Icon,
   Text,
   Stack,
-  IconButton,
   Button,
   Modal,
   ModalBody,
   ModalOverlay,
   ModalContent,
   ModalHeader,
+  Spinner,
   ModalCloseButton,
   useDisclosure,
   ModalFooter,
   useColorMode,
   useColorModeValue,
   Switch,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  HStack,
-  InputRightElement,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { WiMoonAltFirstQuarter } from "react-icons/wi";
-
+import { getAuth } from "firebase/auth";
 import { SideBarFunc } from "./SideBarFunc";
 import { ChevronRightIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import PasswordCard from "./Setting/PasswordSetting";
 import PasswordAccordion from "./Setting/SettingAccordion";
+import {toast} from 'react-toastify'
 import { NotifIcon } from "./NotifBadge";
+import { useRef } from "react";
+import { storage } from "../firebase/Firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc, setDoc, getFirestore } from 'firebase/firestore';
+import { app } from "../firebase/Firebase";
 
 export default function Setting() {
+
+
   return (
     <>
       <Flex
@@ -69,6 +71,87 @@ export default function Setting() {
 
 export function ProfileModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const fileInputRef = useRef(null);
+  const [displayPicture, setDisplayPicture] = useState(null);
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const db = getFirestore(app);
+
+  const handleFileButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  useEffect(() => {
+    if (displayPicture && isProcessing) {
+      handleSubmit();
+    }
+  }, [displayPicture, isProcessing]);
+
+  const handleFileChange = () => {
+    const fileInput = fileInputRef.current;
+    if (fileInput && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      setDisplayPicture(file);
+      setIsProcessing(true); // Start processing
+      console.log('Selected file:', file.name);
+    }
+  };
+  const handleSubmit = async () => {
+    const auth = getAuth(app);
+    const user = auth.currentUser;
+  
+    if (!user) {
+      return;
+    }
+  
+    if (!displayPicture) {
+      return;
+    }
+  
+    try {
+      setIsProcessing(true); // Start processing
+  
+      // Get a reference to Firebase Storage
+      const userId = user.uid;
+      const storageRef = ref(
+        storage,
+        `users/${userId}/images/${displayPicture.name}`
+      );
+  
+      // Use toast.promise to show upload progress
+      const imageURL = await toast.promise(
+        (async () => {
+          const snapshot = await uploadBytes(storageRef, displayPicture);
+          console.log("Uploaded a blob or file!");
+          const downloadURL = await getDownloadURL(storageRef);
+          return downloadURL;
+        })(),
+        {
+          pending: "Uploading, please wait...", // Displayed while the promise is pending
+          success: "Upload successful", // Displayed when the promise resolves successfully
+          error: "Upload failed", // Displayed when the promise rejects with an error
+          autoClose: 5000, // Close after 5 seconds
+        }
+      );
+  
+      // Create or update the user's profile picture in Firestore
+      console.log('saving to database......')
+      const userDocRef = doc(db, 'users', userId);
+      await setDoc(userDocRef, {
+        userDp: imageURL, // Use imageURL instead of downloadURL
+      }, { merge: true }); // Use merge to update the document
+  
+      console.log('saved document')
+      setIsFileUploaded(true);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Upload failed");
+    } finally {
+      setIsProcessing(false); // Stop processing
+    }
+  };
+  
 
   return (
     <>
@@ -92,7 +175,6 @@ export function ProfileModal() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader alignSelf={"center"}>Change profile photo</ModalHeader>
-          {/* <ModalCloseButton /> */}
           <ModalBody>
             <Stack>
               <Button
@@ -102,9 +184,18 @@ export function ProfileModal() {
                 _hover={{
                   bg: "#3626c7",
                 }}
+                onClick={() => fileInputRef.current.click()}
               >
+                {isProcessing ? <Spinner size="sm" mr={2} /> : null}
                 Upload photo
               </Button>
+              <input
+                type="file"
+                accept=".jpg, .jpeg, .png"  // Define accepted file types (optional)
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+              />
               <Button
                 height={"54px"}
                 border={"2px"}
@@ -130,9 +221,7 @@ export function ProfileModal() {
               </Button>
             </Stack>
           </ModalBody>
-          <ModalFooter>
-            {/* <Button onClick={onClose}>Close</Button> */}
-          </ModalFooter>
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>
@@ -205,7 +294,7 @@ function ThemeSettings() {
         onClick={onOpen}
         size="md"
         height="70px"
-        width="69vw"
+        width={['85vw', '85vw', "69vw"]}        
         variant="outline"
         alignContent={"flex-start"}
         justifyContent={{ base: "space-between", md: "flex-start" }}
@@ -218,7 +307,7 @@ function ThemeSettings() {
         overflow={"auto"}
       >
         <Icon mx={3} as={WiMoonAltFirstQuarter} fontSize="2xl" />
-        Theme settings
+        <strong>Theme settings</strong>
         <Icon
           justifySelf={"flex-end"}
           ml={"auto"}
