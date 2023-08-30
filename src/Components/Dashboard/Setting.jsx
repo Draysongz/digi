@@ -78,9 +78,7 @@ export function ProfileModal() {
 
   const db = getFirestore(app);
 
-  const handleFileButtonClick = () => {
-    fileInputRef.current.click();
-  };
+
 
   useEffect(() => {
     if (displayPicture && isProcessing) {
@@ -94,9 +92,11 @@ export function ProfileModal() {
       const file = fileInput.files[0];
       setDisplayPicture(file);
       setIsProcessing(true); // Start processing
+      setIsFileUploaded(false); // Reset to false when starting a new upload
       console.log('Selected file:', file.name);
     }
   };
+  
   const handleSubmit = async () => {
     const auth = getAuth(app);
     const user = auth.currentUser;
@@ -144,6 +144,7 @@ export function ProfileModal() {
   
       console.log('saved document')
       setIsFileUploaded(true);
+  
     } catch (error) {
       console.error("Error uploading image:", error);
       toast.error("Upload failed");
@@ -152,7 +153,13 @@ export function ProfileModal() {
     }
   };
   
-
+  useEffect(() => {
+    if (isFileUploaded) {
+      console.log('file uploaded...')
+      onClose()
+    }
+  }, [isFileUploaded, onClose]);
+  
   return (
     <>
       <Button

@@ -40,6 +40,14 @@ export default function BuyConverter() {
   const [amount, setAmount] = useState(0);
   const [usdPrice, setUsdPrice] = useState(0);
   const [usdAmount, setUsdAmount] = useState(0);
+
+  const [isAmountVisible, setIsAmountVisible] = useState(true);
+
+  const toggleFields = () => {
+    setIsAmountVisible((prevIsAmountVisible) => !prevIsAmountVisible);
+    
+   
+  };
   const goBack = () => {
     navigate(-1);
   };
@@ -59,11 +67,21 @@ export default function BuyConverter() {
       console.error("Error fetching USD price:", error);
     }
   };
+  const fetchUsdPricePeriodically = () => {
+    setInterval(() => {
+      fetchUsdPrice();
+      console.log(usdPrice)
+    }, 30000); 
+  };
 
   // Fetch the USD price whenever the selected cryptocurrency changes
   useEffect(() => {
     fetchUsdPrice();
   }, [cryptoName]);
+
+  useEffect(() => {
+    fetchUsdPricePeriodically();
+  }, []);
 
   const calculateUnit = () => {
     const rate = 860;
@@ -75,10 +93,41 @@ export default function BuyConverter() {
     setUsdAmount(usdAmount);
   };
 
+  const calculateAmount=()=>{
+    const rate = 860;
+    const unit = parseFloat(coinUnit)
+    const amountInNaira= unit * usdPrice * rate
+    const usdAmount = amountInNaira / rate
+    setUsdAmount(usdAmount)
+    setAmount(amountInNaira)
+  }
+
+  useEffect(() => {
+    // Trigger the calculation whenever amount state changes
+    if (isAmountVisible) {
+      calculateUnit();
+    } else {
+      calculateAmount();
+    }
+  }, [isAmountVisible ? amount : coinUnit]);
+
   useEffect(() => {
     calculateUnit(); // Trigger the calculation whenever amount state changes
   }, [amount]);
 
+  const navigateToBuyCheckout = () => {
+    // Validate the required field (amount) before proceeding
+    if (amount <= 0) {
+      toast.error('Please enter a valid amount.');
+      return;
+    }
+
+    navigate("/buycheckout", {
+      state: { coinUnit, cryptoSymbol, amount },
+    })
+  };
+
+  const nairaPlaceholder ='₦0.00'
   return (
     <>
       <Flex
@@ -142,11 +191,16 @@ export default function BuyConverter() {
                       width={"25rem"}
                       height={"60px"}
                       type="number"
-                      placeholder={"₦0.00"}
                       borderRadius="10px"
-                      onChange={(e) => {
-                        setAmount(e.target.value);
-                      }}
+                      placeholder={isAmountVisible ? nairaPlaceholder : `${cryptoSymbol} units`}
+                    value={isAmountVisible ? amount : coinUnit}
+                  onChange={(e) => {
+                    if (isAmountVisible) {
+                      setAmount(e.target.value);
+                    } else {
+                      setCoinUnit(e.target.value);
+                    }
+                  }}
                     />
                   </InputGroup>
                   <Icon as={RepeatIcon} size={"4xl"} />
@@ -168,6 +222,7 @@ export default function BuyConverter() {
                   size={"4xl"}
                   position={"relative"}
                   left={"10em"}
+                  onClick={toggleFields}
                 />
                 <InputGroup
                   marginTop={5}
@@ -184,19 +239,22 @@ export default function BuyConverter() {
                     width={"25rem"}
                     height={"60px"}
                     type="number"
-                    placeholder={`${cryptoSymbol} units`}
                     borderRadius="10px"
-                    disabled
-                    value={coinUnit}
+                    placeholder={isAmountVisible ? `${cryptoSymbol} units` : nairaPlaceholder}
+                    disabled // Fix the disabled attribute
+                    value={isAmountVisible ? coinUnit : amount}
+                    onChange={(e) => {
+                      if (isAmountVisible) {
+                        setCoinUnit(e.target.value);
+                      } else {
+                        setAmount(e.target.value);
+                      }
+                    }}
                   />
                 </InputGroup>
                 <Button
                   marginTop={5}
-                  onClick={() =>
-                    navigate("/buycheckout", {
-                      state: { coinUnit, cryptoSymbol, amount },
-                    })
-                  }
+                  onClick={navigateToBuyCheckout}
                   width={{ base: "15rem", md: "25rem" }}
                   height={"50px"}
                   color="#fff"

@@ -13,6 +13,7 @@ import {
   AvatarBadge,
   IconButton,
   Center,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { ProfileModal } from "../Setting";
@@ -83,19 +84,10 @@ export default function UserProfileEdit() {
           <Stack direction={["column", "row"]} spacing={6}>
             <Center>
               <Avatar size="xl" src={userdata.userDp}>
-                <AvatarBadge
-                  as={IconButton}
-                  size="sm"
-                  rounded="full"
-                  bottom="10px"
-                  colorScheme={useColorModeValue("gray", "teal")}
-                  aria-label="remove Image"
-                  icon={<EditIcon />}
-                />
               </Avatar>
             </Center>
             <Center w="full">
-              <ProfileModal w="full" />
+              <ProfileModal w="full"  />
             </Center>
           </Stack>
         </FormControl>

@@ -93,7 +93,6 @@ export default function SellConverter() {
     const amountInNaira= unit * usdPrice * rate
     const usdAmount = amountInNaira / rate
     setUsdAmount(usdAmount)
-    toast(amountInNaira)
     setAmount(amountInNaira)
   }
 
@@ -186,7 +185,7 @@ useEffect(() => {
                       type="number"
                   borderRadius="10px"
                   placeholder={isAmountVisible ? nairaPlaceholder : `${cryptoSymbol} units`}
-                    value={isAmountVisible ? amount : coinUnit}
+                  value={isAmountVisible ? amount : coinUnit}
                   onChange={(e) => {
                     if (isAmountVisible) {
                       setAmount(e.target.value);
