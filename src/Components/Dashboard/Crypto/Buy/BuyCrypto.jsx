@@ -77,7 +77,8 @@ export default function BuyCrypto() {
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
-        <Box alignItems="center" justifyContent="center" mt={10} mx={"10vw"}>
+        <Box alignItems="center" justifyContent="center" mt={10} mx={"10vw"}
+        left={['0', '0', '0', "14%"]} position={[null, null, null, null, 'relative']} >
           <Stack>
             {" "}
             <BackButton />

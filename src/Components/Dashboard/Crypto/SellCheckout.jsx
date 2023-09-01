@@ -68,6 +68,7 @@ export default function SellCheckout() {
           mt={10}
           mx={"10vw"}
           minW={"60vw"}
+          left={['0', '0', '0', "14%"]} position={[null, null, null, null, 'relative']}
         >
           <Stack>
             {" "}

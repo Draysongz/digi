@@ -112,10 +112,9 @@ export default function BuyCheckout() {
   return (
     <>
       <Flex
-        h={["100vh", "100vh", "100vh"]}
+        h={["100vh", "100vh", "130vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
         bg={ bgColor}
         color={textColor}
       >
@@ -126,6 +125,8 @@ export default function BuyCheckout() {
           mt={10}
           mx={"10vw"}
           minW={"60vw"}
+          left={['0', '0', '0', "14%"]} position={[null, null, null, null, 'relative']}
+          
         >
           <Stack>
             {" "}

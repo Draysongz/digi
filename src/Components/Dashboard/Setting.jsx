@@ -48,7 +48,8 @@ export default function Setting() {
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
-        <Box alignItems="center" justifyContent="center" mt={20} mx={"10vw"}>
+        <Box alignItems="center" justifyContent="center" mt={20} mx={"10vw"} 
+         left={['0', '0', '0', "14%"]} position={[null, null, null, null, 'relative']}>
           <Stack>
             {" "}
             <Flex justifyContent="space-between" marginBottom={20}>
@@ -178,7 +179,7 @@ export function ProfileModal() {
         Change Icon
       </Button>
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal closeOnOverlayClick={false} onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader alignSelf={"center"}>Change profile photo</ModalHeader>

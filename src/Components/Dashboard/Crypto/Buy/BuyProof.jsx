@@ -59,10 +59,9 @@ const { coinUnit, cryptoSymbol, amount, accountData} = state
   return (
     <>
       <Flex
-        h={["100vh", "100vh", "100vh"]}
+        h={["100vh", "100vh", "134vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
         bg={useColorModeValue("gray.50", "gray.800")}
         color={useColorModeValue("gray.900", "white")}
       >
@@ -73,6 +72,7 @@ const { coinUnit, cryptoSymbol, amount, accountData} = state
           mt={10}
           mx={"10vw"}
           minW={"60vw"}
+          left={['0', '0', '0', "14%"]} position={[null, null, null, null, 'relative']}
         >
           <Stack>
             {" "}
@@ -107,7 +107,12 @@ const { coinUnit, cryptoSymbol, amount, accountData} = state
                 }}
                 rounded={"2xl"}
                 mb={20}
-                onClick={onOpen}
+                onClick={()=>{
+                  onOpen();
+                  if(!isFileUploaded){
+                    toast.error('Please upload payment proof')
+                  }
+                }}
               >
                 Continue
               </Button>

@@ -32,6 +32,7 @@ export const SideBarFunc = () => {
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
       h={[null, null, "100vh"]}
+      position={[null, null, null, 'fixed']}
     >
       <Flex
         flexDir={["row", "row", "column", "column", "column"]}
