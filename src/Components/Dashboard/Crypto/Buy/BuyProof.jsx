@@ -59,7 +59,7 @@ const { coinUnit, cryptoSymbol, amount, accountData} = state
   return (
     <>
       <Flex
-        h={["100vh", "100vh", "134vh"]}
+        maxH={["138vh", "100vh", "134vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
         bg={useColorModeValue("gray.50", "gray.800")}
@@ -72,7 +72,7 @@ const { coinUnit, cryptoSymbol, amount, accountData} = state
           mt={10}
           mx={"10vw"}
           minW={"60vw"}
-          left={['0', '0', '0', "14%"]} position={[null, null, null, null, 'relative']}
+          left={['0', '0', '0', "14%"]} position={[ null, null, null, 'relative']}
         >
           <Stack>
             {" "}

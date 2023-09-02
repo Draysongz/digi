@@ -72,7 +72,6 @@ function FileUploadSingle({ onUploadComplete }) {
         bgRepeat={"no-repeat"}
         bgSize={"contain"}
         height={"300px"}
-        maxH={'60vh'}
         alignContent={"center"}
         width={{ base: "20em", sm: "25em", md: "59%" }}
         display={'flex'}
