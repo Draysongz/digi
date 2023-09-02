@@ -72,6 +72,7 @@ function FileUploadSingle({ onUploadComplete }) {
         bgRepeat={"no-repeat"}
         bgSize={"contain"}
         height={"300px"}
+        maxH={'60vh'}
         alignContent={"center"}
         width={{ base: "20em", sm: "25em", md: "59%" }}
         display={'flex'}
@@ -88,7 +89,8 @@ function FileUploadSingle({ onUploadComplete }) {
             src={URL.createObjectURL(transactionScreenshot)}
             alt="Preview"
             mt={10}
-            maxW={'85%'} // Adjust the width to fit within the container
+            w={'auto'} // Adjust the width to fit within the container
+            h={'auto'}
            />
         )}
         {/* </Center> */}
@@ -99,7 +101,6 @@ function FileUploadSingle({ onUploadComplete }) {
       <Button
         onClick={handleSubmit}
         disabled={isProcessing || !transactionScreenshot}
-        mt={5}
       >
         {isProcessing ? <Spinner size="sm" mr={2} /> : null}
         Upload
