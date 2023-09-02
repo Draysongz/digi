@@ -1,4 +1,4 @@
-import { Box, Button, Input, InputGroup, Spinner } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, Spinner, Image, Center } from "@chakra-ui/react";
 import { useState } from "react";
 import upload from "./CryptoAssets/upload.svg";
 import { storage } from "../../firebase/Firebase";
@@ -68,21 +68,38 @@ function FileUploadSingle({ onUploadComplete }) {
   return (
     <Box my={5}>
       <InputGroup
-        bgImage={upload}
+        bgImage={`url(${upload})`}
         bgRepeat={"no-repeat"}
-        bgSize={"auto"}
+        bgSize={"contain"}
         height={"300px"}
         alignContent={"center"}
         width={{ base: "20em", sm: "25em", md: "59%" }}
-        
+        display={'flex'}
+        flexDir={'column'}
       >
-        <Input type="file" onChange={handleImageChange} border={'none'} p={2} />{" "}
+        <Input type="file" onChange={handleImageChange} border={'none'} p={2} />
         {transactionScreenshot &&
           `${transactionScreenshot.name} - ${transactionScreenshot.type}`}
-      </InputGroup>{" "}
+          
+           <Box mt={'-5%'} p={3}>
+           {/* <Center> */}
+      {transactionScreenshot && (
+          <Image
+            src={URL.createObjectURL(transactionScreenshot)}
+            alt="Preview"
+            mt={10}
+            maxW={'85%'} // Adjust the width to fit within the container
+           />
+        )}
+        {/* </Center> */}
+      </Box>
+      
+      </InputGroup>
+     
       <Button
         onClick={handleSubmit}
         disabled={isProcessing || !transactionScreenshot}
+        mt={5}
       >
         {isProcessing ? <Spinner size="sm" mr={2} /> : null}
         Upload
