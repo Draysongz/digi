@@ -1,15 +1,16 @@
-import { Box, Button, Input, InputGroup, Spinner, Image, Center } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, Spinner, Image, Center, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import upload from "./CryptoAssets/upload.svg";
 import { storage } from "../../firebase/Firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { toast } from "react-toastify";
-
+import { useRef } from "react";
 function FileUploadSingle({ onUploadComplete }) {
   const [transactionScreenshot, setTransactionScreenshot] = useState(null);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const inputRef = useRef()
 
   const handleImageChange = (e) => {
     e.persist();
@@ -65,6 +66,9 @@ function FileUploadSingle({ onUploadComplete }) {
     }
   };
 
+  const handleImageClick=()=>{
+    inputRef.current.click()
+  }
   return (
     <Box my={5}>
       <InputGroup
@@ -76,24 +80,24 @@ function FileUploadSingle({ onUploadComplete }) {
         width={{ base: "20em", sm: "25em", md: "59%" }}
         display={'flex'}
         flexDir={'column'}
+        onClick={handleImageClick}
       >
-        <Input type="file" onChange={handleImageChange} border={'none'} p={2} />
-        {transactionScreenshot &&
+        <Input type="file" display={'none'} onChange={handleImageChange} ref={inputRef} border={'none'} p={2} />
+        <Text>{transactionScreenshot &&
           `${transactionScreenshot.name} - ${transactionScreenshot.type}`}
+          </Text>
           
-           <Box mt={'-5%'} p={3}>
-           {/* <Center> */}
-      {transactionScreenshot && (
+          {transactionScreenshot && (
           <Image
             src={URL.createObjectURL(transactionScreenshot)}
             alt="Preview"
-            mt={10}
-            w={'auto'} // Adjust the width to fit within the container
+            w={'100%'} // Adjust the width to fit within the container
             h={'auto'}
+            p={10}
            />
-        )}
+        )} 
         {/* </Center> */}
-      </Box>
+     
       
       </InputGroup>
      
