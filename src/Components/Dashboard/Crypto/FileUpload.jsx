@@ -1,4 +1,4 @@
-import { Box, Button, Input, InputGroup, Spinner, Image, Center, Text } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, Spinner, Image, Center, Text, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import upload from "./CryptoAssets/upload.svg";
 import { storage } from "../../firebase/Firebase";
@@ -6,11 +6,12 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useRef } from "react";
+
 function FileUploadSingle({ onUploadComplete }) {
   const [transactionScreenshot, setTransactionScreenshot] = useState(null);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const inputRef = useRef()
+  const inputRef = useRef();
 
   const handleImageChange = (e) => {
     e.persist();
@@ -66,45 +67,45 @@ function FileUploadSingle({ onUploadComplete }) {
     }
   };
 
-  const handleImageClick=()=>{
-    inputRef.current.click()
-  }
+  const handleImageClick = () => {
+    inputRef.current.click();
+  };
+
   return (
     <Box my={5}>
       <InputGroup
         bgImage={`url(${upload})`}
         bgRepeat={"no-repeat"}
         bgSize={"contain"}
-        height={"300px"}
         alignContent={"center"}
         width={{ base: "20em", sm: "25em", md: "59%" }}
-        display={'flex'}
-        flexDir={'column'}
+        display={"flex"}
+        flexDir={"column"}
+        height={"300px"}
         onClick={handleImageClick}
+       
       >
         <Input type="file" display={'none'} onChange={handleImageChange} ref={inputRef} border={'none'} p={2} />
-        <Text>{transactionScreenshot &&
-          `${transactionScreenshot.name} - ${transactionScreenshot.type}`}
-          </Text>
-          
-          {transactionScreenshot && (
+        {transactionScreenshot ? (
           <Image
             src={URL.createObjectURL(transactionScreenshot)}
             alt="Preview"
-            w={'100%'} // Adjust the width to fit within the container
-            h={'auto'}
+            maxW="100%" // Set maximum width to fit container
+            maxH="300px" // Set maximum height to fit container
+            objectFit="contain" // Adjust the image within the container
             p={10}
-           />
-        )} 
-        {/* </Center> */}
-     
-      
+          />
+        ):
+        <Flex  
+        height={['120px', '120px', "180px"]}
+        fontSize={['md', 'md', 'lg']}
+        justifyContent={'center'}
+        p={10} alignItems={'center'} direction={'row'}> 
+        <Text textAlign={'center'}>Click to upload payment proof</Text>
+        </Flex>}
       </InputGroup>
-     
-      <Button
-        onClick={handleSubmit}
-        disabled={isProcessing || !transactionScreenshot}
-      >
+
+      <Button onClick={handleSubmit} disabled={isProcessing || !transactionScreenshot}>
         {isProcessing ? <Spinner size="sm" mr={2} /> : null}
         Upload
       </Button>
