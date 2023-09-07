@@ -74,7 +74,7 @@ function FileUploadSingle({ onUploadComplete }) {
   return (
     <Box my={5}>
       <InputGroup
-        bgImage={`url(${upload})`}
+        bgImage={transactionScreenshot ? 'null' : `url(${upload})`}
         bgRepeat={"no-repeat"}
         bgSize={"contain"}
         alignContent={"center"}
