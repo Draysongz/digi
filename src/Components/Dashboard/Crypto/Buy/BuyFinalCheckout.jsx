@@ -66,9 +66,11 @@ const BuyFinalCheckout = () => {
             amount: `₦${amount}`,
             paymentProof: downloadURL,
             receivingBank: accountData, 
+            walletAddress: wallet,
             status: 'pending',
             transactionType: 'buy',
             time: timestamp,
+
           });
           setTransactionSaved(true);
       } catch (error) {

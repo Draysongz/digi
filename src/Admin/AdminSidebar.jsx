@@ -11,15 +11,27 @@ import {
   Text,
   useDisclosure,
   useColorModeValue,
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  Box,
+  AccordionPanel,
+  AccordionIcon
 } from "@chakra-ui/react";
 import { FiSettings, FiLogOut } from "react-icons/fi";
-import { BiSolidDashboard, BiSolidNotepad } from "react-icons/bi";
+import {  BiSolidNotepad, BiBell } from "react-icons/bi";
 import { FaBitcoin, FaPaypal, FaGift } from "react-icons/fa";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import LogoutModal, { MobileLogoutModal } from "./LogoutModal";
-import {IoIosHammer} from 'react-icons/io'
+import LogoutModal, { MobileLogoutModal } from "../Components/Dashboard/LogoutModal";
+import {CiBitcoin} from 'react-icons/ci'
+import {RxDashboard} from 'react-icons/rx'
+import logo from '../Components/assets/logo.png'
+import {SlPaypal} from 'react-icons/sl'
+import {MdOutlineCardGiftcard} from 'react-icons/md'
+import {LiaFileInvoiceSolid} from 'react-icons/lia'
+import {AiOutlineQuestionCircle} from 'react-icons/ai'
 
-export const SideBarFunc = () => {
+const AdminSidebar = () => {
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === "dark";
@@ -34,6 +46,8 @@ export const SideBarFunc = () => {
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
       h={[null, null, "100vh"]}
       position={[null, null, null, 'fixed']}
+      overflowY={'auto'}
+      scrollBehavior={'smooth'}
     >
       <Flex
         flexDir={["row", "row", "column", "column", "column"]}
@@ -53,36 +67,21 @@ export const SideBarFunc = () => {
           display={["none", "none", "flex", "flex", "flex"]}
           mt={1}
         >
-          <Flex>
+          <Flex p={2}>
             <Image
               align={"center"}
               src={
-                colorMode === "light"
-                  ? "./images/digimartExch.png"
-                  : "./images/logoWhite.png"
+                logo
               }
               width="150px"
-              mr={"1"}
+              mx={8}
             />
-            {/* Mobile */}
-            {/* <IconButton
-              justifySelf={"flex-end"}
-              onClick={onToggle}
-              icon={
-                isOpen ? (
-                  <CloseIcon w={3} h={3} />
-                ) : (
-                  <HamburgerIcon w={5} h={5} />
-                )
-              }
-              variant={"outline"}
-              aria-label={"Toggle Navigation"}
-              display={{ md: "none" }}
-              ml={"auto"}
-            /> */}
+           
+          </Flex>
+          <Flex w={'9vw'} alignItems={'center'} justifyContent={'center'} p={2}>
+          <Text fontWeight={'600'} fontSize={'16px'} color={'#64748B'}>Menu</Text>
           </Flex>
           <Flex
-            mt={10}
             cursor={"pointer"}
             flexDir={["row", "row", "column", "column", "column"]}
             align={["center", "center", "center", "flex-start", "flex-start"]}
@@ -98,11 +97,12 @@ export const SideBarFunc = () => {
               _hover={{
                 bg: "#E8E6F6",
                 color: "#1808A3",
+                 width: '16.7vw',
               }}
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/admin/dashboard")}
             >
               <Icon
-                as={BiSolidDashboard}
+                as={RxDashboard}
                 fontSize="4xl"
                 className="active-icon"
                 p={1}
@@ -125,16 +125,17 @@ export const SideBarFunc = () => {
                 textDecor: "none",
                 bg: "#E8E6F6",
                 color: "#1808A3",
+                width: '16.7vw',
               }}
               display={["none", "none", "flex", "flex", "flex"]}
             >
-              <Icon as={FaBitcoin} fontSize="4xl" p={1} />
+              <Icon as={CiBitcoin} boxSize={10} p={1} />
               <Text
                 p={1}
                 fontSize="lg"
                 display={["none", "none", "none", "flex", "flex"]}
               >
-                Crypto
+                Buy/Sell Crypto
               </Text>
             </Link>
 
@@ -147,9 +148,10 @@ export const SideBarFunc = () => {
                 textDecor: "none",
                 bg: "#E8E6F6",
                 color: "#1808A3",
+                width: '16.7vw',
               }}
             >
-              <Icon as={FaGift} fontSize="4xl" p={1} />
+              <Icon as={MdOutlineCardGiftcard} boxSize={10} p={1} />
               <Text
                 p={1}
                 fontSize="lg"
@@ -168,9 +170,10 @@ export const SideBarFunc = () => {
                 textDecor: "none",
                 bg: "#E8E6F6",
                 color: "#1808A3",
+                width: '16.7vw',
               }}
             >
-              <Icon as={FaPaypal} fontSize="4xl" p={1} />
+              <Icon as={SlPaypal} fontSize="4xl" p={1} />
               <Text
                 p={1}
                 fontSize="lg"
@@ -191,7 +194,8 @@ export const SideBarFunc = () => {
                 color: "#1808A3",
               }}
             >
-              <Icon as={BiSolidNotepad} fontSize="4xl" p={1} />
+              <Icon as={LiaFileInvoiceSolid} boxSize={10} p={1} />
+              <Flex gap={8} alignItems={'center'}>
               <Text
                 p={1}
                 fontSize="lg"
@@ -199,6 +203,10 @@ export const SideBarFunc = () => {
               >
                 Transaction
               </Text>
+
+              <Text ml={3} p={2} h={'5vh'} w={'4vw'}
+              textAlign={'center'} borderRadius={'md'} color={'white'} bgColor={'#047857'}>10</Text>
+              </Flex>
             </Link>
 
             
@@ -211,16 +219,22 @@ export const SideBarFunc = () => {
                 textDecor: "none",
                 bg: "#E8E6F6",
                 color: "#1808A3",
+                
               }}
             >
-              <Icon as={IoIosHammer} fontSize="4xl" p={1} />
-              <Text
+              <Icon as={BiBell} boxSize={10} p={1} />
+             <Flex alignItems={'center'}  gap={8}>
+             <Text
                 p={1}
                 fontSize="lg"
                 display={["none", "none", "none", "flex", "flex"]}
               >
-                Crypto Rewards
+                Notifications
               </Text>
+
+              <Text p={2} h={'5vh'} w={'4vw'}
+              textAlign={'center'} borderRadius={'md'} color={'white'} bgColor={'#0E0562'}>32</Text>
+             </Flex>
             </Link>
 
             <Link
@@ -231,18 +245,111 @@ export const SideBarFunc = () => {
                 textDecor: "none",
                 bg: "#E8E6F6",
                 color: "#1808A3",
+                width: '16.7vw',
+              
               }}
               display={["none", "none", "flex", "flex", "flex"]}
             >
-              <Icon as={FiSettings} fontSize="4xl" p={1} />
+              <Icon as={AiOutlineQuestionCircle} boxSize={10} p={1} />
               <Text
                 p={1}
                 fontSize="lg"
                 display={["none", "none", "none", "flex", "flex"]}
               >
-                Setting
+                Complaints
               </Text>
             </Link>
+
+
+            <Box
+  padding="10px"
+  borderRadius="2xl"
+  display={["none", "none", "flex", "flex", "flex"]}
+>
+  <Icon pos="static" as={FiSettings} fontSize="4xl" p={1} />
+  <Box mt="-5%" ml="2%">
+    <Accordion border="none" allowToggle>
+      <AccordionItem border="none" outline="none">
+        <Text
+          p={1}
+          fontSize="lg"
+          display={["none", "none", "none", "block", "block"]}
+          w={["100%", "100%", "100%", "15vw", "15vw"]} // Adjust the width here
+          outline="none"
+          border="none"
+        >
+          <AccordionButton
+            ml="-5%"
+            border="none"
+            padding="15px"
+            borderRadius="2xl"
+            _hover={{
+              textDecor: "none",
+              bg: "#E8E6F6",
+              color: "#1808A3",
+            }}
+          >
+            <Box as="span" fontSize="lg" flex="1" textAlign="left">
+              Settings
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+
+          <AccordionPanel pb={4}>
+            <Box mt="5%" display={'flex'} flexDir={'column'}>
+              <Link
+                padding="10px"
+                borderRadius="2xl"
+                _hover={{
+                  textDecor: "none",
+                  bg: "#E7EAEE",
+                  color: "#000",
+                }}
+                onClick={()=> navigate('/admin/settings')}
+              >
+                Assign Roles
+              </Link>
+              <Link onClick={()=> navigate('/admin/profile')}
+                padding="10px"
+                borderRadius="2xl"
+                _hover={{
+                  textDecor: "none",
+                  bg: "#E7EAEE",
+                  color: "#000",
+                }}
+              >
+                Profile
+              </Link>
+              <Link onClick={()=> navigate('/admin/password')}
+                padding="10px"
+                borderRadius="2xl"
+                _hover={{
+                  textDecor: "none",
+                  bg: "#E7EAEE",
+                  color: "#000",
+                }}
+              >
+                Password
+              </Link>
+              <Link
+                padding="10px"
+                borderRadius="2xl"
+                _hover={{
+                  textDecor: "none",
+                  bg: "#E7EAEE",
+                  color: "#000",
+                }}
+              >
+                Theme
+              </Link>
+            </Box>
+          </AccordionPanel>
+        </Text>
+      </AccordionItem>
+    </Accordion>
+  </Box>
+</Box>
+
 
             <LogoutModal />
           </Flex>
@@ -259,9 +366,7 @@ export const SideBarFunc = () => {
           {/* Mobile */}
           <Image
             src={
-              colorMode === "light"
-                ? "./images/digimartExch.png"
-                : "./images/logoWhite.png"
+             logo
             }
             width="150px"
             mr={"auto"}
@@ -326,7 +431,7 @@ export const SideBarFunc = () => {
             }}
           >
             <Icon
-              as={BiSolidDashboard}
+              as={RxDashboard}
               fontSize="4xl"
               className="active-icon"
               p={1}
@@ -422,7 +527,7 @@ export const SideBarFunc = () => {
           </Link>
 
           <Link
-            onClick={() => navigate("/settings")}
+            
             _hover={{
               textDecor: "none",
               bg: "white",
@@ -447,3 +552,5 @@ export const SideBarFunc = () => {
     </Flex>
   );
 };
+
+export default AdminSidebar

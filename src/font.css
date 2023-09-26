@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'Hellix-Black';
+    font-weight: 900;
+    font-style: normal;
+    src: url('../public/hellix/Hellix-Black.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Black';
+    font-weight: 900;
+    font-style: italic;
+    src: url('../public/hellix/Hellix-BlackItalic.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Bold';
+    font-weight: bold;
+    font-style: normal;
+    src: url('../public/hellix/Hellix-Bold.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Bold';
+    font-weight: bold;
+    font-style: italic;
+    src: url('../public/hellix/Hellix-BoldItalic.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-ExtraBold';
+    font-weight: 800;
+    font-style: normal;
+    src: url('../public/hellix/Hellix-ExtraBold.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-ExtraBold';
+    font-weight: 800;
+    font-style: italic;
+    src: url('../public/hellix/Hellix-ExtraBoldItalic.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Light';
+    font-weight: 300;
+    font-style: normal;
+    src: url('../public/hellix/Hellix-Light.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Light';
+    font-weight: 300;
+    font-style: italic;
+    src: url('../public/hellix/Hellix-LightItalic.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Medium';
+    font-weight: 500;
+    font-style: normal;
+    src: url('../public/hellix/Hellix-Medium.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Medium';
+    font-weight: 500;
+    font-style: italic;
+    src: url('../public/hellix/Hellix-MediumItalic.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Regular';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../public/hellix/Hellix-Regular.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Regular';
+    font-weight: normal;
+    font-style: italic;
+    src: url('../public/hellix/Hellix-RegularItalic.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-SemiBold';
+    font-weight: 600;
+    font-style: normal;
+    src: url('../public/hellix/Hellix-SemiBold.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-SemiBold';
+    font-weight: 600;
+    font-style: italic;
+    src: url('../public/hellix/Hellix-SemiBoldItalic.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Thin';
+    font-weight: 100;
+    font-style: normal;
+    src: url('../public/hellix/Hellix-Thin.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Hellix-Thin';
+    font-weight: 100;
+    font-style: italic;
+    src: url('../public/hellix/Hellix-ThinItalic.ttf') format('truetype');
+  }
+  

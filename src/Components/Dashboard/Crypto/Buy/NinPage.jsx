@@ -49,7 +49,8 @@ export default function NinPage() {
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
-        <Box alignItems="center" justifyContent="center" mt={10} mx={"10vw"}>
+        <Box alignItems="center" justifyContent="center" mt={10} mx={"10vw"} pos={[null, null, null, 'relative']} 
+        left={[0,0,0, '14%']}>
           <Stack>
             {" "}
             <BackButton />

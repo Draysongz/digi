@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import notis from "../../assets/notis.svg";
 import {
   Container,
   Flex,

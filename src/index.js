@@ -5,9 +5,11 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider, extendTheme} from "@chakra-ui/react";
 import { StepsTheme as Steps } from "chakra-ui-steps";
+import './font.css'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const theme = extendTheme({
+  
   components: {
     Steps,
   },

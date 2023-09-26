@@ -26,6 +26,11 @@ import BuyProof from "./Components/Dashboard/Crypto/Buy/BuyProof";
 import BuyCheckout from "./Components/Dashboard/Crypto/Buy/BuyCheckout";
 import NinPage from "./Components/Dashboard/Crypto/Buy/NinPage";
 import BuyFinalCheckout from "./Components/Dashboard/Crypto/Buy/BuyFinalCheckout";
+import MainGift from "./Components/Dashboard/Giftcard/MainGift";
+import MainAdmin from "./Admin/MainAdmin";
+import Settings from "./Admin/Settings/MainSettings";
+import Profile from "./Admin/Profile/MainProfile";
+import Password from './Admin/Password/MainPassword'
 
 function App() {
   useEffect(() => {
@@ -68,6 +73,11 @@ function App() {
         <Route path="/buycheckout" element={<BuyCheckout />} />
         <Route path="/verificationpg" element={<VerificationPage />} />
         <Route path="/buyfinalcheckout" element={<BuyFinalCheckout/>} />
+        <Route path="/giftcards" element={<MainGift/>} />
+        <Route path='/admin/dashboard' element={<MainAdmin/>} />
+        <Route path="/admin/settings" element={<Settings />} />
+        <Route path="/admin/profile" element={<Profile />} />
+        <Route path="/admin/password" element={<Password />} />
       </Routes>
       <ToastContainer />
     </div>

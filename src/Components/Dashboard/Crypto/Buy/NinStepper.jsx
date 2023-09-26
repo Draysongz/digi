@@ -11,7 +11,8 @@ const Stepper = () => {
   });
 
   return (
-    <Box width="100%">
+    <Box width="100%" pos={[null, null, null, 'relative']} 
+    left={[0,0,0, '14%']}>
       <Steps activeStep={activeStep} variant={"circles-alt"} mb={5}>
         <Step label={"Take front Photo"} description={""} key={0}>
           <center>
