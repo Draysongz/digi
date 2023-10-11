@@ -18,6 +18,9 @@ import { FaBitcoin, FaPaypal, FaGift } from "react-icons/fa";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import LogoutModal, { MobileLogoutModal } from "./LogoutModal";
 import {IoIosHammer} from 'react-icons/io'
+import logo from '../assets/logo.png'
+import logowhite from '../assets/logoWhite.png'
+import {AiOutlineQuestionCircle} from 'react-icons/ai'
 
 export const SideBarFunc = () => {
   const navigate = useNavigate();
@@ -58,8 +61,8 @@ export const SideBarFunc = () => {
               align={"center"}
               src={
                 colorMode === "light"
-                  ? "./images/digimartExch.png"
-                  : "./images/logoWhite.png"
+                  ? `${logo}`
+                  : `${logowhite}`
               }
               width="150px"
               mr={"1"}
@@ -201,7 +204,29 @@ export const SideBarFunc = () => {
               </Text>
             </Link>
 
-            
+            <Link
+              onClick={() => navigate("/user/complaints")}
+              padding="10px"
+              borderRadius="2xl"
+              _hover={{
+                textDecor: "none",
+                bg: "#E8E6F6",
+                color: "#1808A3",
+                width: '11vw',
+              
+              }}
+              display={["none", "none", "flex", "flex", "flex"]}
+            >
+              <Icon as={AiOutlineQuestionCircle} boxSize={10} p={1} />
+              <Text
+                p={1}
+                fontSize="lg"
+                display={["none", "none", "none", "flex", "flex"]}
+              >
+                Complaints
+              </Text>
+            </Link>
+
             <Link
               onClick={() => navigate("/mining")}
               padding="10px"
@@ -316,7 +341,7 @@ export const SideBarFunc = () => {
         >
           <Link
             onClick={() => navigate("/dashboard")}
-            passHref
+          
             display={["flex", "flex", "flex", "flex", "flex"]}
             padding="20px"
             _hover={{
@@ -420,6 +445,31 @@ export const SideBarFunc = () => {
               Transaction
             </Text>
           </Link>
+
+          <Link
+              onClick={() => navigate("/user/complaints")}
+              padding="10px"
+              borderRadius="2xl"
+              _hover={{
+                textDecor: "none",
+                bg: "#E8E6F6",
+                color: "#1808A3",
+                width: '16.7vw',
+              
+              }}
+              display={["none", "none", "flex", "flex", "flex"]}
+            >
+              <Icon as={AiOutlineQuestionCircle} boxSize={10} p={1} />
+              <Text
+                p={1}
+                fontSize="lg"
+                display={["none", "none", "none", "flex", "flex"]}
+              >
+                Complaints
+              </Text>
+            </Link>
+
+
 
           <Link
             onClick={() => navigate("/settings")}

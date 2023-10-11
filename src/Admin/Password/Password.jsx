@@ -83,6 +83,11 @@ const Password = () => {
                <Input fontSize='lg'
                 type='password'  variant={'filled'} borderColor={'#000'}  w={'60vw'} h={'10vh'}/>
                </Box>
+               
+               <Box pb={2}>
+               <Button borderRadius={'md'}>Submit</Button>
+               </Box>
+               
             </Flex>
         </Flex>
         </Container>

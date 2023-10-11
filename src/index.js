@@ -9,7 +9,24 @@ import './font.css'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const theme = extendTheme({
-  
+  styles: {
+    messages: {
+      sent: {
+        backgroundColor: "#130682",
+        color: "white",
+        alignSelf: "flex-end",
+      },
+      received: {
+        backgroundColor: "#C4C4C4",
+        color: 'black',
+        alignSelf: "flex-start",
+      },
+    },
+  },
+  fonts: {
+    heading: "Hellix-Bold, sans-serif",
+    body: "Hellix-Medium, sans-serif",
+  },
   components: {
     Steps,
   },

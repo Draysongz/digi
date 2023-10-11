@@ -31,6 +31,10 @@ import MainAdmin from "./Admin/MainAdmin";
 import Settings from "./Admin/Settings/MainSettings";
 import Profile from "./Admin/Profile/MainProfile";
 import Password from './Admin/Password/MainPassword'
+import MainComplaints from "./Admin/Complaints/MainComplaints";
+import MainChat from "./Admin/Complaints/Chat/MainChat";
+import Complaints from './Components/Dashboard/Complaints/MainComplaints'
+import UserChat from './Components/Dashboard/Complaints/MainChat'
 
 function App() {
   useEffect(() => {
@@ -78,6 +82,10 @@ function App() {
         <Route path="/admin/settings" element={<Settings />} />
         <Route path="/admin/profile" element={<Profile />} />
         <Route path="/admin/password" element={<Password />} />
+        <Route path="/admin/complaints" element={<MainComplaints/>} />
+        <Route path="/admin/chat" element={<MainChat/>} />
+        <Route path="/user/chat" element={<UserChat/>} />
+        <Route path= '/user/complaints' element={<Complaints/>} />
       </Routes>
       <ToastContainer />
     </div>

@@ -238,7 +238,7 @@ const AdminSidebar = () => {
             </Link>
 
             <Link
-              onClick={() => navigate("/settings")}
+              onClick={() => navigate("/admin/complaints")}
               padding="10px"
               borderRadius="2xl"
               _hover={{
@@ -421,7 +421,7 @@ const AdminSidebar = () => {
         >
           <Link
             onClick={() => navigate("/dashboard")}
-            passHref
+            
             display={["flex", "flex", "flex", "flex", "flex"]}
             padding="20px"
             _hover={{

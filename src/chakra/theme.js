@@ -17,7 +17,7 @@ export const theme = extendTheme({
   },
   fonts: {
     heading: "Hellix-Bold, sans-serif",
-    body: "Hellix, sans-serif",
+    body: "Hellix-Medium, sans-serif",
   },
   styles: {
     global: () => ({

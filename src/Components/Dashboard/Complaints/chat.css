@@ -1,0 +1,11 @@
+.message-sent{
+    background-color: #130682;
+    color: white;
+    align-self: flex-end;
+    border: '1px solid blue';
+}
+.message-received{
+    background-color: #C4C4C4;
+    color: #000;
+    align-self: flex-start;
+}
