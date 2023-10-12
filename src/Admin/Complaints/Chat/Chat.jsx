@@ -26,6 +26,7 @@ import {
   import {AiOutlineBell} from 'react-icons/ai'
   import {AttachmentIcon} from '@chakra-ui/icons'
   import {RiSendPlaneFill} from 'react-icons/ri'
+  import { format } from 'timeago.js';
   import './chat.css'
   import { app } from '../../../Components/firebase/Firebase';
 import { getFirestore, getDoc, doc, collection, where, query, orderBy, onSnapshot, serverTimestamp, addDoc } from "firebase/firestore";
@@ -193,34 +194,60 @@ const Chat = () => {
         </Card>
 
         <VStack px={10} >
-            <Flex w={'65vw'} h={'70vh'} 
+            <Flex w={'65vw'} minH={'70vh'} 
             direction={'column'} gap={3}
             >
 
-              {messages.map((msg, index)=>{
-                return(
-                  <Flex gap={2} alignItems={'center'} direction={msg.senderId === user.uid ? 'row-reverse': 'row'} >
-          <Avatar size={'sm'} name={msg.senderId === user.uid ? sender ? `${sender.firstName} ${sender.lastName}` : '' : receiver ?  `${receiver.firstName} ${receiver.lastName}` : ''} 
-          src={msg.senderId === user.uid ? sender ? sender.userDp: '': receiver ? receiver.userDp: ''}  alt='user-dp'/>
-        <Text
-          key={index}
-          p={2}
-          borderRadius="lg"
-          className={msg.senderId === user.uid ? 'message-sent' : 'message-received'}
-          w={'fit-content'}
-          maxW={'25vw'}
-          borderBottomRightRadius={msg.senderId === user.uid ? 'none' : 'lg'}
-          borderBottomLeftRadius={msg.senderId === user.uid ? 'lg' : 'none'}
-        >
-          {msg.text}
-        </Text>
-        </Flex>
-                )
-              })}
-         
-            </Flex>
+{messages.map((msg, index) => (
+  <Flex direction="column" key={index}>
+    <Flex gap={2} alignItems="center" direction={msg.senderId === user.uid ? "row-reverse" : "row"}>
+      <Avatar
+        size="sm"
+        name={
+          msg.senderId === user.uid
+            ? sender
+              ? `${sender.firstName} ${sender.lastName}`
+              : ""
+            : receiver
+            ? `${receiver.firstName} ${receiver.lastName}`
+            : ""
+        }
+        src={
+          msg.senderId === user.uid
+            ? sender
+                ? sender.userDp
+                : ""
+              : receiver
+                ? receiver.userDp
+                : ""
+        }
+        alt="user-dp"
+      />
+      <Box
+        key={index}
+        p={2}
+        borderRadius="lg"
+        className={msg.senderId === user.uid ? "message-sent" : "message-received"}
+        w="fit-content"
+        maxW="25vw"
+        borderBottomRightRadius={msg.senderId === user.uid ? "none" : "lg"}
+        borderBottomLeftRadius={msg.senderId === user.uid ? "lg" : "none"}
+      >
+        <Text> {msg.text}</Text>
+        {msg.timestamp ? ( // Check if msg.timestamp is not null
+      <Flex justifyContent={msg.senderId === user.uid ? "flex-end" : "flex-start"}>
+        <Text>{format(msg.timestamp.toMillis())}</Text>
+      </Flex>
+    ) : null}
+      </Box>
+    </Flex>
+ 
+  </Flex>
+))}
+</Flex>
 
-            <Card>
+
+            <Card pos={'sticky'}>
                 <CardBody w={'60vw'} h={'20vh'}>
                     <Flex alignItems={'center'} gap={10}>
                         <Box cursor={'pointer'}><AttachmentIcon/></Box>
