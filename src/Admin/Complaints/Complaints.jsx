@@ -158,11 +158,17 @@ const Complaints = () => {
                       </Wrap>
                           </Box>
 
-                          
-              <Flex direction={'column'}>
-              <Text>{`${receiver.firstName} ${receiver.lastName}`}</Text>
-              <Text>I am christine and am unable to login to my dashboard...</Text>
-          </Flex>
+
+
+                          {receiver && receiver.map((receiver, index)=>{
+                            return(
+                              <Flex key={index} direction={'column'}>
+                              <Text>{`${receiver.firstName} ${receiver.lastName}`}</Text>
+                              <Text>I am christine and am unable to login to my dashboard...</Text>
+                          </Flex>
+                            )
+                          })}
+           
                       
                  
              
