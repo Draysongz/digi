@@ -20,13 +20,14 @@ import { AiOutlineBell } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../Components/firebase/Firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, where, query, doc, getDoc, onSnapshot,  getFirestore } from 'firebase/firestore';
+import { collection, where, query, doc, getDoc, getDocs, onSnapshot, getFirestore, collectionGroup, orderBy, limit } from 'firebase/firestore';
 
 const Complaints = () => {
   const navigate = useNavigate();
   const [chats, setChats] = useState([]);
-  const [receiver, setReceiver] = useState([])
+  const [receivers, setReceivers] = useState({}); 
   const [messageCounts, setMessageCounts] = useState({});
+  const [lastMessages, setLastMessages] = useState({});
 
   const db = getFirestore(app);
   const auth = getAuth();
@@ -89,7 +90,7 @@ const Complaints = () => {
 
       if (userSnapshot.exists()) {
         const userData = userSnapshot.data();
-        setReceiver(userData); // Update the receiver state
+        return userData
       } else {
         console.error('User not found');
       }
@@ -100,15 +101,56 @@ const Complaints = () => {
 
 
   useEffect(() => {
-    chats.forEach((chat) => {
-      const receiverId = chat.users[1];
-      getUserByUserId(receiverId);
-    });
+    async function fetchReceiverData() {
+      const receiverData = {};
+
+      for (const chat of chats) {
+        const receiverId = chat.users[1];
+        const receiver = await getUserByUserId(receiverId);
+        
+        if (receiver) {
+          receiverData[receiverId] = receiver;
+        }
+      }
+
+      setReceivers(receiverData);
+    }
+
+    fetchReceiverData(); // Fetch receiver data and update the state
+  }, [chats]);
+
+
+
+  useEffect(() => {
+    async function fetchLastMessages() {
+      const lastMessageData = {};
+
+      for (const chat of chats) {
+        const chatId = chat.id; // Assuming your chat object has an "id" property
+        const chatDocRef = doc(db, "chats", chat.id); // Assuming "chats" is the collection for chat documents
+        const messagesCollectionRef = collection(chatDocRef, "messages");
+        const q = query(
+          messagesCollectionRef,
+          orderBy("timestamp", "asc"),
+          limit(1)
+        );
+        const messageSnapshot = await getDocs(q);
+        console.log(messageSnapshot.docs[0].data())
+        if (!messageSnapshot.empty) {
+          const lastMessage = messageSnapshot.docs[0].data();
+          lastMessageData[chatId] = lastMessage;
+        }
+      }
+
+      setLastMessages(lastMessageData);
+    }
+
+    fetchLastMessages(); // Fetch last messages and update the state
   }, [chats]);
   
   useEffect(()=>{
-    console.log(receiver)
-  }, [receiver])
+    console.log(receivers)
+  }, [receivers])
 
   return (
     <Container
@@ -139,47 +181,53 @@ const Complaints = () => {
 
       
       
-        <Card>
-          <CardBody>
-            <Flex gap={8} direction={'column'}>
-         {chats.map((chat, index)=>{
-          return(
-            <Flex    onClick={() => {
-              navigate('/admin/chat', { state: { chat } });
-            }}  key={index}  cursor={'pointer'} justifyContent={'space-between'} alignItems={'center'}>
-          
-              <Flex  gap={4} alignItems={'center'}>
-                  
-                          <Box>
-                          <Wrap>
-                          <WrapItem>
-                              <Avatar name={`${receiver.firstName} ${receiver.lastName}`} size='lg' src={receiver.userDp ? receiver.userDp: ''} />
-                              </WrapItem>
-                      </Wrap>
-                          </Box>
+      <Card>
+  <CardBody>
+    <Flex gap={8} direction={'column'}>
+      {chats.map((chat, index) => {
+        const receiver = receivers[chat.users[1]]; // Assuming you have a receiverId in your chat data
+        const lastMessage = lastMessages[chat.id];
+        console.log(lastMessage)
 
+        if (receiver && lastMessage) {
+          return (
+            <Flex
+              onClick={() => {
+                navigate('/admin/chat', { state: { chat } });
+              }}
+              key={index}
+              cursor={'pointer'}
+              justifyContent={'space-between'}
+              alignItems={'center'}
+            >
+              <Flex gap={4} alignItems={'center'}>
+                <Box>
+                  <Wrap>
+                    <WrapItem>
+                      <Avatar
+                        name={`${receiver.firstName} ${receiver.lastName}`}
+                        size='lg'
+                        src={receiver.userDp ? receiver.userDp : ''}
+                      />
+                    </WrapItem>
+                  </Wrap>
+                </Box>
+                <Flex direction={'column'}>
+                  <Text>{`${receiver.firstName} ${receiver.lastName}`}</Text>
+                  <Text>{lastMessage.text} </Text>
+                </Flex>
+              </Flex>
+              <Text>{new Date(lastMessage.timestamp.seconds * 1000).toLocaleString()}</Text>
+            </Flex>
+          );
+        } else {
+          return null;
+        }
+      })}
+    </Flex>
+  </CardBody>
+</Card>
 
-
-                          {receiver && receiver.map((receiver, index)=>{
-                            return(
-                              <Flex key={index} direction={'column'}>
-                              <Text>{`${receiver.firstName} ${receiver.lastName}`}</Text>
-                              <Text>I am christine and am unable to login to my dashboard...</Text>
-                          </Flex>
-                            )
-                          })}
-           
-                      
-                 
-             
-              </Flex> 
-              <Text>4 days ago</Text>
-          </Flex>
-          )
-         })}
-         </Flex>
-          </CardBody>
-        </Card>
 
       </Flex>
     </Container>
