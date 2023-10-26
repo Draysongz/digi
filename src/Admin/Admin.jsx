@@ -232,8 +232,10 @@ const Admin = () => {
 
                   <Tr>
                     <Td  p={5}>
-                      <HStack justifyContent={'center'} p={1} borderRadius={'2xl'} bg={'#FEF9C3'} alignItems={'center'}><Circle size={'10px'} bg={'#FACC15'}></Circle>
-                       <Text color={'#713F12'}>Pending</Text></HStack>
+                      <HStack justifyContent={'center'} p={1} borderRadius={'2xl'} bg={'#FEF9C3'} alignItems={'center'}>
+                        <Circle size={'10px'} bg={'#FACC15'}></Circle>
+                       <Text color={'#713F12'}>Pending</Text>
+                       </HStack>
                     </Td>
                     <Td  color={'#71717A'}>Paypal</Td>
                     <Td  color={'#18181B'}>$99.00</Td>

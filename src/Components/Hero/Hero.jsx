@@ -9,8 +9,19 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useRole } from "../../RoleProvider";
+import { useEffect } from "react";
 
 export default function SplitScreen() {
+  const { checkUserRole, userRole } = useRole();
+
+  // Log the user's role
+  console.log("User Role:", userRole);
+
+  // Check if the user's role is "user"
+  const isUserRole = checkUserRole("user");
+  console.log("Is User Role:", isUserRole);
+ 
   const navigate = useNavigate();
   return (
     <Stack
@@ -38,7 +49,7 @@ export default function SplitScreen() {
           <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
             <Text as={"span"}>
               Trade with Confidence
-              <br /> and Ease Today
+              <br /> and Ease Today 
             </Text>
           </Heading>
 

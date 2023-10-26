@@ -11,7 +11,7 @@ import MainDashboard from "./Components/Dashboard/MainDashboard";
 import Transactions from "./Components/Dashboard/Transactions";
 import CryptoDash from "./Components/Dashboard/Crypto/CryptoDash";
 import Setting from "./Components/Dashboard/Setting";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SellCrypto from "./Components/Dashboard/Crypto/SellCrypto";
 import SellConverter from "./Components/Dashboard/Crypto/SellConverter";
 import SellCheckout from "./Components/Dashboard/Crypto/SellCheckout";
@@ -35,6 +35,14 @@ import MainComplaints from "./Admin/Complaints/MainComplaints";
 import MainChat from "./Admin/Complaints/Chat/MainChat";
 import Complaints from './Components/Dashboard/Complaints/MainComplaints'
 import UserChat from './Components/Dashboard/Complaints/MainChat'
+import MainTransaction from "./Admin/Transaction/MainTransaction";
+import ForbiddenPage from "./ForbiddenPage";
+import { Navigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "@firebase/auth";
+import { getFirestore, doc, getDoc } from "@firebase/firestore";
+import { app } from "./Components/firebase/Firebase";
+import {Spinner, Flex} from '@chakra-ui/react'
+import TransactionLoadBalancer from "./TransactionLoadBalancer";
 
 function App() {
   useEffect(() => {
@@ -51,45 +59,150 @@ function App() {
 
     showText();
   }, []);
+
+
   return (
     <div className="App">
       <Routes>
+        {/* Public Pages*/}
         <Route path="/options" element={<Options />} />
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/reset" element={<Reset />} />
-        <Route path="/dashboard" element={<MainDashboard />} />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/crypto" element={<CryptoDash />} />
-        <Route path="/settings" element={<Setting />} />
-        <Route path="/sellcrypto" element={<SellCrypto />} />
-        <Route path="/sellconverter" element={<SellConverter />} />
-        <Route path="/sellcheckout" element={<SellCheckout />} />
-        <Route path="/sellproof" element={<SellProof />} />
-        <Route path="/sellfinalcheckout" element={<SellFinalCheckout />} />
-        <Route path="/buycrypto" element={<BuyCrypto />} />
-        <Route path="/bvnpg" element={<BvnPage />} />
-        <Route path="/ninpg" element={<NinPage />} />
-        <Route path="/buyconverter" element={<BuyConverter />} />
-        <Route path="/buyproof" element={<BuyProof />} />
-        <Route path="/buycheckout" element={<BuyCheckout />} />
-        <Route path="/verificationpg" element={<VerificationPage />} />
-        <Route path="/buyfinalcheckout" element={<BuyFinalCheckout/>} />
-        <Route path="/giftcards" element={<MainGift/>} />
-        <Route path='/admin/dashboard' element={<MainAdmin/>} />
-        <Route path="/admin/settings" element={<Settings />} />
-        <Route path="/admin/profile" element={<Profile />} />
-        <Route path="/admin/password" element={<Password />} />
-        <Route path="/admin/complaints" element={<MainComplaints/>} />
-        <Route path="/admin/chat" element={<MainChat/>} />
-        <Route path="/user/chat" element={<UserChat/>} />
-        <Route path= '/user/complaints' element={<Complaints/>} />
+
+            {/* Error Pages*/}
+        <Route path="/forbidden" element={<ForbiddenPage/>} />
+
+        {/* User Pages*/}
+        <Route path="/dashboard" element={<UserPages><MainDashboard /></UserPages>} />
+        <Route path="/transactions" element={<UserPages><Transactions /> </UserPages>}  />
+        <Route path="/crypto" element={<UserPages><CryptoDash /></UserPages>} />
+        <Route path="/settings" element={<UserPages><Setting /></UserPages>} />
+        <Route path="/sellcrypto" element={<UserPages><SellCrypto /></UserPages>} />
+        <Route path="/sellconverter" element={<UserPages><SellConverter /></UserPages>} />
+        <Route path="/sellcheckout" element={<UserPages><SellCheckout /></UserPages>} />
+        <Route path="/sellproof" element={<UserPages><SellProof /></UserPages>} />
+        <Route path="/sellfinalcheckout" element={<UserPages><SellFinalCheckout /></UserPages>} />
+        <Route path="/buycrypto" element={<UserPages><BuyCrypto /> </UserPages>} />
+        <Route path="/bvnpg" element={<UserPages><BvnPage /></UserPages>} />
+        <Route path="/ninpg" element={<UserPages><NinPage /></UserPages>} />
+        <Route path="/buyconverter" element={<UserPages><BuyConverter /> </UserPages>} />
+        <Route path="/buyproof" element={<UserPages><BuyProof /></UserPages>} />
+        <Route path="/buycheckout" element={<UserPages><BuyCheckout /> </UserPages>} />
+        <Route path="/verificationpg" element={<UserPages><VerificationPage /> </UserPages>} />
+        <Route path="/buyfinalcheckout" element={<UserPages><BuyFinalCheckout/></UserPages>} />
+        <Route path="/giftcards" element={<UserPages><MainGift/></UserPages>} />
+        <Route path="/user/chat" element={<UserPages><UserChat/></UserPages>} />
+        <Route path= '/user/complaints' element={<UserPages><Complaints/></UserPages>} />
+
+
+        {/* Admin Pages */}
+        <Route path='/admin/dashboard' element={<AdminPages><MainAdmin/></AdminPages>} />
+        <Route path="/admin/settings" element={<AdminPages><Settings /></AdminPages>} />
+        <Route path="/admin/profile" element={<AdminPages><Profile /> </AdminPages>} />
+        <Route path="/admin/password" element={<AdminPages><Password /> </AdminPages>} />
+        <Route path="/admin/complaints" element={<AdminPages><MainComplaints/> </AdminPages>} />
+        <Route path="/admin/chat" element={<AdminPages><MainChat/> </AdminPages>} />
+        <Route path='/admin/transaction' element={<AdminPages><MainTransaction/></AdminPages>} />
       </Routes>
+      <TransactionLoadBalancer />
       <ToastContainer />
     </div>
   );
+}
+
+function UserPages({children}){
+  const [userRole, setUserRole] = useState(null);
+  const [roleChecked, setRoleChecked] = useState(false);
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const userRef = doc(db, "users", user.uid);
+          const userDoc = await getDoc(userRef);
+          if (userDoc.exists()) {
+            const role = userDoc.data().role;
+            setUserRole(role);
+          } else {
+            console.error("User document not found in Firestore.");
+          }
+        } catch (error) {
+          console.error("Error while fetching user role:", error);
+        } finally {
+          setRoleChecked(true); // Set roleChecked to true when done
+        }
+      } else {
+        setRoleChecked(true); // Set roleChecked to true when the user is not authenticated
+      }
+    });
+  }, []);
+
+  if (!roleChecked) {
+    return(
+      <Flex align="center" justify="center" height="100vh">
+      <Spinner size="xl" color="blue.500" thickness='4px'
+speed='0.65s'
+emptyColor='gray.200' />
+    </Flex>
+    )
+  }
+
+  if(userRole === 'user' || 'sub-admin'){
+  return <>{children}</>
+}else{
+ return  <Navigate to='/forbidden' />
+}
+}
+
+function AdminPages({children}){
+  const [userRole, setUserRole] = useState(null);
+  const [roleChecked, setRoleChecked] = useState(false);
+  useEffect(() => {
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const userRef = doc(db, "users", user.uid);
+          const userDoc = await getDoc(userRef);
+          if (userDoc.exists()) {
+            const role = userDoc.data().role;
+            setUserRole(role);
+          } else {
+            console.error("User document not found in Firestore.");
+          }
+        } catch (error) {
+          console.error("Error while fetching user role:", error);
+        } finally {
+          setRoleChecked(true); // Set roleChecked to true when done
+        }
+      } else {
+        setRoleChecked(true); // Set roleChecked to true when the user is not authenticated
+      }
+    });
+  }, []);
+
+  if (!roleChecked) {
+    return(
+      <Flex align="center" justify="center" height="100vh">
+      <Spinner size="xl" color="blue.500" thickness='4px'
+speed='0.65s'
+emptyColor='gray.200' />
+    </Flex>
+    )
+  }
+  if(userRole === 'sub-admin'){
+  return <>{children}</>
+}else{
+ return  <Navigate to='/forbidden' />
+}
 }
 
 export default App;

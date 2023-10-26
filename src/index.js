@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider, extendTheme} from "@chakra-ui/react";
 import { StepsTheme as Steps } from "chakra-ui-steps";
 import './font.css'
+import { RoleProvider } from "./RoleProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const theme = extendTheme({
@@ -34,9 +35,12 @@ const theme = extendTheme({
 root.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
+    <RoleProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
+      </RoleProvider>
     </ChakraProvider>
+  
   </React.StrictMode>
 );

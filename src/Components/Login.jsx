@@ -24,6 +24,7 @@ import frame from "./assets/frame2.png";
 import smilingMan from "./assets/smilingMan.png";
 import framet from "./assets/frame3.png";
 import { FcGoogle } from "react-icons/fc";
+import { getDoc, getFirestore, doc } from "firebase/firestore";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -44,16 +45,28 @@ const Login = () => {
     try {
       await setTimeout(() => {
         setIsLoading(false);
-      }, 3000);
-      const userCredentials = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      }, 5000);
+      const userCredentials = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredentials.user;
-      console.log(user);
-      toast.success("login successful");
-      navigate("/dashboard");
+  
+      // Fetch the user's role from Firestore based on their UID
+      const db = getFirestore(app);
+      const userRef = doc(db, "users", user.uid);
+  
+      const userDoc = await getDoc(userRef);
+      const userRole = userDoc.data().role;
+  
+      if (userRole === "sub-admin") {
+        // Redirect to the admin dashboard
+        navigate("/admin/dashboard");
+      } else if (userRole === "user") {
+        // Redirect to the user dashboard
+        navigate("/dashboard");
+      } else {
+        console.log('role not found');
+      }
+  
+      toast.success("Login successful");
     } catch (error) {
       console.log(error);
       await setTimeout(() => {
@@ -62,6 +75,7 @@ const Login = () => {
       toast.error(error.message);
     }
   };
+  
   return (
     <Flex
       maxWidth="4xl"

@@ -30,6 +30,7 @@ import {SlPaypal} from 'react-icons/sl'
 import {MdOutlineCardGiftcard} from 'react-icons/md'
 import {LiaFileInvoiceSolid} from 'react-icons/lia'
 import {AiOutlineQuestionCircle} from 'react-icons/ai'
+import {GoPeople} from 'react-icons/go'
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
@@ -184,7 +185,7 @@ const AdminSidebar = () => {
             </Link>
 
             <Link
-              onClick={() => navigate("/transactions")}
+              onClick={() => navigate("/admin/transaction")}
               padding="10px"
               borderRadius="2xl"
               display={["none", "none", "flex", "flex", "flex"]}
@@ -195,7 +196,6 @@ const AdminSidebar = () => {
               }}
             >
               <Icon as={LiaFileInvoiceSolid} boxSize={10} p={1} />
-              <Flex gap={8} alignItems={'center'}>
               <Text
                 p={1}
                 fontSize="lg"
@@ -203,39 +203,32 @@ const AdminSidebar = () => {
               >
                 Transaction
               </Text>
-
-              <Text ml={3} p={2} h={'5vh'} w={'4vw'}
-              textAlign={'center'} borderRadius={'md'} color={'white'} bgColor={'#047857'}>10</Text>
-              </Flex>
             </Link>
 
-            
             <Link
-              onClick={() => navigate("/mining")}
+              onClick={() => navigate("/admin/complaints")}
               padding="10px"
               borderRadius="2xl"
-              display={["none", "none", "flex", "flex", "flex"]}
               _hover={{
                 textDecor: "none",
                 bg: "#E8E6F6",
                 color: "#1808A3",
-                
+                width: '16.7vw',
+              
               }}
+              display={["none", "none", "flex", "flex", "flex"]}
             >
-              <Icon as={BiBell} boxSize={10} p={1} />
-             <Flex alignItems={'center'}  gap={8}>
-             <Text
+              <Icon as={GoPeople} boxSize={10} p={1} />
+              <Text
                 p={1}
                 fontSize="lg"
                 display={["none", "none", "none", "flex", "flex"]}
               >
-                Notifications
+                User Management
               </Text>
-
-              <Text p={2} h={'5vh'} w={'4vw'}
-              textAlign={'center'} borderRadius={'md'} color={'white'} bgColor={'#0E0562'}>32</Text>
-             </Flex>
             </Link>
+
+
 
             <Link
               onClick={() => navigate("/admin/complaints")}

@@ -22,6 +22,7 @@ import {
     VStack
   } from "@chakra-ui/react";
   import {CiMail} from 'react-icons/ci'
+  import { format } from 'timeago.js';
   import {AiOutlineBell} from 'react-icons/ai'
   import {AttachmentIcon} from '@chakra-ui/icons'
   import {RiSendPlaneFill} from 'react-icons/ri'
@@ -36,6 +37,7 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState()
+  const [sender, setSender] = useState()
   const [receiverId, setReceiverId]= useState('')
 
   const location = useLocation()
@@ -127,6 +129,28 @@ const Chat = () => {
     }
   }, [receiverId]); // Trigger the fetch when receiverId changes
 
+  useEffect(()=>{
+    const userId= chatData.users[0]
+    async function getUserByUserId(userId) {
+      try {
+        const userRef = doc(db, 'users', userId);
+        const userSnapshot = await getDoc(userRef);
+  
+        if (userSnapshot.exists()) {
+          const userData = userSnapshot.data();
+          setSender(userData); // Update the receiver state
+          console.log(userData)
+        } else {
+          console.error('User not found');
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    }
+    getUserByUserId(userId)
+   
+  }, [chatData])
+
   useEffect(() => {
     console.log(receiver);
   }, [receiver]);
@@ -157,11 +181,11 @@ const Chat = () => {
     maxWidth="4xl"
     // py="20px"
     minHeight="100vh"
-    minWidth="84vw"
+    minWidth="78vw"
     bg={useColorModeValue("#F4F5F8", "gray.700")}
     color={useColorModeValue("gray.900", "white")}
     position={[null, null, null, null, 'absolute']}
-    left={['0', '0', '0', "16%"]}
+    left={['0', '0', '0', "21%"]}
     overFlow-X={'hidden'}
   >
     <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
@@ -185,27 +209,60 @@ const Chat = () => {
         </Card>
 
         <VStack px={10} >
-            <Flex w={'65vw'} h={'70vh'} 
+            <Flex w={'65vw'} minH={'70vh'} 
             direction={'column'} gap={3}
-            // border={'2px solid red'}
             >
-               {messages.map((msg, index) => (
-        <Text
-          key={index}
-          p={2}
-          borderRadius="lg"
-          className={msg.senderId === user.uid ? 'message-sent' : 'message-received'}
-          w={'fit-content'}
-          maxW={'25vw'}
-          borderBottomRightRadius={msg.senderId === user.uid ? 'none' : 'lg'}
-          borderBottomLeftRadius={msg.senderId === user.uid ? 'lg' : 'none'}
-        >
-          {msg.text}
-        </Text>
-      ))}
-            </Flex>
 
-            <Card>
+{messages.map((msg, index) => (
+  <Flex direction="column" key={index}>
+    <Flex gap={2} alignItems="center" direction={msg.senderId === user.uid ? "row-reverse" : "row"}>
+      <Avatar
+        size="sm"
+        name={
+          msg.senderId === user.uid
+            ? sender
+              ? `${sender.firstName} ${sender.lastName}`
+              : ""
+            : receiver
+            ? `${receiver.firstName} ${receiver.lastName}`
+            : ""
+        }
+        src={
+          msg.senderId === user.uid
+            ? sender
+                ? sender.userDp
+                : ""
+              : receiver
+                ? receiver.userDp
+                : ""
+        }
+        alt="user-dp"
+      />
+      <Box
+        key={index}
+        p={2}
+        borderRadius="lg"
+        className={msg.senderId === user.uid ? "message-sent" : "message-received"}
+        w="fit-content"
+        maxW="25vw"
+        borderBottomRightRadius={msg.senderId === user.uid ? "none" : "lg"}
+        borderBottomLeftRadius={msg.senderId === user.uid ? "lg" : "none"}
+      >
+        <Text> {msg.text}</Text>
+        {msg.timestamp ? ( // Check if msg.timestamp is not null
+      <Flex justifyContent={msg.senderId === user.uid ? "flex-end" : "flex-start"}>
+        <Text>{format(msg.timestamp.toMillis())}</Text>
+      </Flex>
+    ) : null}
+      </Box>
+    </Flex>
+ 
+  </Flex>
+))}
+</Flex>
+
+
+            <Card pos={'sticky'}>
                 <CardBody w={'60vw'} h={'20vh'}>
                     <Flex alignItems={'center'} gap={10}>
                         <Box cursor={'pointer'}><AttachmentIcon/></Box>
