@@ -59,40 +59,10 @@ export default function LogoutModal() {
         </Text>
       </Link>
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader alignSelf={"center"}></ModalHeader>
-          <ModalCloseButton bg={"#1808A3"} color={"#fff"} rounded={"full"} />
-          <ModalBody>
-            <Stack>
-              <Box alignSelf={"center"} mb={10}>
-                {" "}
-                <Heading size={"md"} align={"center"} mx={10} mb={5}>
-                  You are attempting to logout of Digimart
-                </Heading>
-                <Text align={"center"}>Are you sure?</Text>
-              </Box>
+     
+     
 
-              <Button
-                height={"54px"}
-                color="#fff"
-                bg="#1808A3"
-                _hover={{
-                  bg: "#3626c7",
-                }}
-                rounded={"2xl"}
-                onClick={logout}
-              >
-                Log out
-              </Button>
-            </Stack>
-          </ModalBody>
-          <ModalFooter>
-            {/* <Button onClick={onClose}>Close</Button> */}
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+     
     </>
   );
 }

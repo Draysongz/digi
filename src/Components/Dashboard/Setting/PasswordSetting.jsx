@@ -39,10 +39,15 @@ export default function PasswordCard() {
     }
 
     try {
-      const credentials = EmailAuthProvider.credential(user.email, password);
-      await reauthenticateWithCredential(user, credentials);
-      await updatePassword(user, newPassword);
-      toast.success("Password updated");
+      if(newPassword.toLowerCase() === confirmNewPassword.toLowerCase()){
+        const credentials = EmailAuthProvider.credential(user.email, password);
+        await reauthenticateWithCredential(user, credentials);
+        await updatePassword(user, newPassword);
+        toast.success("Password updated");
+      }else{
+        toast.error("Passwords Don't Match")
+      }
+      
     } catch (error) {
       console.log(error);
       toast.error("Error updating password: " + error.message); // Provide a more detailed error message

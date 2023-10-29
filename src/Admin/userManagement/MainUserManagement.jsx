@@ -1,15 +1,15 @@
 import React from 'react'
 import { Flex } from '@chakra-ui/react'
 import AdminSidebar from '../AdminSidebar'
-import Settings from './Settings'
+import UserManagement from './UserManagement'
 
-const MainSettings = () => {
+const MainUserManagement = () => {
   return (
     <Flex direction={['column', 'column', 'row', 'row']}>
     <AdminSidebar/>
-    <Settings />
+    <UserManagement />
 </Flex>
   )
 }
 
-export default MainSettings
+export default MainUserManagement

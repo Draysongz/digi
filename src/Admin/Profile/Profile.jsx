@@ -16,12 +16,55 @@ import {
     useColorModeValue,
     AvatarBadge,
     FormLabel,
+    Stack,
   } from "@chakra-ui/react";
   import {CiMail} from 'react-icons/ci'
   import {AiOutlineBell} from 'react-icons/ai'
   import {EditIcon} from '@chakra-ui/icons'
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, getDoc, doc, onSnapshot } from "firebase/firestore";
+import { app } from '../../Components/firebase/Firebase';
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { ProfileModal } from '../../Components/Dashboard/Setting';
+import Userbar from '../../Userbar';
+import MessageModal from '../MessageModal/MessageModal';
 
 const Profile = () => {
+  
+  const navigate = useNavigate()
+  const [userdata, setUserdata]= useState([])
+  useEffect(() => {
+    const auth = getAuth();
+  
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user.uid);
+        const db = getFirestore(app);
+        const docRef = doc(db, 'users', user.uid);
+  
+        // Listen for changes to the user's document
+        const unsubscribeDoc = onSnapshot(docRef, (docSnap) => {
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            console.log('User data:', userData);
+            setUserdata(userData);
+          } else {
+            console.log('User document not found.');
+          }
+        });
+  
+        return () => {
+          unsubscribeDoc(); // Clean up the document listener
+        };
+      } else {
+        navigate('/login');
+      }
+    });
+    return () => {
+      unsubscribe(); // Clean up the auth listener
+    };
+  }, []);
   return (
     <Container
     maxWidth="4xl"
@@ -40,13 +83,9 @@ const Profile = () => {
         ml={'-1.2%'} mt={'2px'} >
             <CardBody>
                 <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
-                    <Icon as={CiMail} boxSize={6} />
+                    <MessageModal />
                     <Icon as={AiOutlineBell} boxSize={6} />
-                    <Wrap>
-                        <WrapItem>
-                            <Avatar name='Dan Abrahmov' size='sm' src='https://bit.ly/dan-abramov' />
-                            </WrapItem>
-                    </Wrap>
+                    <Userbar />
 
                 </Flex>
             </CardBody>
@@ -61,40 +100,42 @@ const Profile = () => {
             
 
            <Flex direction={'column'} gap={5} px={10}>
+            <Stack direction={'row'} alignItems={'center'}>
            <Wrap>
   <WrapItem>
-    <Avatar name='Chidinma Ugwu' size='xl' src='https://bit.ly/dan-abramov'>
-      <AvatarBadge
-        boxSize="1em" // Adjust this size as needed
-        bg="white" // Background color for the badge
-      >
-        <EditIcon w={4} h={4} /> {/* Adjust the width (w) and height (h) as needed */}
-      </AvatarBadge>
+  <Avatar name={`${userdata.firstName} ${userdata.lastName}`} size='xl' src={userdata.userDp ? userdata.userDp : ''} >
     </Avatar>
   </WrapItem>
 </Wrap>
+<ProfileModal w={'full'} />
+</Stack>
 
-                    <Text fontSize={'xl'} fontWeight={'bold'}>Chidinma Ugwu</Text>
+                <Text fontSize={'xl'} fontWeight={'bold'}>{userdata ? `${userdata.firstName} ${userdata.lastName}` : ''}</Text>
             </Flex> 
             <Flex px={10} direction={'column'} gap={10}>
                 <Flex gap={10}>
                     <Box>
                     <FormLabel fontSize='xl'>First Name</FormLabel>
-                    <Input  fontSize='lg' variant={'filled'} borderColor={'#000'} type='text' w={'30vw'} h={'10vh'} value={'Chidinma'} disabled/>
+                    <Input  fontSize='lg' variant={'filled'} 
+                    borderColor={'#000'} type='text' w={'30vw'} h={'10vh'} value={userdata && userdata.firstName} disabled/>
                     </Box>
                     <Box>
                     <FormLabel fontSize='xl'>Last Name</FormLabel>
-                    <Input fontSize='lg' type='text'  variant={'filled'} borderColor={'#000'}  w={'30vw'} h={'10vh'} value={'Ugwu'} disabled/>
+                    <Input fontSize='lg' type='text'  variant={'filled'} borderColor={'#000'}  
+                    w={'30vw'} h={'10vh'} value={userdata && userdata.lastName} disabled/>
                     </Box>
                 </Flex>
 
                 <Box>
                 <FormLabel fontSize='xl'>Email address</FormLabel>
-                    <Input  fontSize='lg' variant={'filled'} borderColor={'#000'} type='email'w={'63vw'}  h={'10vh'} value={'emmanuellachidinmaugwu@gmail.com'} disabled/>
+                    <Input  fontSize='lg' variant={'filled'} 
+                    borderColor={'#000'} type='email'w={'63vw'}  h={'10vh'} 
+                    value={userdata && userdata.Email} disabled/>
                 </Box>
                 <Box>
                 <FormLabel fontSize='xl'>Phone</FormLabel>
-                    <Input  fontSize='lg' variant={'filled'} borderColor={'#000'} type='number'w={'63vw'}  h={'10vh'} value={+2349069276918} disabled/>
+                    <Input  fontSize='lg' variant={'filled'} borderColor={'#000'} 
+                    type='number'w={'63vw'}  h={'10vh'} value={parseFloat(userdata.Number)} disabled/>
                 </Box>
             </Flex>
 

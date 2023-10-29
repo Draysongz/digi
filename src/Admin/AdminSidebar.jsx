@@ -206,7 +206,7 @@ const AdminSidebar = () => {
             </Link>
 
             <Link
-              onClick={() => navigate("/admin/complaints")}
+              onClick={() => navigate("/admin/usermanagement")}
               padding="10px"
               borderRadius="2xl"
               _hover={{
@@ -290,18 +290,6 @@ const AdminSidebar = () => {
 
           <AccordionPanel pb={4}>
             <Box mt="5%" display={'flex'} flexDir={'column'}>
-              <Link
-                padding="10px"
-                borderRadius="2xl"
-                _hover={{
-                  textDecor: "none",
-                  bg: "#E7EAEE",
-                  color: "#000",
-                }}
-                onClick={()=> navigate('/admin/settings')}
-              >
-                Assign Roles
-              </Link>
               <Link onClick={()=> navigate('/admin/profile')}
                 padding="10px"
                 borderRadius="2xl"

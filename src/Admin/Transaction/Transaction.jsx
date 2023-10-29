@@ -31,7 +31,6 @@ import {
   ModalBody,
   ModalContent,
   Stack,
-  ModalFooter,
   ModalOverlay,
   ModalCloseButton,
   Accordion,
@@ -39,6 +38,7 @@ import {
   AccordionItem,
   AccordionPanel,
   AccordionIcon,
+  Input,
 } from "@chakra-ui/react";
 import { AddIcon, CloseIcon, EditIcon, Search2Icon,CheckIcon,   CopyIcon, } from '@chakra-ui/icons'
 import { AiOutlineBell } from 'react-icons/ai'
@@ -49,6 +49,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { format } from 'timeago.js';
 import MessageModal from '../MessageModal/MessageModal';
 import {toast} from 'react-toastify'
+import Userbar from '../../Userbar';
 
 const Transaction = () => {
   const [transactions, setTransactions] = useState([]);
@@ -59,6 +60,7 @@ const Transaction = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [copiedStates, setCopiedStates] = useState({});
   const [selectedStatus, setSelectedStatus] = useState();
+  const [reason, setReason]= useState('')
 
 
 
@@ -102,10 +104,19 @@ const handleSaveStatus = async () => {
 
       const transactionRef = doc(db, 'transactions', transactionId);
 
-      await updateDoc(transactionRef, {
-        status: selectedStatus,
-        completedBy: currentUserId, // Assuming currentUserId is set
-      });
+      if(selectedStatus === 'Declined'){
+        await updateDoc(transactionRef, {
+          status: selectedStatus,
+          completedBy: currentUserId,
+          Reason: reason
+        });
+      }else{
+        await updateDoc(transactionRef, {
+          status: selectedStatus,
+          completedBy: currentUserId,
+        });
+      }
+     
 
       console.log('Status updated successfully');
       toast.success('Transaction updated');
@@ -159,6 +170,7 @@ const handleSaveStatus = async () => {
     setIsModalOpen(true)
     setCopiedStates(false)
     console.log(selectedTransaction)
+    setSelectedStatus(null)
   }
 
   const copyToClipboard = async (text, section) => {
@@ -210,11 +222,7 @@ const handleSaveStatus = async () => {
             <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
               <MessageModal />
               <Icon as={AiOutlineBell} boxSize={6} />
-              <Wrap>
-                <WrapItem>
-                  <Avatar name='Dan Abrahmov' size='sm' src='https://bit.ly/dan-abramov' />
-                </WrapItem>
-              </Wrap>
+              <Userbar />
 
             </Flex>
           </CardBody>
@@ -263,11 +271,11 @@ const handleSaveStatus = async () => {
                           </Td >
                           <Td color={'#71717A'}>{transaction.time && format(transaction.time.toMillis())}</Td>
                           <Td p={5}>
-                            <HStack justifyContent={'center'} p={1} borderRadius={'2xl'} bg={transaction.status === 'pending' ? '#FEF9C3' :
+                            <HStack justifyContent={'center'} p={1} borderRadius={'2xl'} bg={transaction.status === 'processing' ? '#FEF9C3' :
                               transaction.status === 'successful' ? '#DCFCE7' : '#FEE2E2'} alignItems={'center'}>
-                              <Circle size={'10px'} bg={transaction.status === 'pending' ? '#FACC15' :
+                              <Circle size={'10px'} bg={transaction.status === 'processing' ? '#FACC15' :
                                 transaction.status === 'successful' ? '#22C55E' : '#EF4444'}></Circle>
-                              <Text fontFamily={'Hellix-medium'} color={transaction.status === 'pending' ? '#713F12' :
+                              <Text fontFamily={'Hellix-medium'} color={transaction.status === 'processing' ? '#713F12' :
                                 transaction.status === 'successful' ? '#14532D' : '#7F1D1D'}>{transaction.status}</Text>
                             </HStack></Td>
                           <Td cursor={'pointer'}><Icon color={'#A1A1AA'} as={FiMoreHorizontal} boxSize={6} /></Td>
@@ -336,7 +344,11 @@ const handleSaveStatus = async () => {
           <AccordionItem>
             <AccordionButton>
               <Box flex="1" textAlign="left">
-                Transaction Type: {selectedTransaction.transactionType}
+                <Flex gap={5}>
+                  <Text>Transaction Type:</Text>
+                 <Text w={'4vw'} borderRadius={'md'} textAlign={'center'}
+                 p={1} fontSize={'md'} color={'white'} bgColor={selectedTransaction.transactionType === 'buy' ? 'green.300' : 'red.500'}> {selectedTransaction.transactionType}</Text>
+                </Flex>
               </Box>
               <AccordionIcon />
             </AccordionButton>
@@ -419,12 +431,14 @@ const handleSaveStatus = async () => {
           <AccordionItem>
             <AccordionButton>
               <Box flex="1" textAlign="left">
-                Customer Details/Wallet Address
+                Customer&apos;s Receiving Details
               </Box>
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel>
               {selectedTransaction.transactionType === 'buy' ? (
+                <Box>
+                  
                 <Flex gap={10} alignItems={'center'}>
                   <Text>Wallet Address: {selectedTransaction.walletAddress}</Text>
                   {copiedStates['walletAddress'] ? (
@@ -436,11 +450,13 @@ const handleSaveStatus = async () => {
     style={{ cursor: 'pointer' }}
   />
 )}
+
            </Flex>
+           </Box>
               
               ) : selectedTransaction.transactionType === 'sell' ? (
                 <div>
-                  <Text>Customer Details for Sell Transaction:</Text>
+                  <Text>Bank Account Details:</Text>
                   <Flex gap={10} alignItems={'center'}>
                   <Text>Account Number: {selectedTransaction.details.accountNumber} </Text>
                   {copiedStates['accountNumber'] ? (
@@ -472,8 +488,21 @@ const handleSaveStatus = async () => {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel>
-              <Text>Time: {selectedTransaction.time && format(selectedTransaction.time.toMillis())}</Text>
-              <Text>User ID: {selectedTransaction.userId}</Text>
+              <Text>Time: {selectedTransaction.time && new Date(selectedTransaction.time.seconds * 1000 + selectedTransaction.time.nanoseconds / 1000000).toLocaleString()}</Text>
+              <Flex gap={10} alignItems={'center'}>
+              <Text>User ID: {selectedTransaction && selectedTransaction.userId && selectedTransaction.userId.slice(0, 12)}....</Text>
+
+              {copiedStates['userId'] ? (
+  <Icon as={CheckIcon} color={'green.500'} />
+) : (
+  <CopyIcon
+    ml={2}
+    onClick={() => copyToClipboard(selectedTransaction.userId, 'userId')}
+    style={{ cursor: 'pointer' }}
+  />
+)}
+              </Flex>
+             
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
@@ -490,9 +519,9 @@ const handleSaveStatus = async () => {
         onChange={setSelectedStatus}
       >
         <Stack direction="column">
-          <Radio value="pending">Pending</Radio>
+          <Radio value="processing">Processing</Radio>
           <Radio value="successful">Successful</Radio>
-          <Radio value="failed">Failed</Radio>
+          <Radio value="Declined">Declined</Radio>
         </Stack>
       </RadioGroup>
     </Flex>
@@ -501,11 +530,26 @@ const handleSaveStatus = async () => {
 
 
 
+{ selectedStatus === 'Declined' && <AccordionItem>
+  <AccordionButton>
+    <Box flex="1" textAlign="left">
+      Reason For Decline:
+    </Box>
+    <AccordionIcon />
+  </AccordionButton>
+  <AccordionPanel>
+    <Flex gap={5} alignItems={'center'}>
+     <Input type='text' variant={'filled'} value={reason} onChange={(e)=>setReason(e.target.value)} placeholder='reason for declined status' />
+    </Flex>
+  </AccordionPanel>
+</AccordionItem>}
+
+
+
         </Accordion>
 
         
       )}
-
              
     <Flex justifyContent={'center'} p={5} gap={10} alignItems={'center'}> 
     <Button 

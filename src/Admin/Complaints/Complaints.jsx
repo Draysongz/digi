@@ -20,7 +20,9 @@ import { AiOutlineBell } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../Components/firebase/Firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import Userbar from '../../Userbar';
 import { collection, where, query, doc, getDoc, getDocs, onSnapshot, getFirestore, collectionGroup, orderBy, limit } from 'firebase/firestore';
+import MessageModal from '../MessageModal/MessageModal';
 
 const Complaints = () => {
   const navigate = useNavigate();
@@ -135,7 +137,7 @@ const Complaints = () => {
           limit(1)
         );
         const messageSnapshot = await getDocs(q);
-        console.log(messageSnapshot.docs[0].data())
+       
         if (!messageSnapshot.empty) {
           const lastMessage = messageSnapshot.docs[0].data();
           lastMessageData[chatId] = lastMessage;
@@ -168,13 +170,9 @@ const Complaints = () => {
       <Card borderLeftRadius={'0px'} ml={'-1.2%'} mt={'2px'}>
         <CardBody>
           <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
-            <Icon as={CiMail} boxSize={6} />
+            <MessageModal />
             <Icon as={AiOutlineBell} boxSize={6} />
-            <Wrap>
-              <WrapItem>
-                <Avatar name='Admin' size='sm' src='https://your-admin-avatar-url' />
-              </WrapItem>
-            </Wrap>
+            <Userbar />
           </Flex>
         </CardBody>
       </Card>

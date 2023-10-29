@@ -54,7 +54,7 @@ function TransactionLoadBalancer() {
     // Update the transaction with the assigned sub-admin's ID
     const db = getFirestore();
     const transactionRef = doc(db, 'transactions', transactionId);
-    await updateDoc(transactionRef, { assignedTo: randomSubAdminId, status: 'assigned' });
+    await updateDoc(transactionRef, { assignedTo: randomSubAdminId, status: 'processing' });
   };
 
   return null;

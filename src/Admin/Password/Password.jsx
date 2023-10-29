@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     Container,
     Flex,
@@ -18,14 +18,58 @@ import {
     InputLeftElement,
     InputRightElement,
     useColorModeValue,
-    AvatarBadge,
     FormLabel,
+    InputRightAddon,
   } from "@chakra-ui/react";
+  import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
   import {CiMail} from 'react-icons/ci'
   import {AiOutlineBell} from 'react-icons/ai'
+  import { getAuth, reauthenticateWithCredential, updatePassword, EmailAuthProvider } from "firebase/auth";
+import { app } from '../../Components/firebase/Firebase';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Userbar from '../../Userbar';
+import MessageModal from '../MessageModal/MessageModal';
  
 
 const Password = () => {
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const auth = getAuth(app);
+  const user = auth.currentUser;
+  const navigate = useNavigate();
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+
+    if (!user) {
+      toast.error("Please login");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      if(newPassword.toLowerCase() === confirmNewPassword.toLowerCase()){
+        const credentials = EmailAuthProvider.credential(user.email, password);
+        await reauthenticateWithCredential(user, credentials);
+        await updatePassword(user, newPassword);
+        toast.success("Password updated");
+      }else{
+        toast.error("Passwords Don't Match")
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error("Error updating password: " + error.message); // Provide a more detailed error message
+    }
+  };
+
+
   return (
     <Container
     maxWidth="4xl"
@@ -44,13 +88,9 @@ const Password = () => {
         ml={'-1.2%'} mt={'2px'} >
             <CardBody>
                 <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
-                    <Icon as={CiMail} boxSize={6} />
+                    <MessageModal/>
                     <Icon as={AiOutlineBell} boxSize={6} />
-                    <Wrap>
-                        <WrapItem>
-                            <Avatar name='Dan Abrahmov' size='sm' src='https://bit.ly/dan-abramov' />
-                            </WrapItem>
-                    </Wrap>
+                   <Userbar/>
 
                 </Flex>
             </CardBody>
@@ -66,26 +106,80 @@ const Password = () => {
                <Box>
                <FormLabel fontFamily={'Hellix-Medium'}  fontSize={'24px'} 
                 fontWeight={'500'}>Current password</FormLabel>
-               <Input fontSize='lg'
-                type='password'  variant={'filled'} borderColor={'#000'}  w={'60vw'} h={'10vh'}/>
+                <InputGroup>
+               <Input fontSize='lg'  value={password}  type={showPassword ? "text" : "password"}
+                onChange={(e) => setPassword(e.target.value)}
+               variant={'filled'} borderColor={'#000'}  w={'60vw'} h={'10vh'}/>
+                 <InputRightAddon h={"10vh"}>
+                <Button
+                  variant={"ghost"}
+                  onClick={() =>
+                    setShowPassword((showPassword) => !showPassword)
+                  }
+                >
+                  {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
+              </InputRightAddon>
+              </InputGroup>
                </Box>
 
                <Box>
                <FormLabel fontFamily={'Hellix-Medium'}  fontSize={'24px'} 
                 fontWeight={'500'}>New password</FormLabel>
-               <Input fontSize='lg'
-                type='password'  variant={'filled'} borderColor={'#000'}  w={'60vw'} h={'10vh'}/>
+                <InputGroup>
+               <Input fontSize='lg' value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                type={showNewPassword ? "text" : "password"} 
+                variant={'filled'} borderColor={'#000'}  w={'60vw'} h={'10vh'}/>
+                  <InputRightAddon h={"10vh"}>
+                <Button
+                  variant={"ghost"}
+                  onClick={() =>
+                    setShowNewPassword((showNewPassword) => !showNewPassword)
+                  }
+                >
+                  {showNewPassword ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
+              </InputRightAddon>
+                </InputGroup>
                </Box>
 
                <Box>
                <FormLabel fontFamily={'Hellix-Medium'}  fontSize={'24px'} 
                 fontWeight={'500'}>Confirm password</FormLabel>
-               <Input fontSize='lg'
-                type='password'  variant={'filled'} borderColor={'#000'}  w={'60vw'} h={'10vh'}/>
+                <InputGroup>
+               <Input fontSize='lg' value={confirmNewPassword}
+                onChange={(e) => setConfirmNewPassword(e.target.value)}
+                type={showConfirmPassword ? "text" : "password"}
+                variant={'filled'} borderColor={'#000'}  w={'60vw'} h={'10vh'}/>
+                  <InputRightAddon h={"10vh"}>
+                <Button
+                  variant={"ghost"}
+                  onClick={() =>
+                    setShowConfirmPassword((showConfirmPassword) =>
+                      !showConfirmPassword
+                    )
+                  }
+                >
+                  {showConfirmPassword ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
+              </InputRightAddon>
+                </InputGroup>
                </Box>
                
-               <Box pb={2}>
-               <Button borderRadius={'md'}>Submit</Button>
+               <Box pb={2} >
+               <Button 
+               w={'60vw'}
+               type="submit"
+              loadingText="Submitting"
+              size="md"
+              bg={"#1808A3"}
+              color={"white"}
+              _hover={{
+                bg: "#31CD31",
+              }}
+              rounded={"md"}
+              onClick={handlePasswordChange}>Submit</Button>
                </Box>
                
             </Flex>

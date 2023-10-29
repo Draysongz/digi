@@ -28,7 +28,6 @@ import NinPage from "./Components/Dashboard/Crypto/Buy/NinPage";
 import BuyFinalCheckout from "./Components/Dashboard/Crypto/Buy/BuyFinalCheckout";
 import MainGift from "./Components/Dashboard/Giftcard/MainGift";
 import MainAdmin from "./Admin/MainAdmin";
-import Settings from "./Admin/Settings/MainSettings";
 import Profile from "./Admin/Profile/MainProfile";
 import Password from './Admin/Password/MainPassword'
 import MainComplaints from "./Admin/Complaints/MainComplaints";
@@ -43,6 +42,7 @@ import { getFirestore, doc, getDoc } from "@firebase/firestore";
 import { app } from "./Components/firebase/Firebase";
 import {Spinner, Flex} from '@chakra-ui/react'
 import TransactionLoadBalancer from "./TransactionLoadBalancer";
+import MainUserManagement from "./Admin/userManagement/MainUserManagement";
 
 function App() {
   useEffect(() => {
@@ -100,12 +100,12 @@ function App() {
 
         {/* Admin Pages */}
         <Route path='/admin/dashboard' element={<AdminPages><MainAdmin/></AdminPages>} />
-        <Route path="/admin/settings" element={<AdminPages><Settings /></AdminPages>} />
         <Route path="/admin/profile" element={<AdminPages><Profile /> </AdminPages>} />
         <Route path="/admin/password" element={<AdminPages><Password /> </AdminPages>} />
         <Route path="/admin/complaints" element={<AdminPages><MainComplaints/> </AdminPages>} />
         <Route path="/admin/chat" element={<AdminPages><MainChat/> </AdminPages>} />
         <Route path='/admin/transaction' element={<AdminPages><MainTransaction/></AdminPages>} />
+        <Route path='/admin/usermanagement' element={<AdminPages><MainUserManagement/></AdminPages>} />
       </Routes>
       <TransactionLoadBalancer />
       <ToastContainer />
@@ -198,7 +198,7 @@ emptyColor='gray.200' />
     </Flex>
     )
   }
-  if(userRole === 'sub-admin'){
+  if(userRole === 'Sub-admin' || 'Admin' || 'Customer Care' || 'Merchant'){
   return <>{children}</>
 }else{
  return  <Navigate to='/forbidden' />

@@ -31,7 +31,9 @@ import {
   import { app } from '../../../Components/firebase/Firebase';
 import { getFirestore, getDoc, doc, collection, where, query, orderBy, onSnapshot, serverTimestamp, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Userbar from '../../../Userbar';
+import MessageModal from '../../MessageModal/MessageModal';
 
 const Chat = () => {
   const [user, setUser] = useState(null);
@@ -44,6 +46,7 @@ const Chat = () => {
   const {state}= location
   const {chat} = state
 
+  const navigate= useNavigate()
  
   console.log(chat)
   
@@ -81,6 +84,7 @@ const Chat = () => {
       } else {
         // User is signed out
         setUser(null);
+        navigate('/login')
       }
     });
   
@@ -180,13 +184,9 @@ const Chat = () => {
                 <Flex alignItems={'center'} justifyContent={'space-between'}>
                   <Text  fontSize={'lg'}>{receiver ? `${receiver.firstName} ${receiver.lastName}`: 'hello'}</Text>
                   <Flex gap={5} >
-                    <Icon as={CiMail} boxSize={6} />
+                    <MessageModal />
                     <Icon as={AiOutlineBell} boxSize={6} />
-                    <Wrap>
-                        <WrapItem>
-                            <Avatar name='Dan Abrahmov' size='sm' src='https://bit.ly/dan-abramov' />
-                            </WrapItem>
-                    </Wrap>
+                    <Userbar />
                     </Flex>
 
                 </Flex>
