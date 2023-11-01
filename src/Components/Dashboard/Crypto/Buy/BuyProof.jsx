@@ -62,7 +62,7 @@ const { coinUnit, cryptoSymbol, amount, accountData} = state
         maxH={["138vh", "100vh", "134vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        bg={useColorModeValue("gray.50", "gray.800")}
+        bg={useColorModeValue("gray.50", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
@@ -86,10 +86,10 @@ const { coinUnit, cryptoSymbol, amount, accountData} = state
                 <br></br>
               </Box>
 
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box>
-              <Heading size={"md"} color="#1808A3">
+              <Heading size={"md"} color={useColorModeValue("#1808A3", "white")}>
                 Upload payment proof
               </Heading>
               <Text mb={5}>Kindly upload payment proof to recieve crypto</Text>
@@ -101,7 +101,7 @@ const { coinUnit, cryptoSymbol, amount, accountData} = state
               <Button
                 width={"240px"}
                 color="#fff"
-                bg="#1808A3"
+                bg={useColorModeValue("#1808A3", "#0B0449")}
                 _hover={{
                   bg: "#3626c7",
                 }}

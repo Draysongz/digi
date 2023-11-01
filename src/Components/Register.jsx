@@ -179,7 +179,7 @@ const onSubmit = async (e) => {
       </Flex>
 
       <Flex bg={'white'} w={['100%', '100%', '100%', '50%']} p='20px' direction={'column'}>
-      <Heading fontFamily={'Lato sans-serif'} >Register</Heading> 
+      <Heading fontFamily={'Hellix-medium'} >Register</Heading> 
       <FormControl p='10px' >
       <Center mt='1rem'>
           <Flex direction='column' gap={['4', '7', '8', '3']} alignItems={'center'} justifyContent={'center'} justifyItems={'center'}>

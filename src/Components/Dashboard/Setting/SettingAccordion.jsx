@@ -25,9 +25,9 @@ export default function PasswordAccordion() {
           _expanded={{ bg: "white", color: "#1808A3" }}
           height="70px"
           border={"1px solid"}
-          borderColor={useColorModeValue("white", "gray.900")}
+          borderColor={useColorModeValue("white", "#141139")}
           borderRadius={"lg"}
-          bg={useColorModeValue("white", "gray.900")}
+          bg={useColorModeValue("white", "#141139")}
           _hover={{
             bg: "#E8E6F6",
             color: "#1808A3",
@@ -53,9 +53,9 @@ export default function PasswordAccordion() {
           height="70px"
           width={['85vw', '85vw', "69vw"]}
           border={"1px solid"}
-          borderColor={useColorModeValue("white", "gray.900")}
+          borderColor={useColorModeValue("white", "#141139")}
           borderRadius={"lg"}
-          bg={useColorModeValue("white", "gray.900")}
+          bg={useColorModeValue("white", "#141139")}
           _hover={{
             bg: "#E8E6F6",
             color: "#1808A3",

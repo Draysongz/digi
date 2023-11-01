@@ -35,8 +35,10 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 export default function BuyCheckout() {
   
-  const bgColor = useColorModeValue("gray.50", "gray.800");
+  const bgColor = useColorModeValue("gray.50", "#050223");
   const textColor = useColorModeValue("gray.900", "white");
+  const buttonColor = useColorModeValue("#1808A3", "#0B0449");
+  const chetextColor = useColorModeValue("#1808A3", "white")
   const [accountData, setAccountData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -109,6 +111,7 @@ export default function BuyCheckout() {
         });
     };
 
+
   return (
     <>
       <Flex
@@ -140,10 +143,10 @@ export default function BuyCheckout() {
                 <br></br>
               </Box>
 
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box justifyContent={"space-between"} minW={"35em"}>
-              <Heading size={"md"} color="#1808A3">
+              <Heading size={"md"} color= {chetextColor}>
                 Checkout
               </Heading>
               <Text maxW={{ base: "20em", md: "30em" }}>
@@ -248,7 +251,7 @@ export default function BuyCheckout() {
                 width={{ base: "15rem", md: "25rem" }}
                 height={"50px"}
                 color="#fff"
-                bg="#1808A3"
+                bg={buttonColor}
                 _hover={{
                   bg: "#3626c7",
                 }}

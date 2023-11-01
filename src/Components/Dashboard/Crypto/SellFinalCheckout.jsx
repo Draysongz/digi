@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import successful from "./CryptoAssets/successful.png";
 import { useState } from "react";
-import { NotifIcon } from "../NotifBadge";
+import NotificationModal from "../../../Admin/Notifications/NotificationModal";
 import { SideBarFunc } from "../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../Goback";
@@ -36,7 +36,7 @@ import { toast } from "react-toastify";
 
 export default function SellFinalCheckout() {
   const navigate = useNavigate();
-  const [accountNumber, setAccountNumber] = useState(0)
+  const [accountNumber, setAccountNumber] = useState()
   const [bankName, setBankName]= useState('')
   const [accountName, setAccountName]= useState('')
   const [transactionSaved, setTransactionSaved]= useState(false)
@@ -108,8 +108,8 @@ export default function SellFinalCheckout() {
         h={["100vh", "100vh", "100vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
+        overflow="auto"
+        bg={useColorModeValue("gray.50", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
@@ -133,10 +133,10 @@ export default function SellFinalCheckout() {
                 <br></br>
               </Box>
 
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box>
-              <Heading size={"md"} color="#1808A3">
+              <Heading size={"md"} color={useColorModeValue("#1808A3", "white")}>
                 Checkout
               </Heading>
               <Text>Kindly input your bank account details below.</Text>
@@ -166,6 +166,7 @@ export default function SellFinalCheckout() {
                     type="number"
                     placeholder="#0.00"
                     borderRadius="10px"
+                    color={'black'}
                     onChange={(e)=>setAccountNumber(e.target.value)}
                     value={accountNumber}
                   />
@@ -194,6 +195,7 @@ export default function SellFinalCheckout() {
                   <Input
                     type="text"
                     placeholder="Wema bank"
+                    color={'black'}
                     borderRadius="10px"
                     onChange={(e)=>setBankName(e.target.value)}
                     value={bankName}
@@ -224,6 +226,7 @@ export default function SellFinalCheckout() {
                     type="test"
                     placeholder="John Doe"
                     borderRadius="10px"
+                    color={'black'}
                     onChange={(e)=>setAccountName(e.target.value)}
                     value={accountName}
 
@@ -234,7 +237,7 @@ export default function SellFinalCheckout() {
         onClick={()=>{onOpen(); createTransaction()}}
         width={"240px"}
         color="#fff"
-        bg="#1808A3"
+        bg= {useColorModeValue("#1808A3", "#0B0449")}
         _hover={{
           bg: "#3626c7",
         }}

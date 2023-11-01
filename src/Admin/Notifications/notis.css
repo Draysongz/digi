@@ -1,0 +1,24 @@
+/* custom-scrollbar.css */
+.scrollable-container {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .scrollable-content {
+    overflow: auto;
+    height: 100%;
+  }
+  
+  .scrollable-content::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  

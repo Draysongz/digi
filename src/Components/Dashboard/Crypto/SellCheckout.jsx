@@ -57,8 +57,8 @@ export default function SellCheckout() {
         h={["100vh", "100vh", "100vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
+        overflow="auto"
+        bg={useColorModeValue("gray.50", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
@@ -82,10 +82,10 @@ export default function SellCheckout() {
                 <br></br>
               </Box>
 
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box spacing={5}>
-              <Heading size={"md"} color="#1808A3">
+              <Heading size={"md"} color= {useColorModeValue("#1808A3", "white")}>
                 Checkout
               </Heading>
               <Text>Kindly make payment for {coinUnit}{cryptoSymbol} to the wallet address </Text>
@@ -125,7 +125,7 @@ export default function SellCheckout() {
                 onClick={() => navigate("/sellproof", {state: {coinUnit, cryptoSymbol, amount}})}
                 width={{ base: "20rem", md: "25rem" }}
                 color="#fff"
-                bg="#1808A3"
+                bg= {useColorModeValue("#1808A3", "#0B0449")}
                 _hover={{
                   bg: "#3626c7",
                 }}

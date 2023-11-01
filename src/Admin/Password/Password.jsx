@@ -22,7 +22,6 @@ import {
     InputRightAddon,
   } from "@chakra-ui/react";
   import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-  import {CiMail} from 'react-icons/ci'
   import {AiOutlineBell} from 'react-icons/ai'
   import { getAuth, reauthenticateWithCredential, updatePassword, EmailAuthProvider } from "firebase/auth";
 import { app } from '../../Components/firebase/Firebase';
@@ -30,7 +29,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Userbar from '../../Userbar';
 import MessageModal from '../MessageModal/MessageModal';
- 
+import { getDoc, doc, increment, getFirestore, updateDoc } from 'firebase/firestore';
+import NotificationModal from '../Notifications/NotificationModal';
 
 const Password = () => {
   const [password, setPassword] = useState("");
@@ -41,7 +41,9 @@ const Password = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const auth = getAuth(app);
+  const db= getFirestore(app)
   const user = auth.currentUser;
+  console.log(user.uid)
   const navigate = useNavigate();
 
   const handlePasswordChange = async (e) => {
@@ -58,6 +60,22 @@ const Password = () => {
         const credentials = EmailAuthProvider.credential(user.email, password);
         await reauthenticateWithCredential(user, credentials);
         await updatePassword(user, newPassword);
+        const userRef = doc(db, 'users', user.uid)
+        const userDoc = await getDoc(userRef)
+        const userData = userDoc.data();
+        const notifications = userData.notifications || [];
+  
+        // Add a new notification to the array
+        notifications.push({
+          message: "Password Change successful",
+          timestamp: new Date(), // Set the timestamp in your code
+        });
+  
+        // Update the notifications and increment unreadNotifications
+        await updateDoc(userRef, {
+          notifications,
+          unreadNotifications: increment(1),
+        });
         toast.success("Password updated");
       }else{
         toast.error("Passwords Don't Match")
@@ -89,7 +107,7 @@ const Password = () => {
             <CardBody>
                 <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
                     <MessageModal/>
-                    <Icon as={AiOutlineBell} boxSize={6} />
+                    <NotificationModal />
                    <Userbar/>
 
                 </Flex>

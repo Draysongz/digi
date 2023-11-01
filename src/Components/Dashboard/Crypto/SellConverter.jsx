@@ -19,7 +19,7 @@ import {
 import {RepeatIcon, UpDownIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
-import { NotifIcon } from "../NotifBadge";
+import NotificationModal from "../../../Admin/Notifications/NotificationModal";
 import { SideBarFunc } from "../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../Goback";
@@ -126,8 +126,8 @@ useEffect(() => {
         h={["100vh", "100vh", "100vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
+        overflow="auto"
+        bg={useColorModeValue("gray.50", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
@@ -158,7 +158,7 @@ useEffect(() => {
                 <br></br>
               </Box>
 
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box>
               <VStack align={"flex-start"} width="25em" spacing={5}>
@@ -184,6 +184,7 @@ useEffect(() => {
                       width={"25rem"}
                       height={"60px"}
                       type="number"
+                      color={'black'}
                   borderRadius="10px"
                   placeholder={isAmountVisible ? nairaPlaceholder : `${cryptoSymbol} units`}
                   value={isAmountVisible ? amount : coinUnit}
@@ -201,7 +202,7 @@ useEffect(() => {
                     height={"60px"}
                     width={{ base: "60px", md: "100px" }}
                     color="#fff"
-                    bg="#1808A3"
+                    bg= {useColorModeValue("#1808A3", "#0B0449")}
                     _hover={{
                       bg: "#3626c7",
                     }}
@@ -233,6 +234,7 @@ useEffect(() => {
                     height={"60px"}
                     type="number"
                     borderRadius="10px"
+                    color={'black'}
                     placeholder={isAmountVisible ? `${cryptoSymbol} units` : nairaPlaceholder}
                     disabled // Fix the disabled attribute
                     value={isAmountVisible ? coinUnit : amount}
@@ -251,7 +253,7 @@ useEffect(() => {
                   width={{ base: "15rem", md: "25rem" }}
                   height={"50px"}
                   color="#fff"
-                  bg="#1808A3"
+                  bg= {useColorModeValue("#1808A3", "#0B0449")}
                   _hover={{
                     bg: "#3626c7",
                   }}

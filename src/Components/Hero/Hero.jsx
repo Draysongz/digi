@@ -7,6 +7,7 @@ import {
   Text,
   useBreakpointValue,
   useColorModeValue,
+  HStack
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useRole } from "../../RoleProvider";
@@ -25,14 +26,20 @@ export default function SplitScreen() {
   const navigate = useNavigate();
   return (
     <Stack
-      minH={"100vh"}
+      maxH={"100vh"}
       direction={{ base: "column", md: "row" }}
       bgImage="url('./images/map image.png')"
       bgPosition="center"
       bgRepeat="no-repeat"
-      // bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("white", "#080339")}
+     
       // color={useColorModeValue("gray.600", "white")}
     >
+      <HStack spacing={6}
+      w={'full'} 
+      bgImage="url('./images/map image.png')"
+      flexDir={['column', 'column', 'row']}
+      >
       <Flex
         p={8}
         flex={1}
@@ -87,6 +94,7 @@ export default function SplitScreen() {
           
         />
       </Flex>
+      </HStack>
     </Stack>
   );
 }

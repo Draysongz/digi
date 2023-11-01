@@ -26,7 +26,7 @@ import {
 import successful from "./../CryptoAssets/successful.png";
 import { ChevronLeftIcon, ArrowDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { NotifIcon } from "../../NotifBadge";
+import NotificationModal from "../../../../Admin/Notifications/NotificationModal";
 import { SideBarFunc } from "../../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../Goback";
@@ -58,7 +58,7 @@ export default function BvnPage() {
                 <Heading size={"lg"}>Buy Cryptocurrency</Heading>
               </Box>
 
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box mb={5} alignItems={"center"} justifyContent={"center"}>
               <VStack justifyContent={"center"} minW="60vw">

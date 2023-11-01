@@ -75,7 +75,7 @@ const Complaints = () => {
           const users = [];
           querySnapshot.forEach((doc) => {
             const user = doc.data();
-            if(user.role == 'sub-admin'){
+            if(user.role == role){
               users.push({
                 id: doc.id, 
                 ...user,
@@ -177,7 +177,7 @@ const onMerchantClick = async (merchantId) => {
       
       
       useEffect(()=>{
-        getUsersWithRole("sub-admin")
+        getUsersWithRole("Customer Care")
       }, [])
 
       useEffect(()=>{
@@ -196,7 +196,7 @@ const onMerchantClick = async (merchantId) => {
     // py="20px"
     minHeight="100vh"
     minWidth="83.4vw"
-    bg={useColorModeValue("#F4F5F8", "gray.700")}
+    bg={useColorModeValue("#F4F5F8", "#050223")}
     color={useColorModeValue("gray.900", "white")}
     position={[null, null, null, null, 'absolute']}
     left={['0', '0', '0', "16.2%"]}
@@ -212,7 +212,7 @@ const onMerchantClick = async (merchantId) => {
 
             <Box px={10}>
                       
-        <Card>
+        <Card bg={useColorModeValue("", "#141139")}>
             <CardBody>
                 <Flex direction={'column'} gap={10} >
                 {merchants.map((merchant, index)=>{
@@ -226,7 +226,7 @@ const onMerchantClick = async (merchantId) => {
                                     <Box>
                                     <Wrap>
                                     <WrapItem>
-                                        <Avatar name='Dan Abrahmov' size='lg' src='https://bit.ly/dan-abramov' />
+                                        <Avatar name={`${merchant.firstName} ${merchant.lastName}`} size='lg' src={merchant.userDp ? merchant.userDp : ''} />
                                         </WrapItem>
                                 </Wrap>
                                     </Box>

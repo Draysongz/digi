@@ -34,6 +34,7 @@ import { getAuth } from "firebase/auth";
 import { useLocation, useNavigate } from 'react-router-dom';
 import Userbar from '../../../Userbar';
 import MessageModal from '../../MessageModal/MessageModal';
+import NotificationModal from '../../Notifications/NotificationModal';
 
 const Chat = () => {
   const [user, setUser] = useState(null);
@@ -185,7 +186,7 @@ const Chat = () => {
                   <Text  fontSize={'lg'}>{receiver ? `${receiver.firstName} ${receiver.lastName}`: 'hello'}</Text>
                   <Flex gap={5} >
                     <MessageModal />
-                    <Icon as={AiOutlineBell} boxSize={6} />
+                    <NotificationModal/>
                     <Userbar />
                     </Flex>
 

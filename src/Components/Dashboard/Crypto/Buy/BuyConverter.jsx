@@ -33,6 +33,7 @@ import { BackButton } from "../../Goback";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import NotificationModal from "../../../../Admin/Notifications/NotificationModal";
 
 export default function BuyConverter() {
   const navigate = useNavigate();
@@ -134,8 +135,8 @@ export default function BuyConverter() {
         h={["100vh", "100vh", "100vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
+        overflow="auto"
+        bg={useColorModeValue("gray.50", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
@@ -166,7 +167,7 @@ export default function BuyConverter() {
                 <br></br>
               </Box>
 
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box>
               <VStack align={"flex-start"} width="25em" spacing={5}>
@@ -192,6 +193,7 @@ export default function BuyConverter() {
                       width={"25rem"}
                       height={"60px"}
                       type="number"
+                      color={'black'}
                       borderRadius="10px"
                       placeholder={isAmountVisible ? nairaPlaceholder : `${cryptoSymbol} units`}
                     value={isAmountVisible ? amount : coinUnit}
@@ -209,7 +211,7 @@ export default function BuyConverter() {
                     height={"60px"}
                     width={{ base: "60px", md: "100px" }}
                     color="#fff"
-                    bg="#1808A3"
+                    bg= {useColorModeValue("#1808A3", "#0B0449")}
                     _hover={{
                       bg: "#3626c7",
                     }}
@@ -240,6 +242,7 @@ export default function BuyConverter() {
                     width={"25rem"}
                     height={"60px"}
                     type="number"
+                    color={'black'}
                     borderRadius="10px"
                     placeholder={isAmountVisible ? `${cryptoSymbol} units` : nairaPlaceholder}
                     disabled // Fix the disabled attribute
@@ -259,7 +262,7 @@ export default function BuyConverter() {
                   width={{ base: "15rem", md: "25rem" }}
                   height={"50px"}
                   color="#fff"
-                  bg="#1808A3"
+                  bg= {useColorModeValue("#1808A3", "#0B0449")}
                   _hover={{
                     bg: "#3626c7",
                   }}

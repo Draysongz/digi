@@ -35,6 +35,7 @@ import { toast } from "react-toastify";
 import { app } from "../firebase/Firebase";
 import { getFirestore, collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import NotificationModal from "../../Admin/Notifications/NotificationModal";
 
 const Dash = ({userData}) => {
   const navigate= useNavigate()
@@ -42,6 +43,8 @@ const Dash = ({userData}) => {
   const db = getFirestore(app);
   const [user, setUser] = useState(null);
   const [transactions, setTransactions] = useState([]);
+  const tableColor = useColorModeValue("#F4F5F8", "#141139");
+  const TheadColor = useColorModeValue("black", "#0B0449")
 
   const cryptoImages = {
     BTC: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
@@ -71,6 +74,7 @@ const Dash = ({userData}) => {
     month: "2-digit",
     year: "numeric",
   }).replace(/\//g, "-");;
+
 
   const time = dateObject.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -137,14 +141,14 @@ const fetchTransactions = (user) => {
 
   return (
     <Container
-      maxWidth="4xl"
-      py="20px"
-      minHeight="100vh"
-      minWidth="85vw"
-      bg={useColorModeValue("#F4F5F8", "gray.700")}
-      color={useColorModeValue("gray.900", "white")}
-      position={[null, null, null, null, 'absolute']}
-      left={['0', '0', '0', "14%"]}
+    maxWidth="4xl"
+    py="20px"
+    minHeight="100vh"
+    minWidth="83vw"
+    bg={useColorModeValue("#F4F5F8", "#050223")}
+    color={useColorModeValue("gray.900", "white")}
+    position={[null, null, null, null, 'absolute']}
+    left={['0', '0', '0', "15.9%"]}
     >
       <Flex p="20px" mt="20px" direction="column" gap={10} position={[null, null, null, 'relative']}>
         {/* top div */}
@@ -163,7 +167,7 @@ const fetchTransactions = (user) => {
             <Spacer />
 
             <Box alignSelf="center" cursor="pointer">
-              <NotifIcon />
+             <NotificationModal />
             </Box>
           </Flex>
         </Box>
@@ -187,7 +191,7 @@ const fetchTransactions = (user) => {
                     border: "2px solid green",
                   }}
                   bgColor="#FFF"
-                  color={useColorModeValue("gray.900", "white")}
+                  color={useColorModeValue("gray.900", "black")}
                   fontFamily="Lato, sans-Serif"
                   fontWeight="bold"
                   onClick={()=> navigate('/crypto')}
@@ -215,6 +219,7 @@ const fetchTransactions = (user) => {
                     border: "2px solid green",
                   }}
                   bgColor="#FFF"
+                  color={useColorModeValue("gray.900", "black")}
                   fontFamily="Lato, sans-Serif"
                   fontWeight="bold"
                   minW="2.5rem"
@@ -248,6 +253,7 @@ const fetchTransactions = (user) => {
                   disabled={true}
                   minW="2.5rem"
                   w="8rem"
+                  color={useColorModeValue("gray.900", "black")}
                 >
                   Gift Cards
                 </Button>
@@ -286,12 +292,13 @@ const fetchTransactions = (user) => {
               Your recent transactions will appear here
             </Text> : 
             <TableContainer mt={3}  width={'100vw'}>
-              <Table size={"lg"} variant={"unstyled"} borderRadius={"lg"}>
+              <Table size={"lg"} variant={"unstyled"}
+              bg={tableColor} borderRadius={"lg"}>
                 {/* <TableCaption>
                   Imperial to metric conversion factors
                 </TableCaption> */}
                 <Thead
-                  bg="black"
+                  bg={TheadColor }
                   border={" 1px white solid"}
                   borderRadius={"4xl"}
                 >
@@ -307,7 +314,7 @@ const fetchTransactions = (user) => {
                 </Thead>
                 <br></br>
                 <Tbody
-                  bg={tableBgColor}
+                  bg={tableColor}
                   rounded={"full"}
                 >
                   {transactions.map((transaction) => {

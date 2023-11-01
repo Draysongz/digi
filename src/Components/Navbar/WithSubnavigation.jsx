@@ -37,7 +37,7 @@ export default function WithSubnavigation() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("white", "#080339")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
@@ -68,7 +68,7 @@ export default function WithSubnavigation() {
             src={
               colorMode === "light"
                 ? "./images/digimartExch.png"
-                : "./images/logoWhite.png"
+                : "./images/digi.png"
             }
             width="150px"
           />
@@ -101,6 +101,7 @@ export default function WithSubnavigation() {
             color={"#1808A3"}
             bg={"white"}
             onClick={() => navigate("/login")}
+            borderRadius={'md'}
             cursor="pointer"
             _hover={{
               bg: "#E8E6F6",
@@ -223,7 +224,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 const MobileNav = () => {
   return (
     <Stack
-      bg={useColorModeValue("white", "gray.800")}
+    bg={useColorModeValue("white", "#080339")}
       p={4}
       display={{ md: "none" }}
     >

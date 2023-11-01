@@ -17,6 +17,7 @@ import {
     AccordionItem,
     AccordionButton,
     AccordionPanel,
+    useColorModeValue,
   } from "@chakra-ui/react";
   import { AddIcon, MinusIcon } from '@chakra-ui/icons';
   import secure from '../assets/secure.svg'
@@ -38,26 +39,29 @@ import {
 
 const HeroC = () => {
   return (
-    <Container
+    <Box
     maxWidth="4xl"
     minWidth={['97vw', '98vw', '98.8vw', "98.5vw"]}
-    mt='-10px'
+    mt='0px'
+    bg={useColorModeValue('', '#0B0449;')}
   >
-    <Flex direction='column' gap={20}>
+    <Flex direction='column' >
 
         {/* Why div */}
-        <Box minWidth='95vw'>
+        <Box minWidth='97vw'
+        color={useColorModeValue('', 'white')}>
             <Flex direction='column' gap={10}>
                 <Box>
             <Heading 
+             p={6}
             textAlign='center' 
-            fontFamily='Lato sans-serif' 
-            color='#080339'>
+            fontFamily='Hellix-medium' 
+            color={useColorModeValue('#080339', 'white')}>
                 Why trade with DigiMart
                 </Heading>
             <HStack alignSelf='center' justifyContent='center'>
-            <Text color='#111111' textAlign='center' fontFamily='Lato sans-serif'>DigiMart Exchange; 1% </Text>
-            <Text color='#111111' textAlign='center' fontFamily='Lato sans-serif' fontWeight='bolder'>BETTER!</Text>
+            <Text color={useColorModeValue('#111111', 'white')} textAlign='center' fontFamily='Hellix-medium'>DigiMart Exchange; 1% </Text>
+            <Text color={useColorModeValue('#111111', 'white')} textAlign='center' fontFamily='Hellix-medium' fontWeight='bolder'>BETTER!</Text>
             </HStack>
             </Box>
             
@@ -69,8 +73,8 @@ const HeroC = () => {
                                 <Image src={secure} alt='security' width='50%'/>
                             </Circle>
 
-                            <Heading fontSize='18px' fontFamily='Lato sans-serif'>Secured Transactions</Heading>
-                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Lato sans-serif' >Digimart is a secure and reliable <br/>
+                            <Heading fontSize='18px' fontFamily='Hellix-medium'>Secured Transactions</Heading>
+                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >Digimart is a secure and reliable <br/>
                              exchange platform,
                                  that has users <br/> interest at heart... 
                                  No compromise on <br/> the safety of your assets, as they are <br/> protected with maximum security.</Text>
@@ -85,8 +89,8 @@ const HeroC = () => {
                                 <Image src={ease} alt='security' width='50%'/>
                             </Circle>
 
-                            <Heading fontSize='18px' fontFamily='Lato sans-serif'>Ease of use</Heading>
-                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Lato sans-serif' >Digimart's friendly interface and step- <br/> 
+                            <Heading fontSize='18px' fontFamily='Hellix-medium'>Ease of use</Heading>
+                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >Digimart's friendly interface and step- <br/> 
                               by-step guides on trading, makes it
                               <br/> easy for everyone including
                             <br/> beginners, to experience a hassle- <br/> free trading.</Text>
@@ -101,8 +105,8 @@ const HeroC = () => {
                                 <Image src={swift} alt='swift' width='50%'/>
                             </Circle>
 
-                            <Heading fontSize='18px' fontFamily='Lato sans-serif'>Secured Transactions</Heading>
-                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Lato sans-serif' >Digimart is a secure and reliable <br/> exchange platform,
+                            <Heading fontSize='18px' fontFamily='Hellix-medium'>Secured Transactions</Heading>
+                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >Digimart is a secure and reliable <br/> exchange platform,
                                  that has users <br/> interest at heart... 
                                  No compromise on <br/> the safety of your assets, as they are <br/> protected with maximum security.</Text>
                         </Flex>
@@ -114,18 +118,20 @@ const HeroC = () => {
         </Box>
 
         {/* second div */}
-        <Box>
-            <Flex justifyContent={'space-around'} direction={['column', 'column','column', 'row']} gap={40} >
+        <Box bg={useColorModeValue("", "#080339")}>
+            <Flex py={7} justifyContent={'space-between'}
+            alignItems={'center'} 
+            direction={['column', 'column','column', 'row']} gap={40} >
                 {/* left div */}
-                <Box ml={['0px', '40px', '60px']}>
+                <Box px={10}>
                     <Text fontSize={['27px', '28px', '32px']} 
-                    color={'#1808A3'} 
+                    color={useColorModeValue('#1808A3', "white")} 
                     textAlign={'left'}
-                    fontFamily='Lato sans-serif'>How to trade on DigiMart</Text>
+                    fontFamily='Hellix-medium'>How to trade on DigiMart</Text>
 
-                    <Heading fontFamily='Lato sans-serif'
-                    color={'#111111'}
-                    fontSize={['28px', '32px', '52px']}
+                    <Heading fontFamily='Hellix-medium'
+                    color={useColorModeValue('#111111', 'white')}
+                    fontSize={['28px', '32px', '40px']}
                     textAlign={'left'}
                     fontWeight={'700'}>Trade your Assets in 3 <br/> simple steps...</Heading>
 
@@ -135,11 +141,11 @@ const HeroC = () => {
                         <Circle bg={'#1808A3'}
                          size='45px' 
                          color={'white'} 
-                         fontFamily='Lato sans-serif'
+                         fontFamily='Hellix-medium'
                          fontWeight={'extrabold'}
                          fontSize='20px' >1</Circle>
                          <Text
-                         fontFamily='Lato sans-serif'
+                         fontFamily='Hellix-medium'
                          fontSize={['19px', '20px', '24px']}
                          textAlign={['center', 'center', 'left']}
                          lineHeight={'95%'}>Create an Account, with the required<br />information to get started</Text>
@@ -150,10 +156,10 @@ const HeroC = () => {
                          size='45px' 
                          color={'white'} 
                          fontWeight={'extrabold'}
-                         fontFamily='Lato sans-serif'
+                         fontFamily='Hellix-medium'
                          fontSize='20px' >2</Circle>
                          <Text
-                         fontFamily='Lato sans-serif'
+                         fontFamily='Hellix-medium'
                          textAlign={['center', 'center', 'left']}
                          fontSize={['19px', '20px', '24px']}
                          lineHeight={'95%'}>Select the asset you whish to trade;<br/>Crypto, Giftcard, or Paypal funds.</Text>
@@ -163,10 +169,10 @@ const HeroC = () => {
                          size='45px' 
                          color={'white'} 
                          fontWeight={'extrabold'}
-                         fontFamily='Lato sans-serif'
+                         fontFamily='Hellix-medium'
                          fontSize='20px' >3</Circle>
                          <Text
-                         fontFamily='Lato sans-serif'
+                         fontFamily='Hellix-medium'
                          fontSize={['19px', '20px', '24px']}
                          textAlign={['center', 'center', 'left']}
                          w={['70vw', '70vw','40vw', '34vw']}
@@ -177,39 +183,41 @@ const HeroC = () => {
                 </Box>
 
                 {/* right div */}
-                <Flex pos={'relative'} bottom={'10'} justifyContent={'center'}>
+                <Flex  justifyContent={'center'}>
                     <Image src={firstproto} alt='how to' width={['70%', '70%', '60%', '70%']} ml={'10px'} />
                 </Flex>
             </Flex>
         </Box>
 
         {/* Third div */}
-        <Box bgImage={map}>
-            <Flex direction={['column-reverse', 'column-reverse', 'column-reverse', 'row']}>
+        <Box bg={useColorModeValue("", "#080339")}>
+            <Flex direction={['column-reverse', 'column-reverse', 'column-reverse', 'row']}
+            justifyContent={'space-between'} px={10}>
                 <Box alignSelf={['center']} p='20px' ml='40px'>
                     <Image src={trade} alt='trade' width={['90%', '90%', '80%', '70%']} />
                 </Box>
 
-                <Box p='20px' mt='-40px'>
-                    <Flex p='20px' direction={'column'} gap={8} alignItems={['center', 'center', 'center', 'start']}>
-                    <Text fontSize={['22px', '28px', '32px']} 
-                    color={'#1808A3'} 
+                <Box alignItems={'center'} px={10} w={'fit-content'} maxW={'85vw'}>
+                    <Flex direction={'column'} mt={'60px'}
+                     gap={8} alignItems={['center', 'center', 'center', 'start']}>
+                    <Text fontSize={['18px', '28px', '22px']} 
+                    color={useColorModeValue('#1808A3', "white")} 
                     textAlign={['center', 'center', 'center', 'center']}
-                    fontFamily='Lato sans-serif'>100% Guaranteed & trusted</Text>
-                    <Heading fontFamily='Lato sans-serif'
-                    color={'#111111'}
-                    fontSize={['28px', '32px', '52px']}
+                    fontFamily='Hellix-medium'>100% Guaranteed & trusted</Text>
+                    <Heading fontFamily='Hellix-medium'
+                    color={useColorModeValue('#111111', "white")}
+                    fontSize={['22px', '32px', '42px']}
                     textAlign={['center', 'center', 'center',  'left']}
                     mt={'-30px'}
                     fontWeight={'700'}>Trade your Cryptos,<br/> Giftcards,and Paypal<br/> Funds for cash instantly.</Heading>
                      <Text
-                         fontFamily='Lato sans-serif'
-                         fontSize={['19px', '20px', '24px']}
+                         fontFamily='Hellix-medium'
+                         fontSize={['19px', '20px', '20px']}
                          w={['75vw', '45vw', '45vw', '30vw']}
                          textAlign={['center', 'center', 'center', 'justify']}
                          lineHeight={'95%'}>Trade your bitcoins and get paid to your bank account instantly. No stress</Text>
                     <Link to='/options'><Button
-                    fontFamily='Lato sans-serif'
+                    fontFamily='Hellix-medium'
                     bg={'#1808A3'}
                     color='#fff' 
                     w={['35vw', '35vw', '15vw']}
@@ -227,13 +235,13 @@ const HeroC = () => {
         {/* fourth div */}
         <Box>
             <Flex direction={'column'} gap={5}>
-            <Heading fontFamily='Lato sans-serif'
+            <Heading fontFamily='Hellix-medium'
                     color={'#111111'}
                     fontSize={['28px', '32px', '52px']}
                     textAlign={['center']}
                     fontWeight={'700'}>Our Services</Heading>
                      <Text
-                         fontFamily='Lato sans-serif'
+                         fontFamily='Hellix-medium'
                          fontSize={['19px', '20px', '24px']}
                          textAlign={['center']}
                          lineHeight={'95%'}>Trade your bitcoins and get paid to your<br/> bank account instantly. No stress</Text>
@@ -242,12 +250,12 @@ const HeroC = () => {
                     <CardBody minH={'30vh'} maxH='50vh' minW={'25vw'} w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
                         <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8} p='5px'>
                             <Heading
-                            fontFamily='Lato sans-serif'
+                            fontFamily='Hellix-medium'
                             fontSize={['16px', '20px', '20px']}
                             fontWeight={'bold'}
                             >Trade your Crypto in minutes</Heading>
                             <Text
-                             fontFamily='Lato sans-serif'
+                             fontFamily='Hellix-medium'
                              textAlign={'center'}
                              fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
                              <Image src={giftbox} alt='giftbox' width='80%' mt='-30px'/>
@@ -259,12 +267,12 @@ const HeroC = () => {
                     <CardBody minH={'30vh'} minW={'25vw'} maxH='50vh' w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
                         <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8}>
                             <Heading
-                            fontFamily='Lato sans-serif'
+                            fontFamily='Hellix-medium'
                             fontSize={['17px', '20px', '20px']}
                             fontWeight={'bold'}
                             >Sell Giftcards on DigiMart</Heading>
                             <Text
-                             fontFamily='Lato sans-serif'
+                             fontFamily='Hellix-medium'
                              textAlign={'center'}
                              fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
                             
@@ -279,12 +287,12 @@ const HeroC = () => {
                     <CardBody minH={'30vh'} maxH='50vh' minW={'25vw'} w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
                         <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8}>
                             <Heading
-                            fontFamily='Lato sans-serif'
+                            fontFamily='Hellix-medium'
                             fontSize={['17px', '20px', '20px']}
                             fontWeight={'bold'}
                             >Sell Paypal funds  on DigiMart</Heading>
                             <Text
-                             fontFamily='Lato sans-serif'
+                             fontFamily='Hellix-medium'
                              textAlign={'center'}
                              fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
                             
@@ -303,21 +311,21 @@ const HeroC = () => {
         <Flex  justifyContent={'center'}>
             <Flex bgImage={img} minH={'65vh'} w={'85vw'} gap={8} direction={'column'} justifyContent={'center'} alignItems={'center'} borderRadius={'14px'}>
             <Heading
-                            fontFamily='Lato sans-serif'
+                            fontFamily='Hellix-medium'
                             fontSize={['20px', '28px', '32px']}
                             fontWeight={'bold'}
                             w={['65vw', '65vw', '54vw', '32vw']}
                             textAlign={['center', 'center','center', 'left']}
                             >Create a <Text display={'inline'} color={'#1808A3'}>Free </Text>account today and start trading with us now!</Heading> 
                 <Text
-                             fontFamily='Lato sans-serif'
+                             fontFamily='Hellix-medium'
                              fontSize={['16px', '18px', '20px']}
                              w={['75vw', '45vw', '45vw', '33vw']}
                              textAlign={['center', 'center', 'center']}>Why settle for less when you can have even MORE!, 
                              Sign up today, and enjoy the best of rates...</Text> 
 
                              <Link to='/options'><Button
-                    fontFamily='Lato sans-serif'
+                    fontFamily='Hellix-medium'
                     bg={'#1808A3'}
                     color='#fff' 
                     w={['35vw', '35vw', '12vw']}
@@ -331,7 +339,7 @@ const HeroC = () => {
 
         {/* sixth div */}
         <Box p='20px'>
-        <Heading fontFamily='Lato sans-serif'
+        <Heading fontFamily='Hellix-medium'
                     color={'#111111'}
                     fontSize={['19px', '32px', '52px']}
                     textAlign={['center', 'center', 'center', 'left']}
@@ -340,7 +348,7 @@ const HeroC = () => {
             <AccordionItem p={['1px', '5px', '7px']} border='1px solid'  borderRadius={'10px'} >
                 {({ isExpanded }) => (
                     <>
-                    <Heading fontFamily='Lato sans-serif'>
+                    <Heading fontFamily='Hellix-medium'>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
                             What is Digimart
@@ -368,7 +376,7 @@ const HeroC = () => {
                 <AccordionItem p={['1px', '5px', '7px']}border='1px solid'  borderRadius={'10px'}  >
                 {({ isExpanded }) => (
                     <>
-                    <Heading fontFamily='Lato sans-serif' fontWeight={'bold'}>
+                    <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']}textAlign='left'>
                         Is my personal information safe on DigiMart?
@@ -399,7 +407,7 @@ const HeroC = () => {
                 <AccordionItem p={['1px', '5px', '7px']} border='1px solid'  borderRadius={'10px'}  >
                 {({ isExpanded }) => (
                     <>
-                    <Heading fontFamily='Lato sans-serif' fontWeight={'bold'}>
+                    <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1' fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
                         Is my personal information safe on DigiMart?
@@ -430,7 +438,7 @@ const HeroC = () => {
                 <AccordionItem p={['1px', '5px', '7px']} border='1px solid'  borderRadius={'10px'}  >
                 {({ isExpanded }) => (
                     <>
-                    <Heading fontFamily='Lato sans-serif' fontWeight={'bold'}>
+                    <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']}textAlign='left'>
                         What cryptocurrencies can I trade on DigiMart?
@@ -463,7 +471,7 @@ const HeroC = () => {
                 <AccordionItem p={['1px', '5px', '7px']} border='1px solid'  borderRadius={'10px'}  >
                 {({ isExpanded }) => (
                     <>
-                    <Heading fontFamily='Lato sans-serif' fontWeight={'bold'}>
+                    <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1' fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
                         How does the verification process work?
@@ -493,7 +501,7 @@ const HeroC = () => {
                 <AccordionItem p={['1px', '5px', '7px']} border='1px solid'  borderRadius={'10px'}  >
                 {({ isExpanded }) => (
                     <>
-                    <Heading fontFamily='Lato sans-serif' fontWeight={'bold'}>
+                    <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
                         Do I need to verify my identity to sell cryptocurrencies?
@@ -526,7 +534,7 @@ const HeroC = () => {
                 <AccordionItem p={['1px', '5px', '7px']} border='1px solid'  borderRadius={'10px'}  >
                 {({ isExpanded }) => (
                     <>
-                    <Heading fontFamily='Lato sans-serif' fontWeight={'bold'}>
+                    <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
                         How can i contact DigiMart's customer support?
@@ -565,12 +573,12 @@ const HeroC = () => {
                     <Image src={fb} alt='facebook'/>
                     <Image src={twitter}alt='twitter' />
                 </Flex>
-                <Text color={'white'} fontFamily={'Lato sans-serif'}>© 2023 DigiMart, All rights reserved</Text>
+                <Text color={'white'} fontFamily={'Hellix-medium'}>© 2023 DigiMart, All rights reserved</Text>
             </Flex>
 
               {/* second side */}
               <Flex direction={'column'} gap={5}>
-                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Lato sans-serif'}>Products</Heading>
+                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Hellix-medium'}>Products</Heading>
                 <Text color={'white'}>Trade Crypto</Text>
                 <Text color={'white'}>Buy Giftcards</Text>
                 <Text color={'white'}>Buy Paypal Funds</Text>
@@ -578,7 +586,7 @@ const HeroC = () => {
 
               {/* third side */}
               <Flex direction={'column'} gap={5}>
-                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Lato sans-serif'}>About</Heading>
+                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Hellix-medium'}>About</Heading>
                 <Text color={'white'}>About DigiMart</Text>
                 <Text color={'white'}>Blog</Text>
                 <Text color={'white'}>News</Text>
@@ -586,21 +594,21 @@ const HeroC = () => {
 
               {/* fourth side */}
               <Flex direction={'column'} gap={5}>
-                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Lato sans-serif'}>Help</Heading>
+                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Hellix-medium'}>Help</Heading>
                 <Text color={'white'}>Terms & conditions</Text>
                 <Text color={'white'}>Privacy policy</Text>
               </Flex>
 
               {/* fifth side */}
               <Flex direction={'column'} gap={5}>
-                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Lato sans-serif'}>Contact Us</Heading>
+                <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Hellix-medium'}>Contact Us</Heading>
                 <Text color={'white'}>Email address:<br/>Hellodigimart@gmail.com</Text>
                 <Text color={'white'}>Phone:<br/>+2347042263619</Text>
                 
               </Flex>
         </Flex>
     </Flex>
-  </Container>
+  </Box>
   )
 }
 

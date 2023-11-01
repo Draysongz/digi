@@ -82,6 +82,7 @@ import { toast } from "react-toastify";
 import { BsFilter } from "react-icons/bs";
 import { HiPencil } from "react-icons/hi";
 import Userbar from "../../Userbar";
+import NotificationModal from "../Notifications/NotificationModal";
 
 const UserManagement = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -270,7 +271,7 @@ console.log(selectedRole)
           <CardBody>
             <Flex gap={5} alignItems={"center"} justifyContent={"flex-end"}>
               <MessageModal />
-              <Icon as={AiOutlineBell} boxSize={6} />
+              <NotificationModal />
               <Userbar />
             </Flex>
           </CardBody>
@@ -345,7 +346,7 @@ console.log(selectedRole)
                     {sortedUsers && selectedFilter === '' && searchTerm === '' &&
                       sortedUsers.map((user, index) => {
                         return (
-                          <Tr>
+                          <Tr key={index} >
                             <Td>
                               <Checkbox /> {index + 1}
                             </Td>
@@ -370,7 +371,7 @@ console.log(selectedRole)
                             <Td>Verified</Td>
                             <Td >
                               <Text p={2} borderRadius={'md'}
-                              color={'#fff'}
+                              color={'#fff'} textAlign={'center'}
                               bg={user.role === 'User'? 'orange' : 
                               user.role === 'Merchant' ? 'green' :
                               user.role === 'Admin' ? 'red' :
@@ -393,7 +394,7 @@ console.log(selectedRole)
                       {filteredUser && 
                       filteredUser.map((user, index) => {
                         return (
-                          <Tr>
+                          <Tr key={index}>
                             <Td>
                               <Checkbox /> {index + 1}
                             </Td>
@@ -418,7 +419,7 @@ console.log(selectedRole)
                             <Td>Verified</Td>
                             <Td >
                               <Text p={2} borderRadius={'md'}
-                              color={'#fff'}
+                              color={'#fff'} textAlign={'center'}
                               bg={user.role === 'User'? 'orange' : 
                               user.role === 'Merchant' ? 'green' :
                               user.role === 'Admin' ? 'red' :
@@ -441,7 +442,7 @@ console.log(selectedRole)
                       {queryUser.length > 0 && searchTerm !== "" &&
                       queryUser.map((user, index) => {
                         return (
-                          <Tr>
+                          <Tr key={index}>
                             <Td>
                               <Checkbox /> {index + 1}
                             </Td>
@@ -466,7 +467,7 @@ console.log(selectedRole)
                             <Td>Verified</Td>
                             <Td >
                               <Text p={2} borderRadius={'md'}
-                              color={'#fff'}
+                              color={'#fff'} textAlign={'center'}
                               bg={user.role === 'User'? 'orange' : 
                               user.role === 'Merchant' ? 'green' :
                               user.role === 'Admin' ? 'red' :

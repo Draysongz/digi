@@ -26,7 +26,7 @@ import buyBg from "./CryptoAssets/buybg.png";
 import coinBag from "./CryptoAssets/coinbag.png";
 import coinWallet from "./CryptoAssets/image 106.png";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { NotifIcon } from "../NotifBadge";
+import NotificationModal from "../../../Admin/Notifications/NotificationModal";
 import { useNavigate } from "react-router-dom";
 import { app } from "../../firebase/Firebase";
 import { getFirestore, collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
@@ -59,7 +59,7 @@ const MainCrypto = () => {
     // Add more entries for other cryptocurrencies
   };
 
-  const tableBgColor = useColorModeValue("white", "gray.800");
+  const tableBgColor = useColorModeValue("white", "#050223");
   
  // Function to format time strings to "hh:mm" format
  const formatDateAndTime = (timestamp) => {
@@ -132,11 +132,12 @@ const fetchTransactions = (user) => {
     <Container
       maxWidth="4xl"
       py="20px"
-      bg="#F4F5F8"
       minHeight="100vh"
-      minWidth="85vw"
+      minWidth="83vw"
+      bg={useColorModeValue("#F4F5F8", "#050223")}
+      color={useColorModeValue("gray.900", "white")}
       position={[null, null, null, null, 'absolute']}
-      left={['0', '0', '0', "14%"]}
+      left={['0', '0', '0', "15.9%"]}
     >
       <Flex p="20px" mt="20px" direction="column" gap={10} position={[null, null, null, 'relative']}>
         <Box minW="80vw">
@@ -164,7 +165,7 @@ const fetchTransactions = (user) => {
             <Spacer />
 
             <Box alignSelf={["start", "start", "start"]} cursor="pointer">
-              <NotifIcon />
+              <NotificationModal/>
             </Box>
           </Flex>
         </Box>

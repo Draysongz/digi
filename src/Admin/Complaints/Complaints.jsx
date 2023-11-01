@@ -23,6 +23,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Userbar from '../../Userbar';
 import { collection, where, query, doc, getDoc, getDocs, onSnapshot, getFirestore, collectionGroup, orderBy, limit } from 'firebase/firestore';
 import MessageModal from '../MessageModal/MessageModal';
+import NotificationModal from '../Notifications/NotificationModal';
 
 const Complaints = () => {
   const navigate = useNavigate();
@@ -171,7 +172,7 @@ const Complaints = () => {
         <CardBody>
           <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
             <MessageModal />
-            <Icon as={AiOutlineBell} boxSize={6} />
+            <NotificationModal />
             <Userbar />
           </Flex>
         </CardBody>

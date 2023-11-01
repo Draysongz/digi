@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { NotifIcon } from "../NotifBadge";
+import NotificationModal from "../../../Admin/Notifications/NotificationModal";
 import {
   Container,
   Flex,
@@ -59,7 +59,7 @@ const Gift = () => {
           <Spacer />
 
           <Box alignSelf={["start", "start", "start"]} cursor="pointer">
-            <NotifIcon />
+            <NotificationModal/>
           </Box>
         </Flex>
       </Box>

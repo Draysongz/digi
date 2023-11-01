@@ -23,11 +23,13 @@ import { app } from "../firebase/Firebase";
 import { getFirestore, collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
+import NotificationModal from "../../Admin/Notifications/NotificationModal";
 
 export default function Transactions() {
   const auth = getAuth();
   const db = getFirestore(app);
   const [user, setUser] = useState(null);
+  const TheadColor = useColorModeValue("black", "#0B0449")
   const [transactions, setTransactions] = useState([]);
 
   const cryptoImages = {
@@ -118,8 +120,8 @@ const fetchTransactions = (user) => {
   }, [auth]);
 
  
-  const tableBgColor = useColorModeValue("white", "gray.800");
-  const flexBgColor = useColorModeValue('gray.50', 'gray.800')
+  const tableBgColor = useColorModeValue("white", "#141139");
+  const flexBgColor = useColorModeValue('gray.50', "#050223")
   const flexColor = useColorModeValue('gray.900', 'white')
 
   if (transactions.length === 0) {
@@ -153,7 +155,7 @@ const fetchTransactions = (user) => {
               <Heading padding={"1px"} size={"lg"}>
                 Transactions
               </Heading>
-              <NotifIcon />
+              <NotificationModal />
               {/* <IconButton
                 border={"none"}
                 fontSize={"4xl"}
@@ -169,7 +171,7 @@ const fetchTransactions = (user) => {
                   Imperial to metric conversion factors
                 </TableCaption> */}
                 <Thead
-                  bg="black"
+                  bg={TheadColor }
                   border={" 1px white solid"}
                   borderRadius={"4xl"}
                 >
@@ -218,7 +220,7 @@ const fetchTransactions = (user) => {
               >
                 {transaction.transactionType}
               </Text>
-              <Text fontWeight={'semibold'} color={transaction.status === 'pending' ? 'yellow.300' : transaction.status === 'unsuccessful' ? 'red.500' : '#31CD31'
+              <Text fontWeight={'semibold'} color={transaction.status === 'processing' ? 'yellow.300' : transaction.status === 'failed' ? 'red.500' : '#31CD31'
 }> {transaction.status}</Text>
             </HStack>
           </Td>

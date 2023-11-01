@@ -27,7 +27,7 @@ import { ChevronRightIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import PasswordCard from "./Setting/PasswordSetting";
 import PasswordAccordion from "./Setting/SettingAccordion";
 import {toast} from 'react-toastify'
-import { NotifIcon } from "./NotifBadge";
+import NotificationModal from "../../Admin/Notifications/NotificationModal";
 import { useRef } from "react";
 import { storage } from "../firebase/Firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -44,7 +44,7 @@ export default function Setting() {
         maxW="2000px"
         flexDir={["column", "column", "row"]}
         overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
+        bg={useColorModeValue("gray.50", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
@@ -56,7 +56,7 @@ export default function Setting() {
               <Heading padding={"1px"} size={"lg"}>
                 Settings
               </Heading>
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box>
               <PasswordAccordion />
@@ -311,7 +311,7 @@ function ThemeSettings() {
           color: "#1808A3",
         }}
         fontSize="lg"
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("white", "#141139")}
         overflow={"auto"}
       >
         <Icon mx={3} as={WiMoonAltFirstQuarter} fontSize="2xl" />

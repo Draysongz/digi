@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import { ProfileModal } from '../../Components/Dashboard/Setting';
 import Userbar from '../../Userbar';
 import MessageModal from '../MessageModal/MessageModal';
+import NotificationModal from '../Notifications/NotificationModal';
 
 const Profile = () => {
   
@@ -84,7 +85,7 @@ const Profile = () => {
             <CardBody>
                 <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
                     <MessageModal />
-                    <Icon as={AiOutlineBell} boxSize={6} />
+                    <NotificationModal/>
                     <Userbar />
 
                 </Flex>

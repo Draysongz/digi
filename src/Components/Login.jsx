@@ -18,13 +18,16 @@ import {
   InputRightElement,
   Input,
   border,
+  useColorModeValue,
+  color,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import frame from "./assets/frame2.png";
 import smilingMan from "./assets/smilingMan.png";
 import framet from "./assets/frame3.png";
 import { FcGoogle } from "react-icons/fc";
-import { getDoc, getFirestore, doc } from "firebase/firestore";
+import { increment, arrayUnion } from "firebase/firestore";
+import { getDoc, getFirestore, doc, updateDoc, addDoc, serverTimestamp } from "firebase/firestore";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -37,15 +40,14 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
-
   const loginUser = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const auth = getAuth(app);
     try {
-      await setTimeout(() => {
-        setIsLoading(false);
-      }, 5000);
+      // Simulate a 5-second delay before setting isLoading to false
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+  
       const userCredentials = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredentials.user;
   
@@ -56,7 +58,7 @@ const Login = () => {
       const userDoc = await getDoc(userRef);
       const userRole = userDoc.data().role;
   
-      if (userRole === "sub-admin") {
+      if(userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Merchant') {
         // Redirect to the admin dashboard
         navigate("/admin/dashboard");
       } else if (userRole === "user") {
@@ -65,26 +67,49 @@ const Login = () => {
       } else {
         console.log('role not found');
       }
+        // Get the current notifications array
+        const userData = userDoc.data();
+        const notifications = userData.notifications || [];
   
+        // Add a new notification to the array
+        notifications.push({
+          message: "You've successfully logged in",
+          timestamp: new Date(), // Set the timestamp in your code
+        });
+  
+        // Update the notifications and increment unreadNotifications
+        await updateDoc(userRef, {
+          notifications,
+          unreadNotifications: increment(1),
+        });
       toast.success("Login successful");
     } catch (error) {
       console.log(error);
-      await setTimeout(() => {
-        setIsLoading(false);
-      }, 4000);
+  
+      // Simulate a 4-second delay before setting isLoading to false
+      await new Promise((resolve) => setTimeout(resolve, 4000));
+  
       toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
+  
+  
+  
+  
+  
   
   return (
     <Flex
       maxWidth="4xl"
       minHeight="100vh"
       minWidth={["70vw", "98vw", "98.7vw", "98.7vw"]}
-      bg={"#080339"}
       bgSize={"cover"}
       bgRepeat={"no-repeat"}
+      bg={useColorModeValue("#080339", "#1808A3")}
       dir={"row"}
+     
     >
       {/* left side */}
       <Flex
@@ -113,36 +138,36 @@ const Login = () => {
             </Center>
           </Box>
 
-          <Box bgImage={framet} bgSize={"cover"} pos={"absolute"} mt={"23rem"}>
+          {/* <Box bgImage={framet} bgSize={"cover"} pos={"absolute"} mt={"27rem"}>
             <Heading
-              fontFamily={"Lato sans-serif"}
+              fontFamily={"Hellix-medium"}
               fontStyle={"normal"}
               color={"white"}
             >
-              Invite 5 friends and get access
-              <br />
-              to free crypto
+             Got a surprise for YOU! <br/>
+            
             </Heading>
             <Text
               mt="2rem"
               color={"white"}
-              fontFamily={"Lato sans-serif"}
+              fontFamily={"Hellix-medium"}
               fontSize={"22px"}
             >
-              Login and continue transanction
+               Earn crypto in $MART tokens for <span style={{color : 'blue'}}>FREE! </span>When you create an account with DigiMart Exchange
             </Text>
-          </Box>
+          </Box> */}
         </Flex>
       </Flex>
 
       {/* right side */}
       <Flex
-        bg={"white"}
         w={["100%", "100%", "100%", "50%"]}
         p="20px"
         direction={"column"}
+        bg={useColorModeValue("white", "#050223")}
+        color={useColorModeValue("gray.900", "white")}
       >
-        <Heading fontFamily={"Lato sans-serif"}>Welcome back!</Heading>
+        <Heading fontFamily={"Hellix-medium"}>Welcome back!</Heading>
         <FormControl p="10px">
           <Center mt="5rem">
             <Flex
@@ -156,14 +181,21 @@ const Login = () => {
                 variant={"flushed"}
                 w={["85vw", "85vw", "85vw", "28vw"]}
                 placeholder="Email address"
+               
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
+                _placeholder={{
+                  color : useColorModeValue("", "white")
+                }}
               />
               <InputGroup size="md">
                 <Input
                   type={showPassword ? "text" : "password"}
                   variant={"flushed"}
                   pr="4.5rem"
+                  _placeholder={{
+                    color : useColorModeValue("", "white")
+                  }}
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
@@ -224,7 +256,7 @@ const Login = () => {
                   />
                 </Flex>
                 <Button
-                  color={"black"}
+                  color={useColorModeValue("black", "white")}
                   border={"1px solid #00296B"}
                   borderRadius={"full"}
                   minH={"7vh"}

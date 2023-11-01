@@ -34,8 +34,10 @@ import {
 import { toast } from 'react-toastify';
 
 const BuyFinalCheckout = () => {
-    const bgColor = useColorModeValue("gray.50", "gray.800");
+    const bgColor = useColorModeValue("gray.50", "#050223");
   const textColor = useColorModeValue("gray.900", "white");
+  const buttonColor = useColorModeValue("#1808A3", "#0B0449");
+  const chetextColor = useColorModeValue("#1808A3", "white")
   const [wallet, setWallet] = useState('')
   const [transactionSaved, setTransactionSaved] = useState(false)
   const {state} = useLocation()
@@ -86,7 +88,7 @@ const BuyFinalCheckout = () => {
       h={["100vh", "100vh", "100vh"]}
       maxW="2000px"
       flexDir={["column", "column", "row"]}
-      overflow="scroll"
+      overflow="auto"
       bg={ bgColor}
       color={textColor}
     >
@@ -111,10 +113,10 @@ const BuyFinalCheckout = () => {
               <br></br>
             </Box>
 
-            <NotifIcon />
+            <NotificationModal/>
           </Flex>
           <Box justifyContent={"space-between"} minW={"35em"}>
-            <Heading size={"md"} color="#1808A3">
+            <Heading size={"md"} color={chetextColor}>
               Checkout
             </Heading>
             <Text maxW={{ base: "20em", md: "30em" }}>
@@ -136,6 +138,7 @@ const BuyFinalCheckout = () => {
                   placeholder="0x2373774803089Eda"
                   borderRadius="10px"
                   value={wallet}
+                  color={'black'}
                   onChange={(e)=>setWallet(e.target.value)}
                 />
               </InputGroup>
@@ -145,7 +148,7 @@ const BuyFinalCheckout = () => {
               width={{ base: "15rem", md: "25rem" }}
               height={"50px"}
               color="#fff"
-              bg="#1808A3"
+              bg={buttonColor}
               _hover={{
                 bg: "#3626c7",
               }}

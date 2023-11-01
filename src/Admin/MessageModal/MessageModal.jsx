@@ -36,7 +36,7 @@ import { useNavigate } from "react-router-dom";
 import {ArrowForwardIcon} from '@chakra-ui/icons'
 import { app } from '../../Components/firebase/Firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, where, query, doc, getDoc, getDocs, onSnapshot, getFirestore, collectionGroup, orderBy, limit } from 'firebase/firestore';
+import { collection, where, query, doc, getDoc, getDocs, onSnapshot, getFirestore,  orderBy, limit } from 'firebase/firestore';
 
 export default function MessageModal() {
   const { isOpen, onToggle, onClose } = useDisclosure()

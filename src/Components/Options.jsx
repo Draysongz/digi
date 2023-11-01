@@ -56,7 +56,7 @@ const Options = () => {
             color={"white"}
             fontSize={["24px", "30px", "40px"]}
             fontStyle={"normal"}
-            fontFamily={"Lato sans-serif"}
+            fontFamily={"Hellix-medium"}
             textAlign={"center"}
           >
             Welcome to a world

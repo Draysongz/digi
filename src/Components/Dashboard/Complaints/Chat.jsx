@@ -31,6 +31,9 @@ import {
 import { getFirestore, getDoc, doc, collection, where, query, orderBy, onSnapshot, serverTimestamp, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useLocation, useNavigate } from 'react-router-dom';
+import Userbar from '../../../Userbar'
+import MessageModal from '../../../Admin/MessageModal/MessageModal'
+import NotificationModal from '../../../Admin/Notifications/NotificationModal'
 
 const Chat = () => {
   const [user, setUser] = useState(null);
@@ -181,27 +184,23 @@ const Chat = () => {
     maxWidth="4xl"
     // py="20px"
     minHeight="100vh"
-    minWidth="78vw"
-    bg={useColorModeValue("#F4F5F8", "gray.700")}
+    minWidth="83vw"
+    bg={useColorModeValue("#F4F5F8", "#050223")}
     color={useColorModeValue("gray.900", "white")}
     position={[null, null, null, null, 'absolute']}
-    left={['0', '0', '0', "21%"]}
-    overFlow-X={'hidden'}
+    left={['0', '0', '0', "15.9%"]}
+    overflowX={'hidden'}
   >
     <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
         <Card borderLeftRadius={'0px'}
         ml={'-1.2%'} mt={'2px'} >
-            <CardBody>
+            <CardBody bg={useColorModeValue("", "#141139")}>
                 <Flex alignItems={'center'} justifyContent={'space-between'}>
                   <Text  fontSize={'lg'}>{receiver ? `${receiver.firstName} ${receiver.lastName}`: 'hello'}</Text>
                   <Flex gap={5} >
-                    <Icon as={CiMail} boxSize={6} />
-                    <Icon as={AiOutlineBell} boxSize={6} />
-                    <Wrap>
-                        <WrapItem>
-                            <Avatar name='Dan Abrahmov' size='sm' src='https://bit.ly/dan-abramov' />
-                            </WrapItem>
-                    </Wrap>
+                    <MessageModal />
+                    <NotificationModal />
+                    <Userbar />
                     </Flex>
 
                 </Flex>
@@ -263,16 +262,16 @@ const Chat = () => {
 
 
             <Card pos={'sticky'}>
-                <CardBody w={'60vw'} h={'20vh'}>
+                <CardBody w={'60vw'} h={'20vh'} bg={useColorModeValue("", "#141139")}>
                     <Flex alignItems={'center'} gap={10}>
                         <Box cursor={'pointer'}><AttachmentIcon/></Box>
                         <Box>
-                            <Input w={'45vw'} borderRadius={'2xl'} bg={'#EBEBEB'} type='text'
-                            _placeholder={{color: '#C4C4C4'}} placeholder='Type a text'  value={message}
+                            <Input w={'45vw'} borderRadius={'2xl'} bg={'#EBEBEB'} type='text' color={'black'}
+                            _placeholder={{color: useColorModeValue('#C4C4C4', "black")}} placeholder='Type a text'  value={message}
                             onChange={(e) => setMessage(e.target.value)} />
                         </Box>
                         <Box cursor={'pointer'}>
-                            <Icon color={'#00296B'} onClick={sendMessage} as={RiSendPlaneFill} boxSize={6}/>
+                            <Icon color={useColorModeValue('#00296B', '#0B0449' ) } onClick={sendMessage} as={RiSendPlaneFill} boxSize={6}/>
                         </Box>
                     </Flex>
                 </CardBody>

@@ -60,14 +60,64 @@ export default function LogoutModal() {
       </Link>
 
      
-     
+      <Modal onClose={onClose} isOpen={isOpen} isCentered >
+        <ModalOverlay />
+        <ModalContent bg={useColorModeValue("", "white")}>
+          <ModalHeader alignSelf={"center"}></ModalHeader>
+          <ModalCloseButton bg={"#1808A3"} color={"#fff"} rounded={"full"} />
+          <ModalBody>
+            <Stack>
+              <Box alignSelf={"center"} mb={10} color={useColorModeValue("", "black")}>
+                {" "}
+                <Heading size={"md"} align={"center"} mx={10} mb={5}>
+                  You are attempting to logout of Digimart
+                </Heading>
+                <Text align={"center"}>Are you sure?</Text>
+              </Box>
+
+              <Button
+                height={"54px"}
+                color="#fff"
+                bg="#D92D20"
+                _hover={{
+                  bg: "transparent",
+                  color: 'black',
+                  border: '1px solid #D92D20'
+                }}
+                rounded={"full"}
+                onClick={logout}
+              >
+                Log out
+              </Button>
+              <Button
+                height={"54px"}
+                color="#000"
+                border={'1px solid #1808A3'}
+                bgColor={'transparent'}
+                _hover={{
+                  bg: "transparent",
+                  color: 'black',
+                  border: '1px solid #1808A3'
+                }}
+                rounded={"full"}
+                onClick={logout}
+              >
+                Cancel
+              </Button>
+            </Stack>
+          </ModalBody>
+          <ModalFooter>
+            {/* <Button onClick={onClose}>Close</Button> */}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
      
     </>
   );
 }
 
-export function MobileLogoutModal() {
+export  function MobileLogoutModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const logout = async(e)=>{
     e.preventDefault()

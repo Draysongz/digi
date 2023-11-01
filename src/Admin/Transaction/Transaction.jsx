@@ -50,6 +50,7 @@ import { format } from 'timeago.js';
 import MessageModal from '../MessageModal/MessageModal';
 import {toast} from 'react-toastify'
 import Userbar from '../../Userbar';
+import NotificationModal from '../Notifications/NotificationModal';
 
 const Transaction = () => {
   const [transactions, setTransactions] = useState([]);
@@ -221,7 +222,7 @@ const handleSaveStatus = async () => {
           <CardBody>
             <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
               <MessageModal />
-              <Icon as={AiOutlineBell} boxSize={6} />
+              <NotificationModal/>
               <Userbar />
 
             </Flex>

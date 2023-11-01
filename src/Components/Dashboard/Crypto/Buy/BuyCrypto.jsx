@@ -44,6 +44,7 @@ import dai from "../CryptoAssets/SellSVG/Dai.svg";
 import { SideBarFunc } from "../../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../Goback";
+import NotificationModal from "../../../../Admin/Notifications/NotificationModal";
 
 export default function BuyCrypto() {
   const navigate = useNavigate();
@@ -72,8 +73,8 @@ export default function BuyCrypto() {
         h={["100vh", "100vh", "100vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
+        overflow="auto"
+        bg={useColorModeValue("#F4F5F8", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
@@ -87,40 +88,20 @@ export default function BuyCrypto() {
                 {" "}
                 <Heading size={"lg"}>Buy Cryptocurrency</Heading>
                 <Text minW="14vw" fontFamily="Lato, sans-Serif" fontSize="18px">
-                  Choose a cryptocurrency you would like to buy
+                  Kindly choose a cryptocurrency you would like to buy
                 </Text>
                 <br></br>
-                <InputGroup
-                  bgColor="#fff"
-                  mb={4}
-                  border="solid"
-                  borderColor="gray.300"
-                  borderRadius="10px"
-                  mr={2}
-                  width={{ base: "15rem", sm: "20rem", md: "25rem" }}
-                >
-                  <InputRightElement
-                    pointerEvents="auto"
-                    width={"50px"}
-                    children={<FiSearch color="gray.900" />}
-                    bg={"gray.200"}
-                    borderRightRadius="lg"
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Search Crypto"
-                    borderRadius="8px"
-                  />
-                </InputGroup>
+               
               </Box>
 
-              <NotifIcon />
+              <NotificationModal />
             </Flex>
             <Box mb={5}>
               <SimpleGrid spacing={4} columns={{ base: "2", md: "3", lg: "4" }}>
                 <Card
                   as={"button"}
                   href="#"
+                  bg={useColorModeValue('', '#141139')}
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Bitcoin", "BTC")}
                 >
@@ -145,30 +126,7 @@ export default function BuyCrypto() {
                 <Card
                   as={"button"}
                   href="#"
-                  _hover={{ bg: "gray.50", color: "gray.800" }}
-                  onClick={() => handleCardClick("Ethereum", "ETH")}
-                >
-                  <CardHeader>
-                    <HStack>
-                      {" "}
-                      <Image
-                        borderRadius="full"
-                        boxSize="28px"
-                        src={eth}
-                        alt="Dan Abramov"
-                      />
-                      <VStack align={"start"}>
-                        <Heading size={"xs"}>Ethereum</Heading>
-                        <Text fontSize="xs">ETH</Text>
-                      </VStack>
-                    </HStack>
-                  </CardHeader>
-                  <CardFooter></CardFooter>
-                </Card>
-
-                <Card
-                  as={"button"}
-                  href="#"
+                  bg={useColorModeValue('', '#141139')}
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   size={"md"}
                   onClick={() => handleCardClick("TETHER", "USDT")}
@@ -194,6 +152,7 @@ export default function BuyCrypto() {
                 <Card
                   as={"button"}
                   href="#"
+                  bg={useColorModeValue('', '#141139')}
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Binance Smartchain", "BSC")}
                 >
@@ -217,6 +176,7 @@ export default function BuyCrypto() {
 
                 <Card
                   as={"button"}
+                  bg={useColorModeValue('', '#141139')}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("USD Coin", "USDC")}
@@ -241,6 +201,7 @@ export default function BuyCrypto() {
 
                 <Card
                   as={"button"}
+                  bg={useColorModeValue('', '#141139')}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Ripple", "XRP")}
@@ -265,6 +226,7 @@ export default function BuyCrypto() {
 
                 <Card
                   as={"button"}
+                  bg={useColorModeValue('', '#141139')}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Cardano", "ADA")}
@@ -289,6 +251,7 @@ export default function BuyCrypto() {
 
                 <Card
                   as={"button"}
+                  bg={useColorModeValue('', '#141139')}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Solana", "SOL")}
@@ -313,6 +276,7 @@ export default function BuyCrypto() {
 
                 <Card
                   as={"button"}
+                  bg={useColorModeValue('', '#141139')}
                   href="#"
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Tron", "TRX")}
@@ -338,6 +302,7 @@ export default function BuyCrypto() {
                 <Card
                   as={"button"}
                   href="#"
+                  bg={useColorModeValue('', '#141139')}
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Litecoin", "LTC")}
                 >
@@ -362,6 +327,7 @@ export default function BuyCrypto() {
                 <Card
                   as={"button"}
                   href="#"
+                  bg={useColorModeValue('', '#141139')}
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Polkadot", "DOT")}
                 >
@@ -386,6 +352,7 @@ export default function BuyCrypto() {
                 <Card
                   as={"button"}
                   href="#"
+                  bg={useColorModeValue('', '#141139')}
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Polygon", "MATIC")}
                 >
@@ -410,30 +377,7 @@ export default function BuyCrypto() {
                 <Card
                   as={"button"}
                   href="#"
-                  _hover={{ bg: "gray.50", color: "gray.800" }}
-                  onClick={() => handleCardClick("Shiba Inu", "SHIB")}
-                >
-                  <CardHeader>
-                    <HStack>
-                      {" "}
-                      <Image
-                        borderRadius="full"
-                        boxSize="28px"
-                        src={shiba}
-                        alt="Dan Abramov"
-                      />
-                      <VStack align={"start"} alignContent="start">
-                        <Heading size={"xs"}>Shiba Inu</Heading>
-                        <Text fontSize="xs">SHIBA</Text>
-                      </VStack>
-                    </HStack>
-                  </CardHeader>
-                  <CardFooter></CardFooter>
-                </Card>
-
-                <Card
-                  as={"button"}
-                  href="#"
+                  bg={useColorModeValue('', '#141139')}
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("Avalanche", "AVAX")}
                 >
@@ -458,6 +402,7 @@ export default function BuyCrypto() {
                 <Card
                   as={"button"}
                   href="#"
+                  bg={useColorModeValue('', '#141139')}
                   _hover={{ bg: "gray.50", color: "gray.800" }}
                   onClick={() => handleCardClick("DAI", "DAI")}
                 >

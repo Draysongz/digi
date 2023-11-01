@@ -31,7 +31,7 @@ export const SideBarFunc = () => {
   const [display, changeDisplay] = useState("none");
   return (
     <Flex
-      bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue("white", "#05012C")}
       color={useColorModeValue("#000", "gray.200")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
@@ -56,7 +56,7 @@ export const SideBarFunc = () => {
           display={["none", "none", "flex", "flex", "flex"]}
           mt={1}
         >
-          <Flex>
+          <Flex p={4}> 
             <Image
               align={"center"}
               src={

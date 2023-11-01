@@ -36,13 +36,15 @@ import Complaints from './Components/Dashboard/Complaints/MainComplaints'
 import UserChat from './Components/Dashboard/Complaints/MainChat'
 import MainTransaction from "./Admin/Transaction/MainTransaction";
 import ForbiddenPage from "./ForbiddenPage";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import { getFirestore, doc, getDoc } from "@firebase/firestore";
 import { app } from "./Components/firebase/Firebase";
 import {Spinner, Flex} from '@chakra-ui/react'
 import TransactionLoadBalancer from "./TransactionLoadBalancer";
 import MainUserManagement from "./Admin/userManagement/MainUserManagement";
+
+
 
 function App() {
   useEffect(() => {
@@ -116,6 +118,8 @@ function App() {
 function UserPages({children}){
   const [userRole, setUserRole] = useState(null);
   const [roleChecked, setRoleChecked] = useState(false);
+  const [userStatus, setUserStatus] = useState(null)
+  const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth(app);
@@ -128,7 +132,9 @@ function UserPages({children}){
           const userDoc = await getDoc(userRef);
           if (userDoc.exists()) {
             const role = userDoc.data().role;
+            const status = userDoc.data().status
             setUserRole(role);
+            setUserStatus(status)
           } else {
             console.error("User document not found in Firestore.");
           }
@@ -141,7 +147,7 @@ function UserPages({children}){
         setRoleChecked(true); // Set roleChecked to true when the user is not authenticated
       }
     });
-  }, []);
+  },[userRole, userStatus, roleChecked, navigate]);
 
   if (!roleChecked) {
     return(
@@ -153,7 +159,7 @@ emptyColor='gray.200' />
     )
   }
 
-  if(userRole === 'user' || 'sub-admin'){
+  if(userRole === 'user' || 'sub-admin' && userStatus === 'active' ){
   return <>{children}</>
 }else{
  return  <Navigate to='/forbidden' />
@@ -161,8 +167,10 @@ emptyColor='gray.200' />
 }
 
 function AdminPages({children}){
+  const [userStatus, setUserStatus] = useState(null)
   const [userRole, setUserRole] = useState(null);
   const [roleChecked, setRoleChecked] = useState(false);
+  const navigate = useNavigate()
   useEffect(() => {
     const auth = getAuth(app);
     const db = getFirestore(app);
@@ -174,7 +182,10 @@ function AdminPages({children}){
           const userDoc = await getDoc(userRef);
           if (userDoc.exists()) {
             const role = userDoc.data().role;
+            const status = userDoc.data().status
             setUserRole(role);
+            setUserStatus(status)
+            console.log(status)
           } else {
             console.error("User document not found in Firestore.");
           }
@@ -187,7 +198,7 @@ function AdminPages({children}){
         setRoleChecked(true); // Set roleChecked to true when the user is not authenticated
       }
     });
-  }, []);
+  }, [userRole, userStatus, roleChecked, navigate]);
 
   if (!roleChecked) {
     return(
@@ -198,11 +209,15 @@ emptyColor='gray.200' />
     </Flex>
     )
   }
-  if(userRole === 'Sub-admin' || 'Admin' || 'Customer Care' || 'Merchant'){
+  if (
+    (userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Merchant') &&
+    userStatus === 'active'
+  ) {
   return <>{children}</>
 }else{
  return  <Navigate to='/forbidden' />
 }
 }
+
 
 export default App;

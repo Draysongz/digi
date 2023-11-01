@@ -68,8 +68,8 @@ export default function SellProof() {
         h={["100vh", "100vh", "100vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
-        bg={useColorModeValue("gray.50", "gray.800")}
+        overflow="auto"
+        bg={useColorModeValue("gray.50", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >
         <SideBarFunc />
@@ -93,10 +93,10 @@ export default function SellProof() {
                 <br></br>
               </Box>
 
-              <NotifIcon />
+              <NotificationModal/>
             </Flex>
             <Box>
-              <Heading size={"md"} color="#1808A3">
+              <Heading size={"md"} color={useColorModeValue("#1808A3", "white")}>
                 Upload payment proof
               </Heading>
               <Text>Kindly upload payment proof to recieve cash</Text>
@@ -128,10 +128,11 @@ export default function SellProof() {
                     placeholder="copy"
                   />
                   <Input
-                    type="number"
+                    type="text"
                     placeholder="Kindly Paste crypto transaction hash"
                     borderRadius="10px"
                     value={transactionHash}
+                    color={'black'}
                     onChange={(e)=>setTransactionHash(e.target.value)}
                   />
                 </InputGroup>
@@ -158,7 +159,7 @@ export default function SellProof() {
                 width={"240px"}
                 disabled={!isFormValid}
                 color="#fff"
-                bg="#1808A3"
+                bg= {useColorModeValue("#1808A3", "#0B0449")}
                 _hover={{
                   bg: "#3626c7",
                 }}
