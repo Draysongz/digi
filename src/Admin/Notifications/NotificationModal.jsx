@@ -4,15 +4,6 @@ import {
     Text,
     Box,
     Button,
-    Modal,
-    ModalBody,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalCloseButton,
-    useDisclosure,
-    useColorModeValue,
     Popover,
     PopoverTrigger,
     PopoverContent,
@@ -21,6 +12,8 @@ import {
     CardBody,
     PopoverArrow,
     PopoverCloseButton,
+    useColorModeValue,  
+    useDisclosure,
     Heading,
     Flex,
   WrapItem,
@@ -140,17 +133,17 @@ const NotificationModal = () => {
     
   </PopoverTrigger>
   <PopoverContent>
-    <Card >
+    <Card bg={useColorModeValue("white", '#050223')} >
       <CardBody borderRadius={'none'} py={3} px={2} >
         <Flex justifyContent={'flex-end'} p={3}>
-        <Circle boxShadow={'md'} size='30px' bg='white' onClick={()=> onClose()}>
+        <Circle boxShadow={'md'} size='30px' bg='white' color={'black'} onClick={()=> onClose()}>
           <CloseButton  _hover={{
       bgColor: 'transparent'
     }}  />
           </Circle>
           </Flex>
  
-    <Flex h='7vh' justifyContent={'space-between'}  alignItems={'center'} p={2}   bg={'#E8E6F6'}>
+    <Flex h='7vh' justifyContent={'space-between'}  alignItems={'center'} p={2}   bg={ useColorModeValue('#E8E6F6', "#141139")}>
         <Heading as={'h3'} fontWeight={'bold'}
         fontSize={'lg'} fontFamily={'Hellix-Medium'} >Notifications</Heading>
       </Flex>

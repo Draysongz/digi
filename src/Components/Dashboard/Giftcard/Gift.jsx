@@ -21,20 +21,46 @@ Icon,
 
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
+import FileUploadSingle from "../Crypto/FileUpload";
+import {toast} from 'react-toastify'
 
 const Gift = () => {
+  const [downloadURL, setDownloadURL] = useState("");
+  const [isUploadComplete, setIsUploadComplete] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const handleUploadComplete = (url) => {
+    setDownloadURL(url);
+    setIsUploadComplete(true);
+  };
+
+  
+  useEffect(() => {
+    console.log("Updated downloadURL:", downloadURL);
+    // Perform any actions using the updated downloadURL here, if needed
+
+    // Step 2: Validate the form
+    if ( isUploadComplete) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [downloadURL, isUploadComplete]);
   return (
     <Container
-    maxWidth="4xl"
+    maxWidth={["4xl","4xl","4xl","2xl","2xl",]}
     py="20px"
-    bg="#F4F5F8"
     minHeight="100vh"
-    minWidth="85vw"
-    position={[null, null, null, null, 'absolute']}
-    left={['0', '0', '0', "13.2%"]}
+    minWidth={["83vw", "83vw", "83vw", "75vw", '83vw']}
+    overflow={'auto'}
+    overflowX={'hidden'}
+    bg={useColorModeValue("#F4F5F8", "#050223")}
+    color={useColorModeValue("gray.900", "white")}
+    position={[null, null, 'absolute',  'absolute']}
+    left={['0', '0', '0', "23%", '15.9%']}
   >
-    <Flex p="20px" mt="20px" direction="column" gap={10} position={[null, null, null, 'relative']}>
-      <Box minW="80vw">
+    <Flex  direction="column" gap={10} position={[null, null, 'relative', 'relative']}>
+      <Box minW={["80vw","80vw","80vw","70vw","80vw"]}>
         <Flex>
           <Box textAlign="justify">
             <Heading
@@ -64,26 +90,24 @@ const Gift = () => {
         </Flex>
       </Box>
       
-      <Card>
-        <CardBody p={10}>
-            <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={10} >
-                <Box >
+      <Card bg={useColorModeValue("", "#141139")} w={['89vw', '89vw', '80vw', '70vw', '80vw']} p={['0px', '0px', '3%']}>
+        <CardBody p={10} >
+            <Flex direction={'column'} gap={10} >
+                <Box>
                 <Text fontSize={'lg'}>Select card type</Text>
                 <Button
         margin={"1"}
         // onClick={onOpen}
         size="md"
-        height="70px"
-        width={['85vw', '85vw', "69vw"]}        
+        height="50px"
+        width={['65vw', '65vw', "69vw", "59vw", '69vw']}         
         variant="outline"
-        alignContent={"flex-start"}
-        justifyContent={{ base: "space-between", md: "flex-start" }}
         _hover={{
           bg: "#E8E6F6",
           color: "#1808A3",
         }}
         fontSize="lg"
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("white", "transparent")}
         overflow={"auto"}
       >
         <Icon
@@ -93,7 +117,7 @@ const Gift = () => {
           fontSize="3xl"
         />
       </Button>
-                </Box>
+                </Box> 
 
                 <Box >
                 <Text fontSize={'lg'}>Select sub-category</Text>
@@ -101,17 +125,15 @@ const Gift = () => {
         margin={"1"}
         // onClick={onOpen}
         size="md"
-        height="70px"
-        width={['85vw', '85vw', "69vw"]}        
+        height="50px"
+        width={['65vw', '65vw', "69vw", "59vw", '69vw']}       
         variant="outline"
-        alignContent={"flex-start"}
-        justifyContent={{ base: "space-between", md: "flex-start" }}
         _hover={{
           bg: "#E8E6F6",
           color: "#1808A3",
         }}
         fontSize="lg"
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("white", "transparent")}
         overflow={"auto"}
       >
         <Icon
@@ -125,11 +147,38 @@ const Gift = () => {
 
                 <Box >
                 <Text fontSize={'lg'}>Enter gift card amount</Text>
-                <Input height="70px" type="text"  width={['85vw', '85vw', "69vw"]}   />
+                <Input type="text"   height="50px"
+      width={['65vw', '65vw', "69vw", "59vw", '69vw']}       />
                 </Box>
 
-                <Box>
-                <Text fontSize={'lg'}>Upload card image</Text> 
+                <Box  w={'75vw'}  >
+                <Text fontSize={'lg'}>Upload card image</Text>
+                <Box  overflowX={'hidden'}>
+                <FileUploadSingle onUploadComplete={handleUploadComplete} /> 
+                </Box>
+                
+                
+                </Box>
+                <Box alignSelf={'center'}>
+                <Button
+                onClick={() => {
+                  if (isFormValid) {
+                 console.log('valid')
+                } else {
+                  toast.error("Please upload a giftcard image.");
+                }
+              }}
+                width={"60vw"}
+                disabled={!isFormValid}
+                color="#fff"
+                bg= {useColorModeValue("#1808A3", "#0B0449")}
+                _hover={{
+                  bg: "#3626c7",
+                }}
+                rounded={"2xl"}
+              >
+                Start trade
+              </Button>
                 </Box>
             </Flex>
         </CardBody>

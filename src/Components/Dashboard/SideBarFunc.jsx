@@ -37,6 +37,7 @@ export const SideBarFunc = () => {
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
       h={[null, null, "100vh"]}
       position={[null, null, null, 'fixed']}
+      zIndex={10}
     >
       <Flex
         flexDir={["row", "row", "column", "column", "column"]}
@@ -309,8 +310,8 @@ export const SideBarFunc = () => {
       <Flex
         w="100vw"
         display={display}
-        bgColor="#E8E6F6"
-        color="#1808A3"
+        bg={useColorModeValue("#E8E6F6", "#05012C")}
+        color={useColorModeValue("#1808A3", "white")}
         zIndex={20}
         h="100vh"
         pos="fixed"
@@ -319,7 +320,7 @@ export const SideBarFunc = () => {
         overflowY="auto"
         flexDir="column"
       >
-        <Flex justify="flex-end">
+        <Flex justifyContent="space-between" direction={'row-reverse'} alignItems={'center'} >
           <IconButton
             mt={2}
             mr={2}
@@ -328,7 +329,8 @@ export const SideBarFunc = () => {
             icon={<CloseIcon />}
             onClick={() => changeDisplay("none")}
           />{" "}
-          <Switch color="green" isChecked={isDark} onChange={toggleColorMode} />
+          <Switch  mt={'-2px'}
+            ml={2} color="green" isChecked={isDark} onChange={toggleColorMode} />
         </Flex>
 
         <Flex

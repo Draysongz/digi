@@ -327,7 +327,7 @@ function ThemeSettings() {
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader alignSelf={"center"}>Change profile photo</ModalHeader>
+          <ModalHeader alignSelf={"center"}>Change Theme</ModalHeader>
           {/* <ModalCloseButton /> */}
           <ModalBody>
             <Stack>
