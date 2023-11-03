@@ -21,6 +21,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import NotificationModal from "../../../../Admin/Notifications/NotificationModal";
 import { NotifIcon } from "../../NotifBadge";
 import { SideBarFunc } from "../../SideBarFunc";
 import { useNavigate } from "react-router-dom";

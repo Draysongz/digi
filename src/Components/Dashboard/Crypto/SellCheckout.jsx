@@ -25,6 +25,7 @@ import {
 import copy from "copy-to-clipboard";
 
 import { useState } from "react";
+import NotificationModal from "../../../Admin/Notifications/NotificationModal";
 import { NotifIcon } from "../NotifBadge";
 import { SideBarFunc } from "../SideBarFunc";
 import { useNavigate } from "react-router-dom";

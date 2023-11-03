@@ -27,6 +27,7 @@ import { NotifIcon } from "../../NotifBadge";
 import { SideBarFunc } from "../../SideBarFunc";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../Goback";
+import NotificationModal from "../../../../Admin/Notifications/NotificationModal";
 import { ChevronDownIcon, CopyIcon } from "@chakra-ui/icons";
 import { useLocation } from "react-router-dom";
 import { getAuth } from "firebase/auth";
