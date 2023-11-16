@@ -255,7 +255,7 @@ console.log(selectedRole)
       // py="20px"
       minHeight="100vh"
       minWidth="77vw"
-      bg={useColorModeValue("#F4F5F8", "gray.700")}
+      bg={useColorModeValue("#F4F5F8", "#050223")}
       color={useColorModeValue("gray.900", "white")}
       position={[null, null, null, null, "absolute"]}
       left={["0", "0", "0", "22%"]}
@@ -267,7 +267,9 @@ console.log(selectedRole)
         gap={10}
         position={[null, null, null, "relative"]}
       >
-        <Card borderLeftRadius={"0px"} ml={"-1.2%"} mt={"2px"}>
+        <Card borderLeftRadius={"0px"} ml={"-1.2%"} mt={"2px"}
+        bg={useColorModeValue('', '#141139')}
+        color={useColorModeValue("", "white")}>
           <CardBody>
             <Flex gap={5} alignItems={"center"} justifyContent={"flex-end"}>
               <MessageModal />
@@ -283,7 +285,7 @@ console.log(selectedRole)
           </Heading>
         </Box>
 
-        <Card>
+        <Card bg={useColorModeValue('', '#141139')}>
           <CardBody>
             <Flex direction={"column"} gap={5}>
               <Flex alignItems={"center"} justifyContent={"space-between"}>
@@ -292,7 +294,7 @@ console.log(selectedRole)
                     variant={"outline"}
                     borderRadius={"full"}
                     w={"9vw"}
-                    color={"#585858"}
+                    color={useColorModeValue("#585858", 'white')}
                     border={"1px solid #3F3F46"}
                     _hover={{
                       bgColor: "#12067A",

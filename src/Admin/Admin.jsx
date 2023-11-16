@@ -28,6 +28,9 @@ import { useNavigate } from 'react-router-dom';
 import {BsArrowUpShort, BsArrowDownShort} from 'react-icons/bs'
 import SalesChart from './Saleschart';
 import {ChevronDownIcon} from '@chakra-ui/icons'
+import Userbar from '../Userbar'
+import MessageModal from './MessageModal/MessageModal'
+import NotificationModal from './Notifications/NotificationModal'
 import {FiMoreHorizontal} from 'react-icons/fi'
 
 const Admin = () => {
@@ -40,13 +43,24 @@ const Admin = () => {
     py="20px"
     minHeight="100vh"
     minWidth="78vw"
-    bg={useColorModeValue("#F4F5F8", "gray.700")}
+    bg={useColorModeValue("#F4F5F8", "#050223")}
     color={useColorModeValue("gray.900", "white")}
     position={[null, null, null, null, 'absolute']}
     left={['0', '0', '0', "21%"]}
     overFlow-X={'hidden'}
   >
-    <Flex p="20px" mt="20px"  direction="column" gap={10} position={[null, null, null, 'relative']}>
+<Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
+    <Card borderLeftRadius={'0px'}
+        ml={'-1.2%'} mt={'-1.5%'}>
+            <CardBody>
+                <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
+                    <MessageModal/>
+                    <NotificationModal />
+                   <Userbar/>
+
+                </Flex>
+            </CardBody>
+        </Card>
     <Box minW={'75vw'} >
           <Flex>
             <Box>

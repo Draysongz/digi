@@ -17,9 +17,7 @@ import {
   InputGroup,
   InputRightElement,
   Input,
-  border,
   useColorModeValue,
-  color,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import frame from "./assets/frame2.png";

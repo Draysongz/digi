@@ -94,7 +94,7 @@ const Password = () => {
     // py="20px"
     minHeight="100vh"
     minWidth="78vw"
-    bg={useColorModeValue("#F4F5F8", "gray.700")}
+    bg={useColorModeValue("#F4F5F8", "#050223")}
     color={useColorModeValue("gray.900", "white")}
     position={[null, null, null, null, 'absolute']}
     left={['0', '0', '0', "21%"]}

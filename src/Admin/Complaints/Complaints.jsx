@@ -160,8 +160,8 @@ const Complaints = () => {
       maxWidth="4xl"
       minHeight="100vh"
       minWidth="79vw"
-      bg={useColorModeValue("#F4F5F8", "gray.700")}
-      color={useColorModeValue("gray.900", "white")}
+      bg={useColorModeValue("#F4F5F8", "#050223")}
+    color={useColorModeValue("gray.900", "white")}
       overflowX={'hidden'}
       position={[null, null, null, null, 'absolute']}
        left={['0', '0', '0', "21%"]}

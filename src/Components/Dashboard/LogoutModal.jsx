@@ -62,7 +62,7 @@ export default function LogoutModal() {
      
       <Modal onClose={onClose} isOpen={isOpen} isCentered >
         <ModalOverlay />
-        <ModalContent bg={useColorModeValue("", "white")}>
+        <ModalContent bg={useColorModeValue("white", "white")}>
           <ModalHeader alignSelf={"center"}></ModalHeader>
           <ModalCloseButton bg={"#1808A3"} color={"#fff"} rounded={"full"} />
           <ModalBody>

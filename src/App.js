@@ -38,7 +38,7 @@ import MainTransaction from "./Admin/Transaction/MainTransaction";
 import ForbiddenPage from "./ForbiddenPage";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
-import { getFirestore, doc, getDoc } from "@firebase/firestore";
+import { getFirestore, doc, getDoc,  updateDoc, onSnapshot } from "@firebase/firestore";
 import { app } from "./Components/firebase/Firebase";
 import {Spinner, Flex} from '@chakra-ui/react'
 import TransactionLoadBalancer from "./TransactionLoadBalancer";
@@ -47,6 +47,7 @@ import MainUserManagement from "./Admin/userManagement/MainUserManagement";
 
 
 function App() {
+  const [userId, setUserId] = useState("")
   useEffect(() => {
     const showText = () => {
       var Tawk_API = Tawk_API || {};
@@ -62,6 +63,84 @@ function App() {
     showText();
   }, []);
 
+  const db= getFirestore(app)
+  const auth = getAuth(app)
+  const user= auth.currentUser
+  async function getCurrentUserUid() {
+    return new Promise((resolve) => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          unsubscribe();
+          resolve(user.uid);
+        } else {
+          resolve(null);
+        }
+      });
+    });
+  }
+  
+  useEffect(() => {
+    const getId = async () => {
+      const userId = await getCurrentUserUid();
+      setUserId(userId);
+      let userRef
+  
+      // Now that userId is set, we can use it to create the Firestore document reference
+      if (userId != null){
+        userRef = doc(db, "users", userId);
+        const manageActiveStatus = async () => {
+          if (user) {
+            // Set the user's status to "online" when the component mounts
+            await updateDoc(userRef, {
+              online: true
+            });
+          }
+        };
+    
+        manageActiveStatus(); // Call manageActiveStatus when the component mounts
+    
+  
+        const manageOffline = async ()=>{
+          if(user){
+            try {
+              await updateDoc(userRef, {
+                online : false
+              })
+              console.log('state changed before close')
+            } catch (error) {
+              console.log(error)
+            }
+          }
+        }
+  
+    
+        // Add a beforeunload event listener to manage the user's status when the app is closed or navigated away
+        window.addEventListener('beforeunload', manageOffline );
+  
+      
+    
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            // When the user logs out, update their online status to "offline"
+            updateDoc(userRef, {
+              online: true
+            });
+          }else{
+            updateDoc(userRef, {
+              online : false
+            })
+          }
+        });
+      }else{
+        return null
+      }
+    
+  
+    }
+  
+    getId(); // Call getId to set userId and set up Firestore operations
+  }, [user, db, auth]);
+  
 
   return (
     <div className="App">
@@ -159,7 +238,7 @@ emptyColor='gray.200' />
     )
   }
 
-  if(userRole === 'user' || 'sub-admin' && userStatus === 'active' ){
+  if((userRole === 'user' || 'sub-admin') && (userStatus === 'active') ){
   return <>{children}</>
 }else{
  return  <Navigate to='/forbidden' />
@@ -195,10 +274,13 @@ function AdminPages({children}){
           setRoleChecked(true); // Set roleChecked to true when done
         }
       } else {
-        setRoleChecked(true); // Set roleChecked to true when the user is not authenticated
+        setRoleChecked(true);
+       // Set roleChecked to true when the user is not authenticated
       }
     });
   }, [userRole, userStatus, roleChecked, navigate]);
+
+
 
   if (!roleChecked) {
     return(
@@ -214,6 +296,8 @@ emptyColor='gray.200' />
     userStatus === 'active'
   ) {
   return <>{children}</>
+}else if (userRole === 'User'){
+  return <Navigate to='/login' />
 }else{
  return  <Navigate to='/forbidden' />
 }

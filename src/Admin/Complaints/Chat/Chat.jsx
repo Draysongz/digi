@@ -172,7 +172,7 @@ const Chat = () => {
     // py="20px"
     minHeight="100vh"
     minWidth="78vw"
-    bg={useColorModeValue("#F4F5F8", "gray.700")}
+    bg={useColorModeValue("#F4F5F8", "#050223")}
     color={useColorModeValue("gray.900", "white")}
     position={[null, null, null, null, 'absolute']}
     left={['0', '0', '0', "21%"]}
@@ -180,7 +180,8 @@ const Chat = () => {
   >
     <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
         <Card borderLeftRadius={'0px'}
-        ml={'-1.2%'} mt={'2px'} >
+        ml={'-1.2%'} mt={'2px'}  bg={useColorModeValue("#F4F5F8", "#050223")}
+        color={useColorModeValue("", "white")} >
             <CardBody>
                 <Flex alignItems={'center'} justifyContent={'space-between'}>
                   <Text  fontSize={'lg'}>{receiver ? `${receiver.firstName} ${receiver.lastName}`: 'hello'}</Text>

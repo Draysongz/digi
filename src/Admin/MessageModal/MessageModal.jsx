@@ -177,21 +177,21 @@ export default function MessageModal() {
     }}>  <Icon as={CiMail} boxSize={7} /></Button>
   </PopoverTrigger>
   <PopoverContent>
-    <Card >
+    <Card bg={useColorModeValue("white", '#050223')}>
       <CardBody borderRadius={'none'} py={3} px={'0'} >
         <Flex justifyContent={'flex-end'} p={3}>
-        <Circle boxShadow={'md'} size='30px' bg='white' onClick={()=> onClose()}>
+        <Circle boxShadow={'md'} size='30px' bg='white' color={'black'} onClick={()=> onClose()}>
           <CloseButton  _hover={{
       bgColor: 'transparent'
     }}  />
           </Circle>
           </Flex>
  
-    <Flex h='10vh' justifyContent={'space-between'} alignItems={'center'} p={2}  bg={'#E8E6F6'}>
+    <Flex  h='7vh' justifyContent={'space-between'}  alignItems={'center'} p={2}   bg={ useColorModeValue('#E8E6F6', "#141139")} >
         <Heading as={'h3'} fontWeight={'bold'}
         fontSize={'lg'} fontFamily={'Hellix-Medium'} >Messages</Heading>
         <Flex alignItems={'center'} >
-        <Text cursor={'pointer'} color={'#626262'} fontFamily={'Hellix-Medium'}>View all  </Text>
+        <Text cursor={'pointer'} color={useColorModeValue('#626262', 'white')} fontFamily={'Hellix-Medium'}>View all  </Text>
         <Icon as={ArrowForwardIcon} boxSize={4} />
         </Flex>
       </Flex>

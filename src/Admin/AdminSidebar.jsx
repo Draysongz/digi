@@ -31,6 +31,7 @@ import {MdOutlineCardGiftcard} from 'react-icons/md'
 import {LiaFileInvoiceSolid} from 'react-icons/lia'
 import {AiOutlineQuestionCircle} from 'react-icons/ai'
 import {GoPeople} from 'react-icons/go'
+import logowhite from '../Components/assets/digi.png'
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const AdminSidebar = () => {
   const [display, changeDisplay] = useState("none");
   return (
     <Flex
-      bg={useColorModeValue("white", "gray.900")}
+    bg={useColorModeValue("white", "#05012C")}
       color={useColorModeValue("#000", "gray.200")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
@@ -72,7 +73,9 @@ const AdminSidebar = () => {
             <Image
               align={"center"}
               src={
-                logo
+                colorMode === "light"
+                  ? `${logo}`
+                  : `${logowhite}`
               }
               width="150px"
               mx={8}

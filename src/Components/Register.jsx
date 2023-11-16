@@ -8,6 +8,7 @@ import { getFirestore } from "firebase/firestore";
 import {  doc, setDoc } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
+import framet from "./assets/frame3.png";
 import {
   Flex,
   Box,
@@ -22,7 +23,7 @@ import {
  Select,
  Center,
  HStack,
- color
+ useColorModeValue
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import frame from './assets/frame.png'
@@ -167,18 +168,38 @@ const onSubmit = async (e) => {
     minWidth={['70vw', '98vw', "98.7vw", "98.7vw"]}
     bgSize={'cover'}
     bgRepeat={'no-repeat'}
-    bg={'#080339'}
+    bg={useColorModeValue("#080339", "#1808A3")}
     dir={'row'}>
-      <Flex direction={'column'} display={['none', 'none', 'none', 'block']} bgImage={frame} bgSize={'cover'} p='20px' gap={5} w={'50%'}>
-        <Box>
+      <Flex direction={'column'}  display={['none', 'none', 'none', 'block']} bgImage={frame} bgSize={'cover'} p='20px' gap={5} w={'50%'}>
+        <Box>``
           <Image src={logo} alt='logo' />
         </Box>
-        <Flex justifyContent={'center'} alignItems={'center'}>
-          <Image src={girls} alr='girls' width={'80'} />
+        <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} mt={'13%'} >
+          <Image src={girls} alr='girls' width={'69%'} />
+
+           <Box bgImage={framet} bgSize={"cover"} pos={"absolute"} mt={"15rem"} p={10}>
+            <Heading
+              fontFamily={"Hellix-medium"}
+              fontStyle={"normal"}
+              color={"white"}
+            >
+             Got a surprise for YOU! <br/>
+            
+            </Heading>
+            <Text
+              mt="2rem"
+              color={"white"}
+              fontFamily={"Hellix-medium"}
+              fontSize={"22px"}
+            >
+               Earn crypto in $MART tokens for <span style={{color : '#31CD31'}}>FREE! </span>When you create an account with DigiMart Exchange
+            </Text>
+          </Box> 
         </Flex>
       </Flex>
 
-      <Flex bg={'white'} w={['100%', '100%', '100%', '50%']} p='20px' direction={'column'}>
+      <Flex bg={useColorModeValue("white", "#050223")}
+        color={useColorModeValue("gray.900", "white")} w={['100%', '100%', '100%', '50%']} p='20px' direction={'column'}>
       <Heading fontFamily={'Hellix-medium'} >Register</Heading> 
       <FormControl p='10px' >
       <Center mt='1rem'>
@@ -223,7 +244,8 @@ const onSubmit = async (e) => {
             <Text>or</Text>
             <hr  style={{display: 'block', width : '5vw', border : '1px solid #C9C9C', 'marginTop' : '.3rem'}}  />
           </Flex>
-          <Button color={'black'} border={'1px solid #00296B'}  borderRadius={'full'}  minH={'7vh'} w={['85vw', '85vw', '85vw', '27vw']} _hover={{bg : '#31CD31', color: 'white'}} variant={'outline'} onClick={loginWithGoogle} leftIcon={<FcGoogle/>}>Signup with Google</Button>
+          <Button border={'1px solid #00296B'}  borderRadius={'full'}  minH={'7vh'} w={['85vw', '85vw', '85vw', '27vw']} _hover={{bg : '#31CD31', color: 'white'}} variant={'outline'}
+             color={useColorModeValue("black", "white")} onClick={loginWithGoogle} leftIcon={<FcGoogle/>}>Signup with Google</Button>
           </Flex>
           <HStack mt={'-.8rem'}>
           <Text color={'#666'} >Already have an account?</Text>

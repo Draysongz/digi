@@ -49,7 +49,8 @@ const HeroC = () => {
 
         {/* Why div */}
         <Box minWidth='97vw'
-        color={useColorModeValue('', 'white')}>
+        color={useColorModeValue('', 'white')}
+        bg={useColorModeValue("", "#080339")}>
             <Flex direction='column' gap={10}>
                 <Box>
             <Heading 
@@ -131,7 +132,7 @@ const HeroC = () => {
 
                     <Heading fontFamily='Hellix-medium'
                     color={useColorModeValue('#111111', 'white')}
-                    fontSize={['28px', '32px', '40px']}
+                    fontSize={['28px', '32px', '30px']}
                     textAlign={'left'}
                     fontWeight={'700'}>Trade your Assets in 3 <br/> simple steps...</Heading>
 
@@ -146,7 +147,7 @@ const HeroC = () => {
                          fontSize='20px' >1</Circle>
                          <Text
                          fontFamily='Hellix-medium'
-                         fontSize={['19px', '20px', '24px']}
+                         fontSize={['19px', '20px', '22px']}
                          textAlign={['center', 'center', 'left']}
                          lineHeight={'95%'}>Create an Account, with the required<br />information to get started</Text>
                     </Flex>
@@ -161,7 +162,7 @@ const HeroC = () => {
                          <Text
                          fontFamily='Hellix-medium'
                          textAlign={['center', 'center', 'left']}
-                         fontSize={['19px', '20px', '24px']}
+                         fontSize={['19px', '20px', '22px']}
                          lineHeight={'95%'}>Select the asset you whish to trade;<br/>Crypto, Giftcard, or Paypal funds.</Text>
                     </Flex>
                     <Flex alignItems={'center'} direction={['column', 'column','column', 'row']} gap={4}>
@@ -173,7 +174,7 @@ const HeroC = () => {
                          fontSize='20px' >3</Circle>
                          <Text
                          fontFamily='Hellix-medium'
-                         fontSize={['19px', '20px', '24px']}
+                         fontSize={['19px', '20px', '22px']}
                          textAlign={['center', 'center', 'left']}
                          w={['70vw', '70vw','40vw', '34vw']}
                          lineHeight={'95%'}>After completing steps 1 & 2, kindly submit
@@ -233,10 +234,11 @@ const HeroC = () => {
         </Box>
 
         {/* fourth div */}
-        <Box>
+        <Box bg={useColorModeValue("", "#080339")}
+        color={useColorModeValue("", "white")}>
             <Flex direction={'column'} gap={5}>
             <Heading fontFamily='Hellix-medium'
-                    color={'#111111'}
+                    color={useColorModeValue('#111111', 'white')}
                     fontSize={['28px', '32px', '52px']}
                     textAlign={['center']}
                     fontWeight={'700'}>Our Services</Heading>
@@ -246,7 +248,7 @@ const HeroC = () => {
                          textAlign={['center']}
                          lineHeight={'95%'}>Trade your bitcoins and get paid to your<br/> bank account instantly. No stress</Text>
             <SimpleGrid p="10px" spacing={10}  minChildWidth="350px" justifyItems='center' alignItems='center' >
-                <Card p='10px'  border={'1px solid #999)'}>
+                <Card p='15px'  border={'1px solid #999)'}>
                     <CardBody minH={'30vh'} maxH='50vh' minW={'25vw'} w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
                         <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8} p='5px'>
                             <Heading
@@ -258,12 +260,12 @@ const HeroC = () => {
                              fontFamily='Hellix-medium'
                              textAlign={'center'}
                              fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
-                             <Image src={giftbox} alt='giftbox' width='80%' mt='-30px'/>
+                             <Image src={giftbox} alt='giftbox' width='60%' mt='-30px'/>
                         </Flex>
                     </CardBody>
                 </Card>
 
-                <Card p='10px'  border={'1px solid #999)'}>
+                <Card p='15px'  border={'1px solid #999)'}>
                     <CardBody minH={'30vh'} minW={'25vw'} maxH='50vh' w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
                         <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8}>
                             <Heading
@@ -276,14 +278,14 @@ const HeroC = () => {
                              textAlign={'center'}
                              fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
                             
-                             <Image src={cards} alt='giftbox' width={['75%', '75%', '80%']}/>
+                             <Image src={cards} alt='giftbox' width={['75%', '75%', '60%']}/>
                              
                              
                         </Flex>
                     </CardBody>
                 </Card>
 
-                <Card p='10px'  border={'1px solid #999)'}>
+                <Card p='15px'  border={'1px solid #999)'}>
                     <CardBody minH={'30vh'} maxH='50vh' minW={'25vw'} w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
                         <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8}>
                             <Heading
@@ -296,7 +298,7 @@ const HeroC = () => {
                              textAlign={'center'}
                              fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
                             
-                             <Image src={funds} alt='giftbox' width='80%'/>
+                             <Image src={funds} alt='giftbox' width='70%'/>
                              
                              
                         </Flex>
@@ -379,7 +381,7 @@ const HeroC = () => {
                     <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']}textAlign='left'>
-                        Is my personal information safe on DigiMart?
+                        How can I create an account on Digimart?
 
                             </Box>
                             {isExpanded ? (
@@ -395,7 +397,8 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Digimart is a cryptocurrency exchange platform that allows users to buy and sell cryptocurrencies, gift cards, and PayPal funds with ease and security.
+                    To create an account on Digimart, simply visit our website and click on the "Sign Up" button. Follow the registration process by providing the required information, and you'll be ready to start trading.
+
 
     </AccordionPanel>
 
@@ -426,7 +429,9 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Digimart is a cryptocurrency exchange platform that allows users to buy and sell cryptocurrencies, gift cards, and PayPal funds with ease and security.
+                    Yes, we take the security and privacy of your personal information seriously. We employ advanced security measures and 
+                    encryption protocols to protect your data from unauthorized access or breaches.
+
 
     </AccordionPanel>
 
@@ -458,7 +463,9 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Digimart is a cryptocurrency exchange platform that allows users to buy and sell cryptocurrencies, gift cards, and PayPal funds with ease and security.
+                    Digimart supports a wide range of cryptocurrencies, including popular options such as Bitcoin (BTC), 
+                    Ethereum (ETH), Ripple (XRP), and more. You can explore the available options on our platform.
+
 
     </AccordionPanel>
 
@@ -489,7 +496,8 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Digimart is a cryptocurrency exchange platform that allows users to buy and sell cryptocurrencies, gift cards, and PayPal funds with ease and security.
+                    For buying cryptocurrencies, we require identity verification using your National Identification Number (NIN) or Bank Verification Number (BVN). The process involves capturing the front and back of your NIN, 
+                    confirming the image quality, and verifying your details.
 
     </AccordionPanel>
 
@@ -522,7 +530,69 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Digimart is a cryptocurrency exchange platform that allows users to buy and sell cryptocurrencies, gift cards, and PayPal funds with ease and security.
+                    No, identity verification is not required for selling cryptocurrencies on Digimart. You can simply select the cryptocurrency 
+                    you want to sell, input the quantity, and proceed with the selling process.
+
+    </AccordionPanel>
+
+    
+                    </>
+                )}
+                </AccordionItem>
+
+                <AccordionItem p={['1px', '5px', '7px']} border='1px solid'  borderRadius={'10px'}  >
+                {({ isExpanded }) => (
+                    <>
+                    <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
+                        <AccordionButton>
+                        <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
+                        How long does it take for payments to be confirmed?
+                            </Box>
+                            {isExpanded ? (
+                                <Circle  size={['25px', '30px', '40px']} border={'1px solid'}>
+              <MinusIcon fontSize='12px' />
+              </Circle>
+            ) : (
+                <Circle size={['25px', '30px', '40px']} border={'1px solid'}>
+              <AddIcon fontSize='12px' />
+              </Circle>
+            )}
+                        </AccordionButton>
+
+                    </Heading>
+                    <AccordionPanel pb={4}>
+                    Payment confirmation times may vary depending on the payment method and network congestion. However, 
+                    we strive to process and confirm payments as quickly as possible to ensure a smooth trading experience.
+
+    </AccordionPanel>
+
+    
+                    </>
+                )}
+                </AccordionItem>
+                <AccordionItem p={['1px', '5px', '7px']} border='1px solid'  borderRadius={'10px'}  >
+                {({ isExpanded }) => (
+                    <>
+                    <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
+                        <AccordionButton>
+                        <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
+                        Can I withdraw fiat currency from my Digimart account?
+                            </Box>
+                            {isExpanded ? (
+                                <Circle  size={['25px', '30px', '40px']} border={'1px solid'}>
+              <MinusIcon fontSize='12px' />
+              </Circle>
+            ) : (
+                <Circle size={['25px', '30px', '40px']} border={'1px solid'}>
+              <AddIcon fontSize='12px' />
+              </Circle>
+            )}
+                        </AccordionButton>
+
+                    </Heading>
+                    <AccordionPanel pb={4}>
+                    Yes, you can withdraw fiat currency from your Digimart account. After selling cryptocurrencies, 
+                    you will be prompted to input your bank details, and the fiat funds will be transferred to your provided account.
 
     </AccordionPanel>
 
@@ -552,7 +622,8 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Digimart is a cryptocurrency exchange platform that allows users to buy and sell cryptocurrencies, gift cards, and PayPal funds with ease and security.
+                    If you have any questions or need assistance, our customer support team is available to help. You can reach out to us through 
+                    our contact page on the website or send an email to [support@email.com].
 
     </AccordionPanel>
 

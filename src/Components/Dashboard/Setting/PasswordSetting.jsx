@@ -57,7 +57,7 @@ export default function PasswordCard() {
   return (
     <Flex justify={"center"} maxW={"100vw"}>
       <Stack
-        bg={useColorModeValue("white", "gray.700")}
+        bg={useColorModeValue("white", "#141139")}
         color={useColorModeValue("gray.900", "white")}
         p={5}
         borderRadius={"lg"}

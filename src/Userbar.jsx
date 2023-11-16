@@ -3,7 +3,6 @@ import {
 Flex,
 Box,
 Text,
-Stack,
 Button,
 Wrap,
 WrapItem,
@@ -11,22 +10,21 @@ Avatar,
 Popover,
 PopoverTrigger,
 PopoverContent,
-PopoverHeader,
 PopoverBody,
 CardBody,
 PopoverArrow,
 Icon,
 useDisclosure,
 useColorModeValue,
-Heading,
 Circle,
-  Card,
-  CloseButton 
-
+Card,
+CloseButton,
+Switch,  
+HStack
 } from '@chakra-ui/react'
-import { ArrowForwardIcon, CheckIcon, CopyIcon } from '@chakra-ui/icons';
+import {  CheckIcon, CopyIcon } from '@chakra-ui/icons';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, getDoc, doc, onSnapshot } from "firebase/firestore";
+import { getFirestore, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { app } from './Components/firebase/Firebase';
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
@@ -40,6 +38,8 @@ const Userbar = () => {
     const { isOpen, onToggle, onClose } = useDisclosure()
     const [userId, setUserId] = useState()
     const [copied, setCopied] = useState(false)
+    const [isChecked, setIsChecked] = useState(false)
+    const db = getFirestore(app);
     useEffect(() => {
       const auth = getAuth();
     
@@ -47,7 +47,7 @@ const Userbar = () => {
         if (user) {
           console.log(user.uid);
           setUserId(user.uid)
-          const db = getFirestore(app);
+          
           const docRef = doc(db, 'users', user.uid);
     
           // Listen for changes to the user's document
@@ -72,6 +72,31 @@ const Userbar = () => {
         unsubscribe(); // Clean up the auth listener
       };
     }, []);
+
+    const toggleCheckedStatus = ()=>{
+      setIsChecked(!isChecked)
+      console.log(isChecked);
+    }
+
+    useEffect(()=>{
+      let userRef
+      const manageOnlineStatus = async ()=>{
+        if(isChecked === false && userId != null){
+          userRef = doc(db, "users", userId);
+          await updateDoc(userRef, {
+            online: true
+          });
+        }else if (isChecked === true & userId != null){
+          userRef = doc(db, "users", userId);
+          await updateDoc(userRef, {
+            online: false
+          });
+        }
+      }
+
+      manageOnlineStatus()
+     
+    }, [isChecked])
 
     const handleCopy = async (text) => {
       try {
@@ -170,8 +195,15 @@ const Userbar = () => {
 
      </Flex>
      </Link>
-     <Flex gap={4}>
+     <Flex gap={4} direction={'column'}>
       <LogoutModal />
+      <Flex direction={'column'}px={5}>
+      <HStack>
+        <Text>Online</Text>
+        <Switch size={'md'} colorScheme={isChecked ? 'yellow' : 'yellow'} onChange={toggleCheckedStatus}/>
+        <Text>Away</Text>
+      </HStack>
+     </Flex>
      </Flex>
 
      <Button _hover={{

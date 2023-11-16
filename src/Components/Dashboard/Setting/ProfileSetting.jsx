@@ -67,13 +67,13 @@ export default function UserProfileEdit() {
       minH={"10vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      bg={useColorModeValue("gray.50", "#141139")}
     >
       <Stack
         spacing={4}
         w={"full"}
         maxW={"md"}
-        bg={useColorModeValue("white", "gray.700")}
+        bg={useColorModeValue("white", "#050223")}
         rounded={"xl"}
         boxShadow={"lg"}
         p={6}

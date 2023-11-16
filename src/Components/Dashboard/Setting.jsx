@@ -43,7 +43,7 @@ export default function Setting() {
         h={["100vh", "100vh", "100vh"]}
         maxW="2000px"
         flexDir={["column", "column", "row"]}
-        overflow="scroll"
+        overflow="auto"
         bg={useColorModeValue("gray.50", "#050223")}
         color={useColorModeValue("gray.900", "white")}
       >

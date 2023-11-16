@@ -48,19 +48,19 @@ const Gift = () => {
   }, [downloadURL, isUploadComplete]);
   return (
     <Container
-    maxWidth={["4xl","4xl","4xl","2xl","2xl",]}
+    maxWidth="4xl"
     py="20px"
     minHeight="100vh"
-    minWidth={["83vw", "83vw", "83vw", "75vw", '83vw']}
+    minWidth="83vw"
     overflow={'auto'}
     overflowX={'hidden'}
     bg={useColorModeValue("#F4F5F8", "#050223")}
     color={useColorModeValue("gray.900", "white")}
     position={[null, null, 'absolute',  'absolute']}
-    left={['0', '0', '0', "23%", '15.9%']}
+    left={['0', '0', '0', "22%", '15.9%']}
   >
     <Flex  direction="column" gap={10} position={[null, null, 'relative', 'relative']}>
-      <Box minW={["80vw","80vw","80vw","70vw","80vw"]}>
+      <Box minW="80vw">
         <Flex>
           <Box textAlign="justify">
             <Heading
@@ -90,7 +90,7 @@ const Gift = () => {
         </Flex>
       </Box>
       
-      <Card bg={useColorModeValue("", "#141139")} w={['89vw', '89vw', '80vw', '70vw', '80vw']} p={['0px', '0px', '3%']}>
+      <Card bg={useColorModeValue("", "#141139")} w={['89vw', '89vw', '80vw']} p={['0px', '0px', '3%']}>
         <CardBody p={10} >
             <Flex direction={'column'} gap={10} >
                 <Box>
@@ -100,7 +100,7 @@ const Gift = () => {
         // onClick={onOpen}
         size="md"
         height="50px"
-        width={['65vw', '65vw', "69vw", "59vw", '69vw']}         
+        width={['65vw', '65vw', "69vw"]}         
         variant="outline"
         _hover={{
           bg: "#E8E6F6",
@@ -126,7 +126,7 @@ const Gift = () => {
         // onClick={onOpen}
         size="md"
         height="50px"
-        width={['65vw', '65vw', "69vw", "59vw", '69vw']}       
+        width={['65vw', '65vw', "69vw"]}        
         variant="outline"
         _hover={{
           bg: "#E8E6F6",
@@ -148,7 +148,7 @@ const Gift = () => {
                 <Box >
                 <Text fontSize={'lg'}>Enter gift card amount</Text>
                 <Input type="text"   height="50px"
-      width={['65vw', '65vw', "69vw", "59vw", '69vw']}       />
+        width={['65vw', '65vw', "69vw"]}       />
                 </Box>
 
                 <Box  w={'75vw'}  >
