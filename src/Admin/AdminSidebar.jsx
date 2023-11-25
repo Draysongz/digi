@@ -122,7 +122,7 @@ const AdminSidebar = () => {
             </Link>
 
             <Link
-              onClick={() => navigate("/crypto")}
+              onClick={() => navigate("/admin/crypto")}
               padding="10px"
               borderRadius="2xl"
               _hover={{
@@ -144,7 +144,7 @@ const AdminSidebar = () => {
             </Link>
 
             <Link
-              onClick={() => navigate("/giftcards")}
+              onClick={() => navigate("/admin/giftcards")}
               padding="10px"
               borderRadius="2xl"
               display={["none", "none", "flex", "flex", "flex"]}
@@ -166,7 +166,7 @@ const AdminSidebar = () => {
             </Link>
 
             <Link
-              onClick={() => navigate("/paypal")}
+              onClick={() => navigate("/admin/paypal")}
               padding="10px"
               borderRadius="2xl"
               display={["none", "none", "flex", "flex", "flex"]}
@@ -316,6 +316,7 @@ const AdminSidebar = () => {
                 Password
               </Link>
               <Link
+               onClick={()=> navigate('/admin/theme')}
                 padding="10px"
                 borderRadius="2xl"
                 _hover={{

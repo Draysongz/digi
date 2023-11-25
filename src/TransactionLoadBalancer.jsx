@@ -81,7 +81,7 @@ function TransactionLoadBalancer() {
       }
   
       // Update the user document with the new notifications
-      await updateDoc(userRef, { notifications: userData.notifications, unReadNotifications : increment(1) });
+      await updateDoc(userRef, { notifications: userData.notifications, unreadNotifications : increment(1) });
     } catch (error) {
       console.error('Error sending notification:', error);
     }

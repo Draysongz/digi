@@ -121,6 +121,9 @@ const onSubmit = async (e) => {
         Email: email,
         Number: fullPhone,
         Gender: gender,
+        role: 'User',
+        status : 'active',
+        online: false,
 
       });
 

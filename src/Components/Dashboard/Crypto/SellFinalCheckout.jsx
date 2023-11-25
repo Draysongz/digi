@@ -28,7 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { BackButton } from "../Goback";
 import { CopyIcon } from "@chakra-ui/icons";
 import { useLocation } from "react-router-dom";
-import { getFirestore,addDoc, collection, Timestamp } from "firebase/firestore";
+import { getFirestore,addDoc, collection, Timestamp, doc, getDoc, increment, updateDoc} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { app } from "../../firebase/Firebase";
 import { toast } from "react-toastify";
@@ -68,8 +68,15 @@ export default function SellFinalCheckout() {
  
 
   const createTransaction = async (e) => {
-  
 
+    const userDocRef = doc(db, 'users', user.uid);
+    const userDoc = await getDoc(userDocRef);
+    const userData = userDoc.data();
+    const notifications = userData.notifications || [];
+    notifications.push({
+      message: `Your sell transaction of ${coinUnit}${cryptoSymbol} is processing `,
+      timestamp: new Date(), // Set the timestamp in your code
+    });
     // Validate the required fields before proceeding
     if (!accountNumber || !bankName || !accountName) {
       toast.error("Please fill in all the required fields.");
@@ -92,6 +99,11 @@ export default function SellFinalCheckout() {
         status: 'pending',
         transactionType: 'sell',
         time: timestamp,
+      });
+      await updateDoc(userDocRef, {
+        notifications,
+        unreadNotifications: increment(1)
+
       });
       setTransactionSaved(true);
     } catch (error) {

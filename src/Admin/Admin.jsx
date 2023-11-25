@@ -50,7 +50,7 @@ const Admin = () => {
     overFlow-X={'hidden'}
   >
 <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
-    <Card borderLeftRadius={'0px'}
+    <Card borderLeftRadius={'0px'}  bg={useColorModeValue('gray.50', "#050223")}
         ml={'-1.2%'} mt={'-1.5%'}>
             <CardBody>
                 <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
@@ -146,7 +146,7 @@ const Admin = () => {
             </CardBody>
            </Card>
 
-           <Card w={'30vw'} >
+           <Card w={'30vw'} bg={useColorModeValue("white", "#141139")}>
             <CardBody>
               <Flex direction={'column'} justifyContent={'space-between'} h={'50vh'}>
                 <Flex p={3} justifyContent={'space-between'} >
@@ -216,7 +216,7 @@ const Admin = () => {
         <Flex p={5} direction={'column'}>
           <Heading fontSize={'2xl'} fontFamily={'Hellix-Bold'}>Transactions</Heading>
           <Text color={'#71717A'}>Most Recent Transactions</Text>
-          <Card>
+          <Card bg={useColorModeValue("white", "#141139")}>
             <CardBody>
               <Table variant={'simple'}>
                 <Thead>

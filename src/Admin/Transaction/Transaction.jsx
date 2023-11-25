@@ -44,7 +44,7 @@ import { AddIcon, CloseIcon, EditIcon, Search2Icon,CheckIcon,   CopyIcon, } from
 import { AiOutlineBell } from 'react-icons/ai'
 import { FiMoreHorizontal } from 'react-icons/fi'
 import { app } from '../../Components/firebase/Firebase';
-import { getFirestore, collection, onSnapshot, orderBy, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, orderBy, query, where, getDocs, updateDoc, doc, getDoc, increment } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { format } from 'timeago.js';
 import MessageModal from '../MessageModal/MessageModal';
@@ -104,13 +104,25 @@ const handleSaveStatus = async () => {
       console.log('id present')
 
       const transactionRef = doc(db, 'transactions', transactionId);
+      const userDocRef = doc(db, 'users', selectedTransaction.userId);
+      const userDoc = await getDoc(userDocRef);
+      const userData = userDoc.data();
+      const notifications = userData.notifications || [];
+      notifications.push({
+        message: `Your transaction has been marked ${selectedStatus}`,
+        timestamp: new Date(), // Set the timestamp in your code
+      });
 
       if(selectedStatus === 'Declined'){
         await updateDoc(transactionRef, {
           status: selectedStatus,
           completedBy: currentUserId,
-          Reason: reason
+          Reason: reason,
         });
+        await updateDoc(userDocRef, {
+          notifications,
+          unreadNotifications: increment(1)
+        })
       }else{
         await updateDoc(transactionRef, {
           status: selectedStatus,
@@ -218,7 +230,7 @@ const handleSaveStatus = async () => {
     >
       <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
         <Card borderLeftRadius={'0px'}
-          ml={'-1.2%'} mt={'2px'} >
+          ml={'-1.2%'} mt={'2px'} bg={useColorModeValue('gray.50', "#050223")}>
           <CardBody>
             <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
               <MessageModal />
@@ -238,11 +250,11 @@ const handleSaveStatus = async () => {
 
 
         <Flex direction={'column'}>
-          <Card>
+          <Card bg={ useColorModeValue("white", "#141139")}>
             <CardBody>
-              <TableContainer>
-                <Table variant={'simple'} size={'md'}>
-                  <Thead>
+              <TableContainer >
+                <Table variant={'simple'} size={'md'} >
+                  <Thead bg={useColorModeValue("black", "#0B0449")}>
                     <Tr>
                       <Th>Product</Th>
                       <Th>Amount</Th>
@@ -253,7 +265,7 @@ const handleSaveStatus = async () => {
                     </Tr>
                   </Thead>
 
-                  <Tbody>
+                  <Tbody bg={useColorModeValue("white", "#141139")}>
                     {displayedTransactions.map((transaction, index) => {
                       return (
                         <Tr key={index}  onClick={() => openTransactionModal(transaction)}>

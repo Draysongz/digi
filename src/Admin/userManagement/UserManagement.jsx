@@ -74,6 +74,8 @@ import {
   getDocs,
   updateDoc,
   doc,
+  increment,
+  getDoc,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { format } from "timeago.js";
@@ -224,11 +226,20 @@ console.log(selectedRole)
         const userDocId = selectedUser.id
         console.log('id present')
         const userDocRef = doc(db, 'users', userDocId);
+        const userDoc = await getDoc(userDocRef);
+        const userData = userDoc.data();
+        const notifications = userData.notifications || [];
+        notifications.push({
+          message: `You've been given given a new role : ${selectedRole}`,
+          timestamp: new Date(), // Set the timestamp in your code
+        });
 
         if(userStatus !== ''){
           await updateDoc(userDocRef, {
             status : userStatus,
-            role: selectedRole
+            role: selectedRole,
+            notifications,
+            unreadNotifications: increment(1)
           })
         }else{
           await updateDoc(userDocRef, {
@@ -268,7 +279,7 @@ console.log(selectedRole)
         position={[null, null, null, "relative"]}
       >
         <Card borderLeftRadius={"0px"} ml={"-1.2%"} mt={"2px"}
-        bg={useColorModeValue('', '#141139')}
+        bg={useColorModeValue('gray.50', "#050223")}
         color={useColorModeValue("", "white")}>
           <CardBody>
             <Flex gap={5} alignItems={"center"} justifyContent={"flex-end"}>
@@ -498,9 +509,10 @@ console.log(selectedRole)
         <Modal
           isOpen={isFilterModalOpen}
           onClose={() => setIsFilterModalOpen(false)}
+          
         >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent bg={useColorModeValue("", "#050223")}>
             <ModalHeader borderBottom={"1px solid #999FAA"}>
               Filter by
             </ModalHeader>
@@ -514,8 +526,10 @@ console.log(selectedRole)
               <Flex direction={"column"} gap={4}>
                 <Text
                   p={2}
-                  bgColor={selectedFilter === 'alphabetical order' ?  "#12067A": '#fff' }
-                  color={selectedFilter === 'alphabetical order' ? "#fff" : '#000'}
+                  bgColor={useColorModeValue(selectedFilter === 'alphabetical order' ?  "#12067A": '#fff',
+                  selectedFilter === 'alphabetical order' ?  "#12067A": "#050223" )}
+                  color={useColorModeValue(selectedFilter === 'alphabetical order' ? "#fff" : '#000',
+                  selectedFilter === 'alphabetical order' ? "#fff" : "fff" )}
                   cursor={"pointer"}
                   onClick={()=>handleFilterClick('alphabetical order')}
                   borderRadius={'md'}
@@ -524,8 +538,10 @@ console.log(selectedRole)
                 </Text>
                 <Text
                   p={2}
-                  bgColor={selectedFilter === 'verification status' ?  "#12067A": '#fff' }
-                  color={selectedFilter === 'verification status' ? "#fff" : '#000'}
+                  bgColor={useColorModeValue(selectedFilter === 'verification status' ?  "#12067A": '#fff',
+                  selectedFilter === 'verification status' ?  "#12067A": "#050223" )}
+                  color={useColorModeValue(selectedFilter === 'verification status' ? "#fff" : '#000',
+                  selectedFilter === 'verification status' ? "#fff" : "fff" )}
                   cursor={"pointer"}
                   onClick={()=>handleFilterClick('verification status')}
                   borderRadius={'md'}
@@ -534,8 +550,10 @@ console.log(selectedRole)
                 </Text>
                 <Text
                   p={2}
-                  bgColor={selectedFilter === 'sub-admin' ?  "#12067A": '#fff' }
-                  color={selectedFilter === 'sub-admin' ? "#fff" : '#000'}
+                  bgColor={useColorModeValue(selectedFilter === 'sub-admin' ?  "#12067A": '#fff',
+                  selectedFilter === 'sub-admin' ?  "#12067A": "#050223" )}
+                  color={useColorModeValue(selectedFilter === 'sub-admin' ? "#fff" : '#000',
+                  selectedFilter === 'sub-admin' ? "#fff" : "fff" )}
                   cursor={"pointer"}
                   onClick={()=>handleFilterClick('sub-admin')}
                   borderRadius={'md'}
@@ -545,8 +563,10 @@ console.log(selectedRole)
                 </Text>
                 <Text
                   p={2}
-                  bgColor={selectedFilter === 'user' ?  "#12067A": '#fff' }
-                  color={selectedFilter === 'user' ? "#fff" : '#000'}
+                  bgColor={useColorModeValue(selectedFilter === 'merchant' ?  "#12067A": '#fff',
+                  selectedFilter === 'merchant' ?  "#12067A": "#050223" )}
+                  color={useColorModeValue(selectedFilter === 'merchant' ? "#fff" : '#000',
+                  selectedFilter === 'merchant' ? "#fff" : "fff" )}
                   cursor={"pointer"}
                   onClick={()=>handleFilterClick('user')}
                   borderRadius={'md'}
@@ -555,8 +575,10 @@ console.log(selectedRole)
                 </Text>
                 <Text
                   p={2}
-                  bgColor={selectedFilter === 'customer service' ?  "#12067A": '#fff' }
-                  color={selectedFilter === 'customer service' ? "#fff" : '#000'}
+                  bgColor={useColorModeValue(selectedFilter === 'customer service' ?  "#12067A": '#fff',
+                  selectedFilter === 'customer service' ?  "#12067A": "#050223" )}
+                  color={useColorModeValue(selectedFilter === 'customer service' ? "#fff" : '#000',
+                  selectedFilter === 'customer service' ? "#fff" : "fff" )}
                   cursor={"pointer"}
                   borderRadius={'md'}
                   onClick={()=>handleFilterClick('customer service')}
@@ -571,9 +593,9 @@ console.log(selectedRole)
                   alignItems={"center"}
                 >
                   <Button
-                    color={"#12067A"}
+                    color={useColorModeValue("#12067A", "fff")}
                     bg="transparent"
-                    border={"2px solid #12067A"}
+                    border={useColorModeValue("2px solid #12067A", "2px solid #D92D20")}
                     w={"12vw"}
                     h={"7vh"}
                     borderRadius={"2xl"}
@@ -613,7 +635,7 @@ console.log(selectedRole)
           onClose={() => setIsUserModalOpen(false)}
         >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent bg={ useColorModeValue("white", "#141139")}>
             <ModalHeader borderBottom={"1px solid #999FAA"}>
               Edit Users
             </ModalHeader>
@@ -699,9 +721,9 @@ console.log(selectedRole)
                   alignItems={"center"}
                 >
                   <Button
-                    color={"#12067A"}
-                    bg="transparent"
-                    border={"2px solid #12067A"}
+                      color={useColorModeValue("#12067A", "fff")}
+                      bg="transparent"
+                      border={useColorModeValue("2px solid #12067A", "2px solid #D92D20")}
                     w={"12vw"}
                     h={"7vh"}
                     borderRadius={"2xl"}

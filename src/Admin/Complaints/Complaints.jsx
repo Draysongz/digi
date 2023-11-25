@@ -168,7 +168,8 @@ const Complaints = () => {
     >
       {/* Your header content here */}
       <Flex gap={10} direction={'column'}>
-      <Card borderLeftRadius={'0px'} ml={'-1.2%'} mt={'2px'}>
+      <Card borderLeftRadius={'0px'} ml={'-1.2%'} mt={'2px'} bg={useColorModeValue('gray.50', "#050223")}
+        color={useColorModeValue("", "white")}>
         <CardBody>
           <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
             <MessageModal />
@@ -181,7 +182,7 @@ const Complaints = () => {
       
       
       <Card>
-  <CardBody>
+  <CardBody bg={useColorModeValue("white", "#141139")}>
     <Flex gap={8} direction={'column'}>
       {chats.map((chat, index) => {
         const receiver = receivers[chat.users[1]]; // Assuming you have a receiverId in your chat data

@@ -248,9 +248,10 @@ const HeroC = () => {
                          textAlign={['center']}
                          lineHeight={'95%'}>Trade your bitcoins and get paid to your<br/> bank account instantly. No stress</Text>
             <SimpleGrid p="10px" spacing={10}  minChildWidth="350px" justifyItems='center' alignItems='center' >
-                <Card p='15px'  border={'1px solid #999)'}>
+                <Card p='15px'  border={'1px solid #999)'} color={useColorModeValue('', 'white')}
+        bg={useColorModeValue("", '#0E0562')}>
                     <CardBody minH={'30vh'} maxH='50vh' minW={'25vw'} w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
-                        <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8} p='5px'>
+                        <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={6} p='5px'>
                             <Heading
                             fontFamily='Hellix-medium'
                             fontSize={['16px', '20px', '20px']}
@@ -259,13 +260,15 @@ const HeroC = () => {
                             <Text
                              fontFamily='Hellix-medium'
                              textAlign={'center'}
-                             fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
+                             fontSize={['14px', '16px', '15px']}>Need to sell or buy crypto fast? Look no further than Digimart! with our user-friendly platform, you can get your crypto sold and bought in minutes. 
+                             No hassle, no fuss, just quick and easy crypto trading. Try Digimart today! </Text>
                              <Image src={giftbox} alt='giftbox' width='60%' mt='-30px'/>
                         </Flex>
                     </CardBody>
                 </Card>
 
-                <Card p='15px'  border={'1px solid #999)'}>
+                <Card p='15px'  border={'1px solid #999)'} color={useColorModeValue('', 'white')}
+        bg={useColorModeValue("", '#0E0562')}>
                     <CardBody minH={'30vh'} minW={'25vw'} maxH='50vh' w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
                         <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8}>
                             <Heading
@@ -276,7 +279,7 @@ const HeroC = () => {
                             <Text
                              fontFamily='Hellix-medium'
                              textAlign={'center'}
-                             fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
+                             fontSize={['14px', '16px', '15px']}>Got giftcards you wish to sell? Trade them for cash on Digimart and get your money ASAP. Digimart is your go-to for hassle-free giftcard trading. Give it a try today</Text>
                             
                              <Image src={cards} alt='giftbox' width={['75%', '75%', '60%']}/>
                              
@@ -285,7 +288,8 @@ const HeroC = () => {
                     </CardBody>
                 </Card>
 
-                <Card p='15px'  border={'1px solid #999)'}>
+                <Card p='15px'  border={'1px solid #999)'} color={useColorModeValue('', 'white')}
+        bg={useColorModeValue("", '#0E0562')}>
                     <CardBody minH={'30vh'} maxH='50vh' minW={'25vw'} w={['70vw', '60vw', '45vw', '25vw' ]} borderRadius={'12px'} border={'1px solid #999)'}>
                         <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={8}>
                             <Heading
@@ -342,7 +346,7 @@ const HeroC = () => {
         {/* sixth div */}
         <Box p='20px'>
         <Heading fontFamily='Hellix-medium'
-                    color={'#111111'}
+                    color={useColorModeValue('#111111', "white")}
                     fontSize={['19px', '32px', '52px']}
                     textAlign={['center', 'center', 'center', 'left']}
                     fontWeight={'700'}>Frequently Asked Questions (FAQ’s)</Heading>

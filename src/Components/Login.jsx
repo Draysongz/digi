@@ -59,7 +59,7 @@ const Login = () => {
       if(userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Merchant') {
         // Redirect to the admin dashboard
         navigate("/admin/dashboard");
-      } else if (userRole === "user") {
+      } else if (userRole === "User") {
         // Redirect to the user dashboard
         navigate("/dashboard");
       } else {

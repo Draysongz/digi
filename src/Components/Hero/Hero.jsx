@@ -7,13 +7,27 @@ import {
   Text,
   useBreakpointValue,
   useColorModeValue,
-  HStack
+  HStack,
+  Box
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useRole } from "../../RoleProvider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import './hero.css'
 
 export default function SplitScreen() {
+  const words = ["Swiftly", "Safely", "Confidently", "With EASE!"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
   const { checkUserRole, userRole } = useRole();
 
   // Log the user's role
@@ -53,18 +67,38 @@ export default function SplitScreen() {
           maxW={"lg"}
           align={{ base: "center", md: "flex-start" }}
         >
-          <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
-            <Text as={"span"}>
-              Trade with Confidence
-              <br /> and Ease Today 
-            </Text>
-          </Heading>
+          <Box 
+      className="wrapper"
+      fontSize={{ base: '3xl', md: '3xl', lg: '4xl' }}
+    >
+      <Text>Trade your digital assets</Text>
+      <Box
+        className={'words'}
+        color={'#31CD31'}
+        display="flex" // Ensure the words are displayed in a row
+      >
+        {words.map((word, index) => (
+          <span
+            key={index}
+            className={currentWordIndex === index ? 'visible' : 'hidden'}
+            style={{
+              animation: currentWordIndex === index
+                ? 'slideIn 2s ease-in-out forwards'
+                : 'slideOut 2s ease-in-out forwards',
+            }}
+          >
+            {word}
+          </span>
+        ))}
+      </Box>
+    </Box>
 
-          <Text fontSize={{ base: "md", lg: "lg" }}>
-            Trade with confidence and ease on Digimart, the leading P2P crypto
-            exchange.
-          </Text>
-          <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+          <Flex mt={'-5%'} >
+            <Text>Digimart Exchange has got you covered on "hassel-free" transactions
+              of any volume.... We're the leading trading & exchange platform for a reason!
+            </Text>
+          </Flex>
+          <Stack  direction={{ base: "column", md: "row" }} spacing={4}>
             <Button
               alignSelf={"center"}
               rounded={"full"}

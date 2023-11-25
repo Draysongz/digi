@@ -43,6 +43,10 @@ import { app } from "./Components/firebase/Firebase";
 import {Spinner, Flex} from '@chakra-ui/react'
 import TransactionLoadBalancer from "./TransactionLoadBalancer";
 import MainUserManagement from "./Admin/userManagement/MainUserManagement";
+import Main from "./Admin/Theme/Main";
+import MainPay from "./Admin/Paypal/MainPay";
+import MainGif from "./Admin/Giftcards/MainGift";
+import MainCrypt from "./Admin/Crypto/MainCrypt";
 
 
 
@@ -187,6 +191,10 @@ function App() {
         <Route path="/admin/chat" element={<AdminPages><MainChat/> </AdminPages>} />
         <Route path='/admin/transaction' element={<AdminPages><MainTransaction/></AdminPages>} />
         <Route path='/admin/usermanagement' element={<AdminPages><MainUserManagement/></AdminPages>} />
+        <Route path='/admin/theme' element={<AdminPages><Main/></AdminPages>} />
+        <Route path='/admin/giftcards' element={<AdminPages><MainGif/></AdminPages>} />
+        <Route path='/admin/paypal' element={<AdminPages><MainPay/></AdminPages>} />
+        <Route path='/admin/crypto' element={<AdminPages><MainCrypt/></AdminPages>} />
       </Routes>
       <TransactionLoadBalancer />
       <ToastContainer />
@@ -238,7 +246,7 @@ emptyColor='gray.200' />
     )
   }
 
-  if((userRole === 'user' || 'sub-admin') && (userStatus === 'active') ){
+  if((userRole === 'User' || 'sub-admin') && (userStatus === 'active') ){
   return <>{children}</>
 }else{
  return  <Navigate to='/forbidden' />

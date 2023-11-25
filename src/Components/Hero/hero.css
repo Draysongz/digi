@@ -1,0 +1,77 @@
+
+.words {
+    position: relative;
+    height: 60px; /* Adjust the height as needed */
+    overflow: hidden;
+  }
+  
+  .words span {
+    display: block;
+    height: 100%;
+    padding-left: 0px;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  
+  .words span.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .words span.hidden {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideOut {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+  }
+  
+  
+  
+
+/*   
+@keyframes spin_words {
+    0%, 16% {
+        transform: translateY(0%);
+    }
+    20%, 36% {
+        transform: translateY(-100%);
+    }
+    40%, 56% {
+        transform: translateY(-200%);
+    }
+    60%, 76% {
+        transform: translateY(-300%);
+    }
+    80%, 96% {
+        transform: translateY(-400%);
+    }
+    100%, 101% {
+        transform: translateY(-500%);
+    }
+    101.01%, 100% {
+        transform: translateY(0%);
+    }
+}
+ */

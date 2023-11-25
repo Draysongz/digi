@@ -30,7 +30,7 @@ import {
   import { useLocation } from "react-router-dom";
   import { getAuth } from "firebase/auth";
   import { app } from "../../../firebase/Firebase";
-  import { getFirestore, collection, addDoc, Timestamp } from 'firebase/firestore';
+  import { getFirestore, collection, addDoc, Timestamp, updateDoc, increment, doc, getDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import NotificationModal from "../../../../Admin/Notifications/NotificationModal";
 
@@ -55,6 +55,15 @@ const BuyFinalCheckout = () => {
 
   const createTransaction = async(e)=>{
 
+    const userDocRef = doc(db, 'users', user.uid);
+    const userDoc = await getDoc(userDocRef);
+    const userData = userDoc.data();
+    const notifications = userData.notifications || [];
+    notifications.push({
+      message: `Your buy transaction of ${coinUnit}${cryptoSymbol} is processing `,
+      timestamp: new Date(), // Set the timestamp in your code
+    });
+
       // Validate the required fields before proceeding
       if (!wallet) {
         toast.error("Please fill in all the required fields.");
@@ -74,6 +83,11 @@ const BuyFinalCheckout = () => {
             transactionType: 'buy',
             time: timestamp,
 
+          });
+          await updateDoc(userDocRef, {
+            notifications,
+            unreadNotifications: increment(1)
+  
           });
           setTransactionSaved(true);
       } catch (error) {

@@ -103,7 +103,7 @@ const Password = () => {
     <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
 
     <Card borderLeftRadius={'0px'}
-        ml={'-1.2%'} mt={'2px'} >
+        ml={'-1.2%'} mt={'2px'}  bg={useColorModeValue('gray.50', "#050223")}>
             <CardBody>
                 <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
                     <MessageModal/>
