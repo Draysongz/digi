@@ -128,7 +128,7 @@ const handleSaveStatus = async () => {
         const transactionsRef = collection(db, 'transactions');
         const q = query(
           transactionsRef,
-          where('assignedTo', '==', currentUserId), // Use '==' for equality check
+          where('assignedTo', '==', currentUserId ), // Use '==' for equality check
           orderBy('time', 'desc')
         );
   
@@ -226,7 +226,7 @@ const handleSaveStatus = async () => {
           <CardBody>
             <TableContainer >
                 {displayedTransactions.length > 0 ? 
-              <Table variant={'simple'} size={'md'} >
+              <Table variant={'simple'}  size={'sm'} >
                 <Thead bg={TheadBg}>
                   <Tr>
                     <Th>Product</Th>
@@ -265,6 +265,7 @@ const handleSaveStatus = async () => {
                               transaction.status === 'successful' ? '#14532D' : '#7F1D1D'}>{transaction.status}</Text>
                           </HStack></Td>
                         <Td cursor={'pointer'}><Icon color={'#A1A1AA'} as={FiMoreHorizontal} boxSize={6} /></Td>
+                       
                       </Tr>
                     );
                   })}
@@ -319,10 +320,25 @@ const handleSaveStatus = async () => {
       </Flex>
     </Flex>
        {/* Transaction Details Modal */}
-       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
 <ModalOverlay />
-<ModalContent>
+<ModalContent   bg={useColorModeValue("#F4F5F8", "#050223")}>
   <ModalHeader>Transaction Details</ModalHeader>
+  {selectedTransaction && (
+          <Flex gap={5} alignItems={'center'}>
+             <Text px={8}>{`Txn ID: ${selectedTransaction.id}`}</Text>
+          
+          {copiedStates['txnID'] ? (
+<Icon as={CheckIcon} color={'green.500'} />
+) : (
+<CopyIcon
+onClick={() => copyToClipboard(selectedTransaction.id, 'txnID')}
+style={{ cursor: 'pointer' }}
+/>
+)}
+          </Flex>
+
+  )}
   <ModalCloseButton />
   <ModalBody>
     {selectedTransaction && (
@@ -539,9 +555,9 @@ const handleSaveStatus = async () => {
            
   <Flex justifyContent={'center'} p={5} gap={10} alignItems={'center'}> 
   <Button 
-   color={'#12067A'}
+   color={'white'}
    bg='transparent'
-   border={'2px solid #12067A'}
+   border={'2px solid #D92D20'}
    w={'12vw'}
    h={'7vh'}
    borderRadius={'2xl'}
