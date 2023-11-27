@@ -95,8 +95,10 @@ export default function SplitScreen() {
 
           <Flex mt={'-5%'} >
             <Text>DigiMart Exchange has got you covered on 
-              <span style={{color : '#31CD31', fontSize: 'x-large', fontStyle: 'italic'}}>"hassel-free"</span> transactions
-              of any volume.... We're the leading trading & exchange platform for a reason!
+              <span style={{color : '#31CD31', fontSize: 'larger', fontStyle: 'italic',
+            fontWeight: 'bolder'}}> hassel-free</span> transactions
+              of any volume.... We're the <span style={{color : '#31CD31', fontSize: 'larger', fontStyle: 'italic',
+            fontWeight: 'bolder'}}> leading</span> trading & exchange platform for a reason!
             </Text>
           </Flex>
           <Stack  direction={{ base: "column", md: "row" }} spacing={4}>
