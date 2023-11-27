@@ -106,10 +106,11 @@ const HeroC = () => {
                                 <Image src={swift} alt='swift' width='50%'/>
                             </Circle>
 
-                            <Heading fontSize='18px' fontFamily='Hellix-medium'>Secured Transactions</Heading>
-                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >DigiMart is a secure and reliable <br/> exchange platform,
-                                 that has users <br/> interest at heart... 
-                                 No compromise on <br/> the safety of your assets, as they are <br/> protected with maximum security.</Text>
+                            <Heading fontSize='18px' fontFamily='Hellix-medium'>Swift Transactions</Heading>
+                            <Text minH={'20vh'} textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >At DigiMart, we consider transaction <br/>
+                            speed as one of our topmost <br/> 
+                            priorities. Transactions get executed <br/>
+                            in just few minutes</Text>
                         </Flex>
                     </CardBody>
                 </Card>
