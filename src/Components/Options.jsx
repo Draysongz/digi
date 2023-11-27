@@ -23,7 +23,7 @@ const Options = () => {
       transition='3s'
     >
       <Box>
-        <Image src={logo} alt="digimart" width={["40%", "40%", "20%"]} />
+        <Image src={logo} alt="DigiMart" width={["40%", "40%", "20%"]} />
       </Box>
 
       <Flex

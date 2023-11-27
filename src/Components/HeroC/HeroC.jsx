@@ -75,7 +75,7 @@ const HeroC = () => {
                             </Circle>
 
                             <Heading fontSize='18px' fontFamily='Hellix-medium'>Secured Transactions</Heading>
-                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >Digimart is a secure and reliable <br/>
+                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >DigiMart is a secure and reliable <br/>
                              exchange platform,
                                  that has users <br/> interest at heart... 
                                  No compromise on <br/> the safety of your assets, as they are <br/> protected with maximum security.</Text>
@@ -91,7 +91,7 @@ const HeroC = () => {
                             </Circle>
 
                             <Heading fontSize='18px' fontFamily='Hellix-medium'>Ease of use</Heading>
-                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >Digimart's friendly interface and step- <br/> 
+                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >DigiMart's friendly interface and step- <br/> 
                               by-step guides on trading, makes it
                               <br/> easy for everyone including
                             <br/> beginners, to experience a hassle- <br/> free trading.</Text>
@@ -107,7 +107,7 @@ const HeroC = () => {
                             </Circle>
 
                             <Heading fontSize='18px' fontFamily='Hellix-medium'>Secured Transactions</Heading>
-                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >Digimart is a secure and reliable <br/> exchange platform,
+                            <Text textAlign='center' fontWeight='200' fontSize='16px' fontFamily='Hellix-medium' >DigiMart is a secure and reliable <br/> exchange platform,
                                  that has users <br/> interest at heart... 
                                  No compromise on <br/> the safety of your assets, as they are <br/> protected with maximum security.</Text>
                         </Flex>
@@ -260,8 +260,8 @@ const HeroC = () => {
                             <Text
                              fontFamily='Hellix-medium'
                              textAlign={'center'}
-                             fontSize={['14px', '16px', '15px']}>Need to sell or buy crypto fast? Look no further than Digimart! with our user-friendly platform, you can get your crypto sold and bought in minutes. 
-                             No hassle, no fuss, just quick and easy crypto trading. Try Digimart today! </Text>
+                             fontSize={['14px', '16px', '15px']}>Need to sell or buy crypto fast? Look no further than DigiMart! with our user-friendly platform, you can get your crypto sold and bought in minutes. 
+                             No hassle, no fuss, just quick and easy crypto trading. Try DigiMart today! </Text>
                              <Image src={giftbox} alt='giftbox' width='60%' mt='-30px'/>
                         </Flex>
                     </CardBody>
@@ -279,7 +279,7 @@ const HeroC = () => {
                             <Text
                              fontFamily='Hellix-medium'
                              textAlign={'center'}
-                             fontSize={['14px', '16px', '15px']}>Got giftcards you wish to sell? Trade them for cash on Digimart and get your money ASAP. Digimart is your go-to for hassle-free giftcard trading. Give it a try today</Text>
+                             fontSize={['14px', '16px', '15px']}>Got giftcards you wish to sell? Trade them for cash on DigiMart and get your money ASAP. DigiMart is your go-to for hassle-free giftcard trading. Give it a try today</Text>
                             
                              <Image src={cards} alt='giftbox' width={['75%', '75%', '60%']}/>
                              
@@ -300,7 +300,8 @@ const HeroC = () => {
                             <Text
                              fontFamily='Hellix-medium'
                              textAlign={'center'}
-                             fontSize={['14px', '16px', '16px']}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</Text>
+                             fontSize={['14px', '16px', '16px']}>
+                               Quickly Sell/Exchange your PayPal funds for Naira here on DigiMart Exchange without stress...Ask for TAG!</Text>
                             
                              <Image src={funds} alt='giftbox' width='70%'/>
                              
@@ -357,7 +358,7 @@ const HeroC = () => {
                     <Heading fontFamily='Hellix-medium'>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
-                            What is Digimart
+                            What is DigiMart
                             </Box>
                             {isExpanded ? (
                                 <Circle  size={['25px', '30px', '40px']} border={'1px solid'}>
@@ -372,7 +373,7 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Digimart is a cryptocurrency exchange platform that allows users to buy and sell cryptocurrencies, gift cards, and PayPal funds with ease and security.
+                    DigiMart is a cryptocurrency exchange platform that allows users to buy and sell cryptocurrencies, gift cards, and PayPal funds with ease and security.
     </AccordionPanel>
                     </>
                 )}
@@ -385,7 +386,7 @@ const HeroC = () => {
                     <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']}textAlign='left'>
-                        How can I create an account on Digimart?
+                        How can I create an account on DigiMart?
 
                             </Box>
                             {isExpanded ? (
@@ -401,7 +402,7 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    To create an account on Digimart, simply visit our website and click on the "Sign Up" button. Follow the registration process by providing the required information, and you'll be ready to start trading.
+                    To create an account on DigiMart, simply visit our website and click on the "Sign Up" button. Follow the registration process by providing the required information, and you'll be ready to start trading.
 
 
     </AccordionPanel>
@@ -467,7 +468,7 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Digimart supports a wide range of cryptocurrencies, including popular options such as Bitcoin (BTC), 
+                    DigiMart supports a wide range of cryptocurrencies, including popular options such as Bitcoin (BTC), 
                     Ethereum (ETH), Ripple (XRP), and more. You can explore the available options on our platform.
 
 
@@ -534,7 +535,7 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    No, identity verification is not required for selling cryptocurrencies on Digimart. You can simply select the cryptocurrency 
+                    No, identity verification is not required for selling cryptocurrencies on DigiMart. You can simply select the cryptocurrency 
                     you want to sell, input the quantity, and proceed with the selling process.
 
     </AccordionPanel>
@@ -580,7 +581,7 @@ const HeroC = () => {
                     <Heading fontFamily='Hellix-medium' fontWeight={'bold'}>
                         <AccordionButton>
                         <Box as="span" flex='1'  fontSize={['18px', '18px', '20px', '24px']} textAlign='left'>
-                        Can I withdraw fiat currency from my Digimart account?
+                        Can I withdraw fiat currency from my DigiMart account?
                             </Box>
                             {isExpanded ? (
                                 <Circle  size={['25px', '30px', '40px']} border={'1px solid'}>
@@ -595,7 +596,7 @@ const HeroC = () => {
 
                     </Heading>
                     <AccordionPanel pb={4}>
-                    Yes, you can withdraw fiat currency from your Digimart account. After selling cryptocurrencies, 
+                    Yes, you can withdraw fiat currency from your DigiMart account. After selling cryptocurrencies, 
                     you will be prompted to input your bank details, and the fiat funds will be transferred to your provided account.
 
     </AccordionPanel>
@@ -642,7 +643,7 @@ const HeroC = () => {
         <Flex bg={'#0E0562'} direction={['column-reverse', 'column', 'column', 'row']} minH={'60vh'} p='20px'  ml='-20px' w={['100vw', '95vw', '98.7vw', '98.7vw']}  justifyContent={'space-around'}>
             {/* first side */}
             <Flex direction={'column'} gap={5} alignItems={['center', 'center', 'center', 'flex-start']}>
-                <Image src={newLogo} alt='digimart' width={['70%', '90%', '80%', '80%']} />
+                <Image src={newLogo} alt='DigiMart' width={['70%', '90%', '80%', '80%']} />
                 <Flex justifyContent={['space-between', 'space-around', 'space-around','space-around' ] } minW={['30vw', '30vw', '10vw']} >
                     <Image src={linkedin} alt='linkedin'/>
                     <Image src={fb} alt='facebook'/>

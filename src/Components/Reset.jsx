@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import logo from './assets/logo.png';
 import './css/reset.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { getAuth, verifyPasswordResetCode, confirmPasswordReset } from 'firebase/auth';
 import {toast} from 'react-toastify'
 import { app } from './firebase/Firebase';
-import { Flex, Spinner } from '@chakra-ui/react';
+import logoWhite from './assets/digi.png'
+import Lottie from 'lottie-react'; 
+import animationData from './Animation.json'
+import { Flex, Heading, Spinner,
+  useColorModeValue,
+    Box,
+    Text,
+    Button,
+    Image,
+    useColorMode,
+    Input,
+  }  from '@chakra-ui/react';
 
 const Reset = () => {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [isVerified, setIsVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
+
+  const { colorMode } = useColorMode();
+  const isDark = colorMode === "dark";
+  const navigate = useNavigate()
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -36,7 +51,7 @@ const Reset = () => {
           console.error('Error verifying password reset code:', error);
         } finally {
           setIsLoading(false); // Set loading status to false after verification
-          toast.success('code verified')
+          
           
         }
       }
@@ -44,6 +59,9 @@ const Reset = () => {
 
     verifyActionCode();
   }, [auth, actionCode]);
+
+  const flexBg =useColorModeValue("#F4F5F8", "#050223");
+  const flexCol = useColorModeValue("gray.900", "white");
 
   const resetPassword = async (e) => {
     e.preventDefault()
@@ -55,6 +73,7 @@ const Reset = () => {
       await confirmPasswordReset(auth, actionCode, password);
       console.log('Password reset successful.');
       toast.success('Password reset successful')
+      navigate('/login')
     } catch (error) {
       console.error('Error resetting password:', error);
       toast.error(error.message)
@@ -72,31 +91,107 @@ const Reset = () => {
 
   if (!isVerified) {
     // Display a blank page or a message when not verified
-    return <div>Invalid code or expired link.</div>;
+    return <Flex 
+    maxWidth="4xl"
+    p="20px"
+    minHeight="100vh"
+    minWidth="100vw"
+    bg={flexBg}
+    color={flexCol}
+    overFlowX={'hidden'}
+    direction={'column'}
+    gap={3}>
+       <Box alignSelf={'start'}>
+      <Image src={
+                colorMode === "light"
+                  ? `${logo}`
+                  : `${logoWhite}`
+              } width={['150px', '200px']} />
+    </Box>
+    <Flex
+    direction={'column'}
+    justifyContent={'center'}
+    alignItems={'center'}
+    gap={5}>
+      <Flex justifyContent={'center'} maxH={'50vh'}>
+      <Lottie
+        animationData={animationData}
+        loop={true}
+        autoplay={true}
+      />
+      </Flex>
+      <Heading textAlign={'center'}>Invalid code or expired link.</Heading>
+      <Button bg={'#1808A3'} borderRadius={'full'} minH={'7vh'} 
+      color={'white'} w={['85vw', '85vw', '85vw', '27vw']} 
+  _hover={{bg : '#31CD31'}}><Link to='/forgot'>Resend Link</Link></Button>
+    </Flex>
+         
+    </Flex>
   }
 
   return (
-    <div className='resetCont'>
-      <div className="main">
-        <div className="digi">
-          <img src={logo} alt="digimart" className="mainlogo" />
-        </div>
-
-        <div className="mainReset">
-          <h1 className="resetHeader">Reset your password</h1>
-          <div className="eDescriptionDiv">
-            <p className="eDescription">To reset your password, enter a new password</p>
-            <br />
-            <span><p className='box'>in the box below</p></span>
-          </div>
-
-          <input type="password" onChange={(e) => setPassword(e.target.value)} className="resetPass" placeholder='New password' />
-          <input type="password" onChange={(e) => setConfirm(e.target.value)} placeholder='Re-type new password' className="retype" />
-          <button className="submit-btn" onClick={resetPassword}>SUBMIT</button>
-          <p className="loginD">Didn't get a mail? <Link className='log' to='/register'>Resend it</Link></p>
-        </div>
-      </div>
-    </div>
+    <Flex
+    maxWidth="4xl"
+    p="20px"
+    minHeight="100vh"
+    minWidth="100vw"
+    bg={flexBg}
+    color={flexCol}
+    overFlowX={'hidden'}
+    direction={'column'}
+    gap={10}
+    >
+    <Box alignSelf={'start'}>
+      <Image src={
+                colorMode === "light"
+                  ? `${logo}`
+                  : `${logoWhite}`
+              } width={['150px', '200px']} />
+    </Box>
+<Flex
+justifyContent={'center'}
+direction={'column'}
+minH={"60vh"}
+py={10}>
+<Flex
+direction={'column'}
+justifyContent={'center'}
+alignItems={'center'}
+gap={5}
+>
+<Heading>Reset your password</Heading>
+<Box>
+<Text >To reset your password, enter a new password</Text>
+<Text textAlign={'center'}>in the box below</Text>
+</Box>
+<Input type='password' required
+value={password} onChange={(e)=> setPassword(e.target.value)}
+ placeholder='New password' borderRadius={'full'}  w={['85vw', '85vw', '85vw', '28vw']}
+ minH={'5vh'} 
+ color={'black'}  variant={'outline'}
+ background={'white'} _placeholder={
+  {
+    color: 'grey'
+  }
+ } />
+ <Input type='password' required
+value={confirm} onChange={(e)=> setConfirm(e.target.value)}
+ placeholder='Re-type new password' borderRadius={'full'}  w={['85vw', '85vw', '85vw', '28vw']}
+ minH={'5vh'} 
+ color={'black'}  variant={'outline'}
+ background={'white'} _placeholder={
+  {
+    color: 'grey'
+  }
+ } />
+ <Button type='submit'
+  bg={'#1808A3'} borderRadius={'full'} minH={'7vh'} color={'white'} w={['85vw', '85vw', '85vw', '27vw']} 
+  _hover={{bg : '#31CD31'}} 
+  isLoading={isLoading} 
+  onClick={resetPassword} loadingText='submitting'>Submit</Button>
+</Flex>
+</Flex>
+    </Flex>
   );
 };
 

@@ -94,7 +94,8 @@ export default function SplitScreen() {
     </Box>
 
           <Flex mt={'-5%'} >
-            <Text>Digimart Exchange has got you covered on "hassel-free" transactions
+            <Text>DigiMart Exchange has got you covered on 
+              <span style={{color : '#31CD31', fontSize: 'x-large', fontStyle: 'italic'}}>"hassel-free"</span> transactions
               of any volume.... We're the leading trading & exchange platform for a reason!
             </Text>
           </Flex>

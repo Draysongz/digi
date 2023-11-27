@@ -70,7 +70,7 @@ export default function LogoutModal() {
               <Box alignSelf={"center"} mb={10} color={useColorModeValue("", "black")}>
                 {" "}
                 <Heading size={"md"} align={"center"} mx={10} mb={5}>
-                  You are attempting to logout of Digimart
+                  You are attempting to logout of DigiMart
                 </Heading>
                 <Text align={"center"}>Are you sure?</Text>
               </Box>
@@ -163,7 +163,7 @@ export  function MobileLogoutModal() {
               <Box alignSelf={"center"} mb={10}>
                 {" "}
                 <Heading size={"md"} align={"center"} mx={10} mb={5}>
-                  You are attempting to logout of Digimart
+                  You are attempting to logout of DigiMart
                 </Heading>
                 <Text align={"center"}>Are you sure?</Text>
               </Box>

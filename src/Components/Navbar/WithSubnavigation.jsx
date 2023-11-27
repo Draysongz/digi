@@ -301,24 +301,24 @@ const NAV_ITEMS = [
     children: [
       {
         label: "Cryptocurrency",
-        subLabel: "Buy and sell cryptocurrency on digimart",
+        subLabel: "Buy and sell cryptocurrency on DigiMart",
         href: "#",
         children: [
           {
             label: "Buy crypto",
-            subLabel: "Buy and sell cryptocurrency on digimart",
+            subLabel: "Buy and sell cryptocurrency on DigiMart",
             href: "#",
           },
           {
             label: "Sell crypto",
-            subLabel: "Buy and sell cryptocurrency on digimart",
+            subLabel: "Buy and sell cryptocurrency on DigiMart",
             href: "#",
           },
         ],
       },
       {
         label: "Paypal",
-        subLabel: "Buy and sell funds on digimart",
+        subLabel: "Buy and sell funds on DigiMart",
         href: "#",
       },
       {
