@@ -647,8 +647,12 @@ const HeroC = () => {
                 <Image src={newLogo} alt='DigiMart' width={['70%', '90%', '80%', '80%']} />
                 <Flex justifyContent={['space-between', 'space-around', 'space-around','space-around' ] } minW={['30vw', '30vw', '10vw']} >
                     <Image src={linkedin} alt='linkedin'/>
-                    <Image src={fb} alt='facebook'/>
-                    <Image src={twitter}alt='twitter' />
+                    <Link to= 'https://www.facebook.com/profile.php?id=100070728897129&mibextid=ZbWKwL'
+                     target="_blank" rel="noopener noreferrer">
+                        <Image src={fb} alt='facebook'/>
+                        </Link>
+                    <Link to='https://twitter.com/DigiMartExchang'
+                     target="_blank" rel="noopener noreferrer"><Image src={twitter}alt='twitter' /></Link>
                 </Flex>
                 <Text color={'white'} fontFamily={'Hellix-medium'}>© 2023 DigiMart, All rights reserved</Text>
             </Flex>
