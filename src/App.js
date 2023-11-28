@@ -47,6 +47,7 @@ import Main from "./Admin/Theme/Main";
 import MainPay from "./Admin/Paypal/MainPay";
 import MainGif from "./Admin/Giftcards/MainGift";
 import MainCrypt from "./Admin/Crypto/MainCrypt";
+import Verify from "./Components/Verify";
 
 
 
@@ -156,6 +157,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/reset" element={<Reset />} />
+        <Route path="/verify" element={<Verify />} />
 
             {/* Error Pages*/}
         <Route path="/forbidden" element={<ForbiddenPage/>} />

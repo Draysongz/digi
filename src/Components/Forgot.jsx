@@ -31,7 +31,7 @@ const Forgot = () => {
   setIsLoading(true)
   const auth = getAuth(app);
   const actionCodeSettings = {
-    url: `http://localhost:3000/reset`,
+    url: `https://digimart-exchange.vercel.app/reset`,
     handleCodeInApp: true,
   };
   try {
@@ -39,7 +39,7 @@ const Forgot = () => {
       setIsLoading(false)}, 3000)
     const sent = await sendPasswordResetEmail(auth, email, actionCodeSettings);
     toast.success("Email verification sent");
-    navigate('/login')
+    navigate('/verify', {state : {email}})
     console.log(sent)
   } catch (error) {
     await setTimeout(()=>{
@@ -102,6 +102,9 @@ value={email} onChange={(e)=> setEmail(e.target.value)}
   onClick={handleClick} loadingText='submitting'>Submit</Button>
 </Flex>
 </Flex>
+
+
+
     </Flex>
   )
 }
