@@ -50,10 +50,10 @@ const Admin = () => {
     overFlow-X={'hidden'}
   >
 <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
-    <Card borderLeftRadius={'0px'}  bg={useColorModeValue('gray.50', "#050223")}
+    <Card borderLeftRadius={'0px'}  w={['90vw', '70vw', '77vw']}  bg={useColorModeValue('gray.50', "#050223")}
         ml={'-1.2%'} mt={'-1.5%'}>
             <CardBody>
-                <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
+                <Flex gap={5} alignItems={'center'} justifyContent={['space-around', 'space-around', 'flex-end']}>
                     <MessageModal/>
                     <NotificationModal />
                    <Userbar/>
@@ -61,6 +61,7 @@ const Admin = () => {
                 </Flex>
             </CardBody>
         </Card>
+
     <Box minW={'75vw'} >
           <Flex>
             <Box>
@@ -78,8 +79,8 @@ const Admin = () => {
             </Box>
 
 
-            <Flex p={5} justifyContent={'space-between'} gap={10}>
-          <Card h="20vh" w={'25vw'} >
+            <Flex p={5} justifyContent={'space-between'} gap={10} direction={['column', 'column', 'row']}>
+          <Card h="20vh" w={['80vw', '65vw', '25vw']} >
             <CardBody
               bgColor="#11076D"
               borderRadius="lg"
@@ -99,7 +100,7 @@ const Admin = () => {
             </CardBody>
           </Card>
 
-          <Card h="20vh" w={'25vw'} >
+          <Card h="20vh" w={['80vw', '65vw', '25vw']} >
             <CardBody
               bgColor="#1D7B1D"
               borderRadius="lg"
@@ -118,7 +119,7 @@ const Admin = () => {
             </CardBody>
           </Card>
 
-          <Card h="20vh" w={'25vw'}>
+          <Card h="20vh" w={['80vw', '65vw', '25vw']}>
             <CardBody
               bgColor="#6502E6"
               borderRadius="lg"
@@ -138,17 +139,17 @@ const Admin = () => {
           </Card>
         </Flex>
 
-        <Flex p={5}  justifyContent={'space-between'}>
-           <Card >
+        <Flex p={5} gap={10} justifyContent={'space-between'} direction={['column', 'column', 'row']}>
+           <Card  >
             <CardBody bgColor={'white'}
-            borderRadius={'lg'}>
+            borderRadius={'lg'} >
             <SalesChart salesData={salesData} />
             </CardBody>
            </Card>
 
-           <Card w={'30vw'} bg={useColorModeValue("white", "#141139")}>
+           <Card w={['80vw', '80vw', '30vw']} bg={useColorModeValue("white", "#141139")}>
             <CardBody>
-              <Flex direction={'column'} justifyContent={'space-between'} h={'50vh'}>
+              <Flex direction={'column'} justifyContent={'space-between'} h={['70vh', '70vh', '50vh']}>
                 <Flex p={3} justifyContent={'space-between'} >
                 <Heading as='h2' fontSize={'xl'}>Traffic Sources</Heading>
                 <HStack>
@@ -213,7 +214,7 @@ const Admin = () => {
            </Card>
         </Flex>
 
-        <Flex p={5} direction={'column'}>
+        <Flex p={5} direction={'column'} display={['none', 'none', 'flex']}>
           <Heading fontSize={'2xl'} fontFamily={'Hellix-Bold'}>Transactions</Heading>
           <Text color={'#71717A'}>Most Recent Transactions</Text>
           <Card bg={useColorModeValue("white", "#141139")}>

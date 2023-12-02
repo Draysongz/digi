@@ -179,21 +179,18 @@ const Chat = () => {
     overFlow-X={'hidden'}
   >
     <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
-        <Card borderLeftRadius={'0px'}
-        ml={'-1.2%'} mt={'2px'}  bg={useColorModeValue("#F4F5F8", "#050223")}
-        color={useColorModeValue("", "white")} >
+    <Card borderLeftRadius={'0px'}  w={['90vw', '70vw', '77vw']}  bg={useColorModeValue('gray.50', "#050223")}
+        ml={'-1.2%'} mt={'-1.5%'}>
             <CardBody>
-                <Flex alignItems={'center'} justifyContent={'space-between'}>
-                  <Text  fontSize={'lg'}>{receiver ? `${receiver.firstName} ${receiver.lastName}`: 'hello'}</Text>
-                  <Flex gap={5} >
-                    <MessageModal />
-                    <NotificationModal/>
-                    <Userbar />
-                    </Flex>
+                <Flex gap={5} alignItems={'center'} justifyContent={['space-around', 'space-around', 'flex-end']}>
+                    <MessageModal/>
+                    <NotificationModal />
+                   <Userbar/>
 
                 </Flex>
             </CardBody>
         </Card>
+
 
         <VStack px={10} >
             <Flex w={'65vw'} minH={'70vh'} 

@@ -65,7 +65,25 @@ const Transaction = () => {
 
 
 
+  const cryptoImages = {
+    BTC: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+    ETH: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+    LTC: 'https://assets.coingecko.com/coins/images/2/large/litecoin.png?1547033580',
+    SOL: 'https://assets.coingecko.com/coins/images/4128/large/solana.png?1640133422',
+    USDT: 'https://assets.coingecko.com/coins/images/325/large/Tether.png?1668148663',
+    BSC:  'https://assets.coingecko.com/coins/images/31273/large/new_binance-peg-busd.png?1692097938',
+    USDC: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+    XRP: 'https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1605778731',
+    ADA: 'https://assets.coingecko.com/coins/images/975/large/cardano.png?1547034860',
+    TRX: 'https://assets.coingecko.com/coins/images/1094/large/tron-logo.png?1547035066',
+    DOT: 'https://assets.coingecko.com/coins/images/12171/large/polkadot.png?1639712644',
+    MATIC: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912',
+    SHIBA: 'https://assets.coingecko.com/coins/images/11939/large/shiba.png?1622619446',
+    AVAX: 'https://assets.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png?1670992574',
+    DAI: 'https://assets.coingecko.com/coins/images/9956/large/Badge_Dai.png?1687143508'
 
+    // Add more entries for other cryptocurrencies
+  };
 
 
   useEffect(()=>{
@@ -101,35 +119,48 @@ const handleSaveStatus = async () => {
     console.log('Save fired...');
     if (selectedTransaction && selectedTransaction.id) {
       const transactionId = selectedTransaction.id;
-      console.log('id present')
+      console.log('id present');
 
       const transactionRef = doc(db, 'transactions', transactionId);
       const userDocRef = doc(db, 'users', selectedTransaction.userId);
       const userDoc = await getDoc(userDocRef);
       const userData = userDoc.data();
       const notifications = userData.notifications || [];
+      let message
+      if(selectedStatus === "Declined"){
+        message = `Your transaction has been marked ${selectedStatus} for the following reason: ${reason}`
+      }else{
+        message = `Your transaction has been marked ${selectedStatus}`
+      }
       notifications.push({
-        message: `Your transaction has been marked ${selectedStatus}`,
+        message: message,
         timestamp: new Date(), // Set the timestamp in your code
       });
 
-      if(selectedStatus === 'Declined'){
+      if (selectedStatus === 'Declined') {
+        await Promise.all([
+          updateDoc(transactionRef, {
+            status: selectedStatus,
+            completedBy: currentUserId,
+            Reason: reason,
+          }),
+          updateDoc(userDocRef, {
+            notifications,
+            unreadNotifications: increment(1),
+          }),
+        ]);
+      } else {
         await updateDoc(transactionRef, {
           status: selectedStatus,
           completedBy: currentUserId,
-          Reason: reason,
         });
+
+        // Update notifications only for non-declined status
         await updateDoc(userDocRef, {
           notifications,
-          unreadNotifications: increment(1)
-        })
-      }else{
-        await updateDoc(transactionRef, {
-          status: selectedStatus,
-          completedBy: currentUserId,
+          unreadNotifications: increment(1),
         });
       }
-     
 
       console.log('Status updated successfully');
       toast.success('Transaction updated');
@@ -137,7 +168,7 @@ const handleSaveStatus = async () => {
     }
   } catch (error) {
     console.error('Error updating status:', error);
-    toast.error(error);
+    toast.error('Error updating status');
   }
 };
 
@@ -147,14 +178,14 @@ const handleSaveStatus = async () => {
 
 
 
+
   const db = getFirestore(app)
-  async function fetchAssignedTransactions() {
+  async function fetchTransactions() {
     try {
       if (currentUserId) {
         const transactionsRef = collection(db, 'transactions');
         const q = query(
           transactionsRef,
-          where('assignedTo', '==', currentUserId), // Use '==' for equality check
           orderBy('time', 'desc')
         );
   
@@ -202,7 +233,7 @@ const handleSaveStatus = async () => {
   
 
   useEffect(() => {
-    fetchAssignedTransactions()
+    fetchTransactions()
   }, [currentUserId])
 
   const totalPage = Math.ceil(transactions.length / transactionsPerPage);
@@ -228,18 +259,19 @@ const handleSaveStatus = async () => {
       left={['0', '0', '0', "22%"]}
       overFlowX={'hidden'}
     >
-      <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
-        <Card borderLeftRadius={'0px'}
-          ml={'-1.2%'} mt={'2px'} bg={useColorModeValue('gray.50', "#050223")}>
-          <CardBody>
-            <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
-              <MessageModal />
-              <NotificationModal/>
-              <Userbar />
+ <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
+      <Card borderLeftRadius={'0px'}  w={['90vw', '70vw', '77vw']}  bg={useColorModeValue('gray.50', "#050223")}
+        ml={'-1.2%'} mt={['2%', '2%', '-1.5%']}>
+            <CardBody>
+                <Flex gap={5} alignItems={'center'} justifyContent={['space-around', 'space-around', 'flex-end']}>
+                    <MessageModal/>
+                    <NotificationModal />
+                   <Userbar/>
 
-            </Flex>
-          </CardBody>
+                </Flex>
+            </CardBody>
         </Card>
+
 
         <Flex gap={10} justifyContent={'space-between'} px={10} direction={'column'}>
           <Box>
@@ -249,7 +281,7 @@ const handleSaveStatus = async () => {
         </Flex>
 
 
-        <Flex direction={'column'}>
+        <Flex direction={'column'} display={['none', 'none', 'flex']}>
           <Card bg={ useColorModeValue("white", "#141139")}>
             <CardBody>
               <TableContainer >
@@ -345,6 +377,87 @@ const handleSaveStatus = async () => {
 
         </Flex>
       </Flex>
+
+      {/*Mobile transaction page*/ }
+<Flex direction={'column'} gap={5}  display={['flex', 'flex', 'none']} >
+  {displayedTransactions.map((transaction, index) => {
+    const cryptoImage = cryptoImages[transaction.cryptoSymbol];
+    return (
+      <Card key={index} onClick={()=>{openTransactionModal(transaction)}}>
+        <CardBody>
+          <Flex gap={5}   direction={'column'}>
+            <Flex justifyContent={'space-between'}>
+              <HStack>
+                <Image
+                  src={cryptoImage}
+                  alt="ETH"
+                  width="6"
+                  bg={"gray.50"}
+                  borderRadius="10px"
+                />
+                <Text> {transaction.cryptoSymbol}</Text>
+              </HStack>
+
+              <Box>
+              <Text  color={transaction.transactionType === 'sell'? "red.500" : "#31CD31"}>
+            {transaction.transactionType === 'sell'? `-${transaction.coinUnit.toFixed(4)}`: `+${transaction.coinUnit.toFixed(4)}`}
+          </Text>
+              </Box>
+
+              <Box px={4} borderRadius={'2xl'} py={1} bg={transaction.status === 'processing' ? '#FEF9C3' :
+              transaction.status === 'successful' ? '#DCFCE7' : '#FEE2E2'} alignItems={'center'}>
+              <Text fontFamily={'Hellix-medium'} color={transaction.status === 'processing' ? '#713F12' :
+               transaction.status === 'successful' ? '#14532D' : '#7F1D1D'}>{transaction.status}</Text>
+              </Box>
+            </Flex>
+            <Flex justifyContent={'flex-end'}>
+            <Text color={'#71717A'}>{transaction.time && format(transaction.time.toMillis())}</Text>
+            </Flex>
+          </Flex>
+        </CardBody>
+      </Card>
+    );
+  })}
+  <Flex p={7} justifyContent={'space-between'}>
+
+<Flex alignItems={'center'} gap={10} px={10}>
+  <Text onClick={() => currentPage === 1 ? null : setCurrentPage(currentPage - 1)} disabled={currentPage === 1}
+    style={{
+      cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+      backgroundColor: currentPage === 1 ? 'initial' : currentPage === currentPage - 1 ? '#1808A3' : 'initial',
+      color: currentPage === 1 ? 'initial' : currentPage === currentPage - 1 ? 'white' : 'initial',
+    }}>Previous</Text>
+
+  <Flex gap={10}>
+    {Array.from({ length: totalPage }, (_, i) => (
+      <Button
+        fontFamily={'Hellix-medium'}
+        key={i}
+        variant={currentPage === i + 1 ? 'solid' : 'outline'}
+        onClick={() => setCurrentPage(i + 1)}
+        style={{
+          backgroundColor: currentPage === i + 1 ? '#1808A3' : 'initial',
+          color: currentPage === i + 1 ? 'white' : 'initial',
+        }}
+      >
+        {i + 1}
+      </Button>
+    ))}
+  </Flex>
+  <Text onClick={() => currentPage === totalPage ? null : setCurrentPage(currentPage + 1)}
+    style={{
+      cursor: currentPage === totalPage ? 'not-allowed' : 'pointer',
+      backgroundColor: currentPage === totalPage ? 'initial' : currentPage === currentPage + 1 ? '#1808A3' : 'initial',
+      color: currentPage === totalPage ? 'initial' : currentPage === currentPage + 1 ? 'white' : 'initial',
+    }}>
+    Next
+  </Text>
+</Flex>
+</Flex>
+</Flex>
+
+
+
          {/* Transaction Details Modal */}
          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
   <ModalOverlay />
@@ -359,7 +472,7 @@ const handleSaveStatus = async () => {
               <Box flex="1" textAlign="left">
                 <Flex gap={5}>
                   <Text>Transaction Type:</Text>
-                 <Text w={'4vw'} borderRadius={'md'} textAlign={'center'}
+                 <Text w={['15vw', '15vw', '4vw']} borderRadius={'md'} textAlign={'center'}
                  p={1} fontSize={'md'} color={'white'} bgColor={selectedTransaction.transactionType === 'buy' ? 'green.300' : 'red.500'}> {selectedTransaction.transactionType}</Text>
                 </Flex>
               </Box>
@@ -566,10 +679,10 @@ const handleSaveStatus = async () => {
              
     <Flex justifyContent={'center'} p={5} gap={10} alignItems={'center'}> 
     <Button 
-     color={'#12067A'}
+     color={'black'}
      bg='transparent'
-     border={'2px solid #12067A'}
-     w={'12vw'}
+     border={'2px solid #D92D20'}
+     w={['25vw', '25vw', '12vw']}
      h={'7vh'}
      borderRadius={'2xl'}
      _hover={{
@@ -582,7 +695,7 @@ const handleSaveStatus = async () => {
   <Button
   bgColor={'#12067A'}
   color={'#FFFFFF'}
-  w={'12vw'}
+  w={['25vw', '25vw', '12vw']}
   h={'7vh'}
   borderRadius={'2xl'}
   _hover={{

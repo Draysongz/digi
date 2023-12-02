@@ -98,7 +98,7 @@ value={email} onChange={(e)=> setEmail(e.target.value)}
  <Button type='submit'
   bg={'#1808A3'} borderRadius={'full'} minH={'7vh'} color={'white'} w={['85vw', '85vw', '85vw', '27vw']} 
   _hover={{bg : '#31CD31'}} 
-  isLoading={isLoading} 
+  isLoading={isLoading}  disabled={isLoading}
   onClick={handleClick} loadingText='submitting'>Submit</Button>
 </Flex>
 </Flex>

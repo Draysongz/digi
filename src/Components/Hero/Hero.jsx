@@ -11,7 +11,6 @@ import {
   Box
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useRole } from "../../RoleProvider";
 import { useEffect, useState } from "react";
 import './hero.css'
 
@@ -28,14 +27,7 @@ export default function SplitScreen() {
   }, []);
 
 
-  const { checkUserRole, userRole } = useRole();
 
-  // Log the user's role
-  console.log("User Role:", userRole);
-
-  // Check if the user's role is "user"
-  const isUserRole = checkUserRole("user");
-  console.log("Is User Role:", isUserRole);
  
   const navigate = useNavigate();
   return (
@@ -71,7 +63,7 @@ export default function SplitScreen() {
       className="wrapper"
       fontSize={{ base: '3xl', md: '3xl', lg: '4xl' }}
     >
-      <Text>Trade your digital assets</Text>
+      <Text >Trade your digital assets</Text>
       <Box
         className={'words'}
         color={'#31CD31'}
@@ -120,7 +112,7 @@ export default function SplitScreen() {
           </Stack>
         </Stack>
       </Flex>
-      <Flex flex={1}  mr={'10px'}>
+      <Flex  flex={1}  mr={'10px'}>
         <Image
 
           alt={"Login Image"}

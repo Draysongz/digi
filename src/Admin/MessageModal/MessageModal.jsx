@@ -176,7 +176,7 @@ export default function MessageModal() {
       bgColor: 'transparent'
     }}>  <Icon as={CiMail} boxSize={7} /></Button>
   </PopoverTrigger>
-  <PopoverContent>
+  <PopoverContent w={['65vw', 'fit-content', '23vw']}>
     <Card bg={useColorModeValue("white", '#050223')}>
       <CardBody borderRadius={'none'} py={3} px={'0'} >
         <Flex justifyContent={'flex-end'} p={3}>

@@ -52,7 +52,7 @@ const SalesChart = ({ salesData }) => {
   }
 
   return (
-    <Box w={'35vw'}  p={2}>
+    <Box w={['80vw', '80vw', '35vw']}  p={['7%', '7%', '2%']}>
       <Heading as="h2" size="lg" mb={4}>
         Sales Report
       </Heading>

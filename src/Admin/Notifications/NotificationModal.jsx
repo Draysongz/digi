@@ -122,17 +122,17 @@ const NotificationModal = () => {
         console.log(unRead)
     }, [unRead])
   return (
-    <Popover  placement='top-start' trigger="click" isOpen={isOpen} >
+    <Popover  placement='bottom-start' trigger="click" isOpen={isOpen} >
   <PopoverTrigger>
     <Button bg={'transparent'} onClick={markNotificationRead} _hover={{
       bgColor: 'transparent'
     }}> 
     <Flex> <Icon as={AiOutlineBell} boxSize={6} /> 
-    <Text>{unRead != 0 && unRead}</Text></Flex>
+    <Text>{unRead !== 0 && unRead}</Text></Flex>
     </Button>
     
   </PopoverTrigger>
-  <PopoverContent>
+  <PopoverContent >
     <Card bg={useColorModeValue("white", '#050223')} >
       <CardBody borderRadius={'none'} py={3} px={2} >
         <Flex justifyContent={'flex-end'} p={3}>

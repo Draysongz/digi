@@ -9,23 +9,33 @@ function TransactionLoadBalancer() {
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Fetch the sub-admins' IDs from Firestore
+        // Fetch the online merchants' IDs from Firestore based on their roles and online status
         const usersRef = collection(db, 'users');
-        const subAdminsQuery = query(usersRef, where('role', '==', 'Merchant'));
+        const merchantRoles = ['Crypto Merchant', 'Paypal Merchant', 'Giftcard Merchant'];
+        const merchantsQuery = query(usersRef, where('role', 'in', merchantRoles), where('online', '==', true));
 
-        const subAdminsSnapshot = await getDocs(subAdminsQuery);
-        const subAdmins = [];
+        const merchantsSnapshot = await getDocs(merchantsQuery);
+        const merchants = {};
 
-        subAdminsSnapshot.forEach((doc) => {
-          subAdmins.push(doc.id);
+        merchantsSnapshot.forEach((doc) => {
+          const userData = doc.data();
+          const role = userData.role;
+
+          if (!merchants[role]) {
+            merchants[role] = [];
+          }
+
+          merchants[role].push(doc.id);
         });
 
-        if (subAdmins.length === 0) {
-          console.error('No Merchants available to assign transactions.');
+        // Ensure at least one online merchant is available for each role
+        if (Object.values(merchants).some((merchantList) => merchantList.length === 0)) {
+          console.error('No online Merchants available to assign transactions.');
           return;
         }
 
-        console.log(subAdmins)
+        console.log(merchants);
+
         const transactionsRef = collectionGroup(db, 'transactions');
         const pendingTransactionsQuery = query(transactionsRef, where('status', '==', 'pending'));
 
@@ -34,7 +44,7 @@ function TransactionLoadBalancer() {
           snapshot.docChanges().forEach((change) => {
             if (change.type === 'added') {
               const transaction = change.doc.data();
-              assignTransactionToSubAdmin(subAdmins, transaction, change.doc.id);
+              assignTransactionToMerchant(merchants, transaction, change.doc.id);
             }
           });
         });
@@ -47,41 +57,48 @@ function TransactionLoadBalancer() {
     });
   }, []);
 
-  // Assign a transaction to a random sub-admin
-  const assignTransactionToSubAdmin = async (subAdmins, transaction, transactionId) => {
-    const randomSubAdminId = subAdmins[Math.floor(Math.random() * subAdmins.length)];
+  // Assign a transaction to a random online merchant based on transaction type
+  const assignTransactionToMerchant = async (merchants, transaction, transactionId) => {
+    const { transactionType } = transaction;
 
-    // Update the transaction with the assigned sub-admin's ID
+    if (!merchants[transactionType] || merchants[transactionType].length === 0) {
+      console.error(`No online ${transactionType} Merchant available to handle transactions of type ${transactionType}`);
+      return;
+    }
+
+    const randomMerchantId = merchants[transactionType][Math.floor(Math.random() * merchants[transactionType].length)];
+
+    // Update the transaction with the assigned merchant's ID
     const db = getFirestore();
     const transactionRef = doc(db, 'transactions', transactionId);
-    await updateDoc(transactionRef, { assignedTo: randomSubAdminId, status: 'processing' });
-    await sendNotificationToAdmin(randomSubAdminId, transactionId);
+    await updateDoc(transactionRef, { assignedTo: randomMerchantId, status: 'processing' });
+    await sendNotificationToMerchant(randomMerchantId, transactionId);
   };
 
-  const sendNotificationToAdmin = async (adminId, transactionId) => {
+  const sendNotificationToMerchant = async (merchantId, transactionId) => {
     const db = getFirestore();
-    const userRef = doc(db, 'users', adminId);
-  
+    const userRef = doc(db, 'users', merchantId);
+
     try {
-      // Get the current notifications array from the admin's user document
+      // Get the current notifications array from the merchant's user document
       const userDoc = await getDoc(userRef);
       const userData = userDoc.data();
-  
+
       // Create a new notification
       const newNotification = {
         message: `You have a new transaction with ID ${transactionId}`,
         timestamp: new Date(),
       };
-  
+
       // Update the notifications array in the user document
       if (userData && userData.notifications) {
         userData.notifications.push(newNotification);
       } else {
         userData.notifications = [newNotification];
       }
-  
+
       // Update the user document with the new notifications
-      await updateDoc(userRef, { notifications: userData.notifications, unreadNotifications : increment(1) });
+      await updateDoc(userRef, { notifications: userData.notifications, unreadNotifications: increment(1) });
     } catch (error) {
       console.error('Error sending notification:', error);
     }

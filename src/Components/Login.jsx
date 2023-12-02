@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import logo from "./assets/logoWhite.png";
 import { Link } from "react-router-dom";
 import { app } from "./firebase/Firebase";
-import { signInWithEmailAndPassword, getAuth } from "@firebase/auth";
+import { signInWithEmailAndPassword, getAuth, signInWithPopup, } from "@firebase/auth";
 import { toast } from "react-toastify";
+import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+
 import {
   Flex,
   Box,
@@ -24,7 +26,7 @@ import frame from "./assets/frame2.png";
 import smilingMan from "./assets/smilingMan.png";
 import framet from "./assets/frame3.png";
 import { FcGoogle } from "react-icons/fc";
-import { increment, arrayUnion } from "firebase/firestore";
+import { increment, arrayUnion, setDoc } from "firebase/firestore";
 import { getDoc, getFirestore, doc, updateDoc, addDoc, serverTimestamp } from "firebase/firestore";
 
 const Login = () => {
@@ -32,6 +34,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isgoogleLoading, setIsGoogleLoading] = useState(false);
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
@@ -56,7 +59,7 @@ const Login = () => {
       const userDoc = await getDoc(userRef);
       const userRole = userDoc.data().role;
   
-      if(userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Merchant') {
+      if(userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Crypto Merchant') {
         // Redirect to the admin dashboard
         navigate("/admin/dashboard");
       } else if (userRole === "User") {
@@ -94,6 +97,71 @@ const Login = () => {
   };
   
   
+  
+  const signInWithGoogle = async () => {
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+  
+    try {
+      setIsGoogleLoading(true);
+      // Sign in with Google provider
+      const userCredentials = await signInWithPopup(auth, provider);
+      const user = userCredentials.user;
+      console.log(user);
+  
+      // Check if the user is new or existing by querying Firestore
+      const db = getFirestore(app);
+      const userRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userRef);
+      const isNewUser = !userDoc.exists();
+  
+      // If the user is new, add their information to Firestore
+      if (isNewUser) {
+        // Set user data in Firestore
+        await setDoc(userRef, {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          // Add any additional user data as needed
+          createdAt: serverTimestamp(),
+          role: 'User', // Set the default role for new users
+        });
+      }
+  
+      // Redirect based on user role
+      const userRole = isNewUser ? 'User' : userDoc.data().role;
+  
+      if (userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Merchant') {
+        navigate("/admin/dashboard");
+      } else if (userRole === "User") {
+        navigate("/dashboard");
+      } else {
+        console.log('Role not found');
+      }
+  
+      const userData = userDoc.data();
+      const notifications = userData.notifications || [];
+  
+      // Add a new notification to the array
+      notifications.push({
+        message: "You've successfully logged in",
+        timestamp: new Date(), // Set the timestamp in your code
+      });
+  
+      // Update the notifications and increment unreadNotifications
+      await updateDoc(userRef, {
+        notifications,
+        unreadNotifications: increment(1),
+      });
+  
+      toast.success("Login successful");
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
   
   
   
@@ -227,6 +295,7 @@ const Login = () => {
                   isLoading={isLoading}
                   onClick={loginUser}
                   loadingText="Logging in"
+                  disabled={isLoading}
                 >
                   Login
                 </Button>
@@ -262,6 +331,8 @@ const Login = () => {
                   _hover={{ bg: "#31CD31", color: "white" }}
                   variant={"outline"}
                   leftIcon={<FcGoogle />}
+                  onClick={signInWithGoogle}
+                  disabled={isgoogleLoading}
                 >
                   Signup with Google
                 </Button>

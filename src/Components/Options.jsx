@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "./assets/logoWhite.png";
+import logo from "./assets/digi.png";
 import authBg from "./assets/authBg.png";
 import { Link } from "react-router-dom";
 import excitedMan from "./assets/excitedMan.png";
@@ -23,7 +23,7 @@ const Options = () => {
       transition='3s'
     >
       <Box>
-        <Image src={logo} alt="DigiMart" width={["40%", "40%", "20%"]} />
+        <Image src={logo} alt="DigiMart" width={["40%", "40%", "15%"]} />
       </Box>
 
       <Flex

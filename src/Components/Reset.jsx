@@ -184,11 +184,22 @@ value={confirm} onChange={(e)=> setConfirm(e.target.value)}
     color: 'grey'
   }
  } />
- <Button type='submit'
-  bg={'#1808A3'} borderRadius={'full'} minH={'7vh'} color={'white'} w={['85vw', '85vw', '85vw', '27vw']} 
-  _hover={{bg : '#31CD31'}} 
-  isLoading={isLoading} 
-  onClick={resetPassword} loadingText='submitting'>Submit</Button>
+<Button
+  type='submit'
+  bg={'#1808A3'}
+  borderRadius={'full'}
+  minH={'7vh'}
+  color={'white'}
+  w={['85vw', '85vw', '85vw', '27vw']}
+  _hover={{ bg: '#31CD31' }}
+  isLoading={isLoading}
+  disabled={isLoading} // Disable the button when isLoading is true
+  onClick={resetPassword}
+  loadingText='submitting'
+>
+  Submit
+</Button>
+
 </Flex>
 </Flex>
     </Flex>

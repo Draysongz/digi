@@ -36,6 +36,20 @@ import {
   import { Link } from 'react-router-dom';
   import linkedin from '../assets/linkedin.png'
 
+  const ButtonMailto = ({mailto, label})=>{
+    return(
+        <Link to='#'
+         onClick={(e)=>{
+            window.location.href = mailto;
+            e.preventDefault()
+         }} style={{
+            color : '#31CD31',
+            textDecoration: 'underline'
+         }}>
+            {label}
+         </Link>
+    )
+  }
 
 const HeroC = () => {
   return (
@@ -60,14 +74,18 @@ const HeroC = () => {
             color={useColorModeValue('#080339', 'white')}>
                 Why trade with DigiMart
                 </Heading>
-            <HStack alignSelf='center' justifyContent='center'>
+            <HStack  data-aos='zoom-in' alignSelf='center' justifyContent='center'>
             <Text color={useColorModeValue('#111111', 'white')} textAlign='center' fontFamily='Hellix-medium'>DigiMart Exchange; 1% </Text>
             <Text color={useColorModeValue('#111111', 'white')} textAlign='center' fontFamily='Hellix-medium' fontWeight='bolder'>BETTER!</Text>
             </HStack>
             </Box>
-            
+
+
+
             <SimpleGrid p="10px" spacing={8} minChildWidth="250px" justifyItems='center' alignItems='center' >
-                <Card minH='30vh' maxH={['50vh', '50vh', '50vh']} bg='#0E0562' >
+                <Card data-aos="fade-left" 
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine"  minH='30vh' maxH={['50vh', '50vh', '50vh']} bg='#0E0562' >
                     <CardBody p='20px'>
                         <Flex direction='column' color='white' alignItems='center' gap={4}>
                             <Circle size='50px' bg='#fff'>
@@ -83,7 +101,8 @@ const HeroC = () => {
                     </CardBody>
                 </Card>
 
-                <Card minH='30vh' maxH={['50vh', '50vh', '50vh']}   bg='#0E0562' >
+                <Card data-aos ="fade-up-right" data-aos-duration="500"
+                data-aos-delay="300" minH='30vh' maxH={['50vh', '50vh', '50vh']}   bg='#0E0562' >
                     <CardBody p='20px'>
                         <Flex direction='column' color='white' alignItems='center' gap={4}>
                             <Circle size='50px' bg='#fff'>
@@ -99,7 +118,7 @@ const HeroC = () => {
                     </CardBody>
                 </Card>
 
-                <Card minH='30vh' maxH={['50vh', '50vh', '50vh']}   bg='#0E0562' >
+                <Card data-aos='fade-left' data-aos-duration="500" data-aos-delay="500" minH='30vh' maxH={['50vh', '50vh', '50vh']}   bg='#0E0562' >
                     <CardBody p='20px'>
                         <Flex direction='column' color='white' alignItems='center' gap={4}>
                             <Circle size='50px' bg='#fff'>
@@ -139,7 +158,7 @@ const HeroC = () => {
 
                     {/* Steps */}
                     <Flex gap={10} mt='10px' direction={'column'}>
-                    <Flex alignItems={'center'}  direction={['column', 'column','column', 'row']} gap={4}>
+                    <Flex data-aos='zoom-in' alignItems={'center'}  direction={['column', 'column','column', 'row']} gap={4}>
                         <Circle bg={'#1808A3'}
                          size='45px' 
                          color={'white'} 
@@ -153,7 +172,7 @@ const HeroC = () => {
                          lineHeight={'95%'}>Create an Account, with the required<br />information to get started</Text>
                     </Flex>
 
-                    <Flex alignItems={'center'} direction={['column', 'column','column', 'row']} gap={4}>
+                    <Flex data-aos= 'fade-down-left' alignItems={'center'} direction={['column', 'column','column', 'row']} gap={4}>
                         <Circle bg={'#1808A3'}
                          size='45px' 
                          color={'white'} 
@@ -166,7 +185,7 @@ const HeroC = () => {
                          fontSize={['19px', '20px', '22px']}
                          lineHeight={'95%'}>Select the asset you whish to trade;<br/>Crypto, Giftcard, or Paypal funds.</Text>
                     </Flex>
-                    <Flex alignItems={'center'} direction={['column', 'column','column', 'row']} gap={4}>
+                    <Flex data-aos='fade-up-left' alignItems={'center'} direction={['column', 'column','column', 'row']} gap={4}>
                         <Circle bg={'#1808A3'}
                          size='45px' 
                          color={'white'} 
@@ -185,7 +204,7 @@ const HeroC = () => {
                 </Box>
 
                 {/* right div */}
-                <Flex  justifyContent={'center'}>
+                <Flex data-aos='zoom-in' justifyContent={'center'}>
                     <Image src={firstproto} alt='how to' width={['70%', '70%', '60%', '70%']} ml={'10px'} />
                 </Flex>
             </Flex>
@@ -346,7 +365,7 @@ const HeroC = () => {
         </Flex>
 
         {/* sixth div */}
-        <Box p='20px'>
+        <Box p='20px' id='faq'>
         <Heading fontFamily='Hellix-medium'
                     color={useColorModeValue('#111111', "white")}
                     fontSize={['19px', '32px', '52px']}
@@ -629,7 +648,8 @@ const HeroC = () => {
                     </Heading>
                     <AccordionPanel pb={4}>
                     If you have any questions or need assistance, our customer support team is available to help. You can reach out to us through 
-                    our contact page on the website or send an email to [support@email.com].
+                    our contact page on the website or send an email to <ButtonMailto label={'hellodigimart@gmail.com'} 
+                    mailto ={ 'mailto:hellodigimart@gmail.com'} />.
 
     </AccordionPanel>
 
@@ -641,7 +661,7 @@ const HeroC = () => {
         </Box>
 
 
-        <Flex bg={'#0E0562'} direction={['column-reverse', 'column', 'column', 'row']} minH={'60vh'} p='20px'  ml='-20px' w={['100vw', '95vw', '98.7vw', '98.7vw']}  justifyContent={'space-around'}>
+        <Flex id='footer' bg={'#0E0562'} direction={['column-reverse', 'column', 'column', 'row']} minH={'60vh'} p='20px'  ml='-20px' w={['100vw', '95vw', '98.7vw', '98.7vw']}  justifyContent={'space-around'}>
             {/* first side */}
             <Flex direction={'column'} gap={5} alignItems={['center', 'center', 'center', 'flex-start']}>
                 <Image src={newLogo} alt='DigiMart' width={['70%', '90%', '80%', '80%']} />
@@ -683,7 +703,8 @@ const HeroC = () => {
               {/* fifth side */}
               <Flex direction={'column'} gap={5}>
                 <Heading color={'#31CD31'} fontSize={'32px'} fontStyle={'normal'} fontFamily={'Hellix-medium'}>Contact Us</Heading>
-                <Text color={'white'}>Email address:<br/>Hellodigimart@gmail.com</Text>
+                <Text color={'white'}>Email address:<br/> <ButtonMailto label={'hellodigimart@gmail.com'} 
+                    mailto ={ 'mailto:hellodigimart@gmail.com'} /></Text>
                 <Text color={'white'}>Phone:<br/>+2347042263619</Text>
                 
               </Flex>

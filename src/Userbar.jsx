@@ -134,7 +134,7 @@ const Userbar = () => {
     
     
   return (
-    <Box>
+    <Box >
       <Popover placement='bottom-start' trigger="click" isOpen={isOpen} >
   <PopoverTrigger>
   <Wrap cursor={'pointer'} onClick={onToggle}>
@@ -143,8 +143,8 @@ const Userbar = () => {
                             </WrapItem>
                     </Wrap>
   </PopoverTrigger>
-  <PopoverContent>
-    <Card bg={useColorModeValue("", "#050223")}>
+  <PopoverContent w={['fit-content', 'fit-content', '23vw']} >
+    <Card bg={useColorModeValue("", "#050223")} w={['fit-content', 'fit-content', '23vw']}>
       <CardBody borderRadius={'none'} py={0} px={'0'} >
         <Flex bgImage={userBG} bgColor={'#12067A'} 
         borderTopRadius={'md'}
@@ -159,14 +159,14 @@ const Userbar = () => {
           <Flex alignItems={'center'} gap={5}>
           <Wrap >
                         <WrapItem>
-                            <Avatar border={'4px solid grey '} name={`${userdata.firstName} ${userdata.lastName}`} size='lg' src={userdata.userDp ? userdata.userDp : ''} />
+                            <Avatar border={'4px solid grey '} name={`${userdata.firstName} ${userdata.lastName}`} size={['md', 'md', 'lg']} src={userdata.userDp ? userdata.userDp : ''} />
                             </WrapItem>
                     </Wrap>
 
                     <Flex direction={'column'} gap={1}>
-                      <Text fontSize={'lg'} color={'white'}>{userdata.firstName} {userdata.lastName}</Text>
+                      <Text fontSize={['md', 'md', 'lg']} color={'white'}>{userdata.firstName} {userdata.lastName}</Text>
                       <Flex alignItems={'center'} gap={4}>
-                      <Text  fontSiz={'sm'} color={'white'}> UID : {userId && userId.slice(0,12)}...</Text>
+                      <Text  fontSize={'sm'} color={'white'}> UID : {userId && userId.slice(0,12)}...</Text>
                       {copied ? (<CheckIcon color={'green.300'}/>) : (<CopyIcon cursor={'pointer'} color={'white'} onClick={()=>handleCopy(userId)}/> )
                       }
                       
@@ -226,3 +226,7 @@ const Userbar = () => {
 }
 
 export default Userbar
+
+// export function mobileUserBar ()=>{
+
+// }

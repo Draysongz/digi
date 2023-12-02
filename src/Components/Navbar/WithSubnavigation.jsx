@@ -144,13 +144,14 @@ const DesktopNav = () => {
     <Stack direction={"row"} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
-          <Popover trigger={"hover"} placement={"bottom-start"}>
+          <Popover  trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link
                 p={2}
-                href={navItem.href ?? "#"}
+                href={navItem.href}
                 fontSize={"sm"}
                 fontWeight={500}
+                cursor={'pointer'}
                 color={linkColor}
                 _hover={{
                   textDecoration: "none",
@@ -328,20 +329,21 @@ const NAV_ITEMS = [
       },
     ],
   },
+  
   {
     label: "Crypto news",
-    href: "#",
+    href: "#footer",
   },
   {
     label: "About us",
-    href: "#",
+    href: "#footer",
   },
   {
     label: "Contact",
-    href: "#",
+    href: "#footer",
   },
   {
     label: "FAQ",
-    href: "#",
+    href: "#faq",
   },
 ];

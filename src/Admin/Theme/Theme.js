@@ -33,10 +33,10 @@ const Theme = () => {
     overFlow-X={'hidden'}
   >
 <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
-    <Card borderLeftRadius={'0px'}
+<Card borderLeftRadius={'0px'}  w={['90vw', '70vw', '77vw']}  bg={useColorModeValue('gray.50', "#050223")}
         ml={'-1.2%'} mt={'-1.5%'}>
             <CardBody>
-                <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
+                <Flex gap={5} alignItems={'center'} justifyContent={['space-around', 'space-around', 'flex-end']}>
                     <MessageModal/>
                     <NotificationModal />
                    <Userbar/>
@@ -44,6 +44,7 @@ const Theme = () => {
                 </Flex>
             </CardBody>
         </Card>
+
 
         <Flex gap={10} justifyContent={'space-between'} px={10} direction={'column'}>
             <Box>

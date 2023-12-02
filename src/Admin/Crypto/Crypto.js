@@ -82,50 +82,64 @@ const Crypto = () => {
         // Unsubscribe from authentication state changes when the component unmounts.
         return () => unsubscribe();
       }, []);
-const handleSaveStatus = async () => {
-    try {
-      console.log('Save fired...');
-      if (selectedTransaction && selectedTransaction.id) {
-        const transactionId = selectedTransaction.id;
-        console.log('id present')
-  
-        const transactionRef = doc(db, 'transactions', transactionId);
-        const userDocRef = doc(db, 'users', selectedTransaction.userId);
-        const userDoc = await getDoc(userDocRef);
-        const userData = userDoc.data();
-        const notifications = userData.notifications || [];
-        notifications.push({
-          message: `Your transaction has been marked ${selectedStatus}`,
-          timestamp: new Date(), // Set the timestamp in your code
-      });
-  
-        if(selectedStatus === 'Declined'){
-          await updateDoc(transactionRef, {
-            status: selectedStatus,
-            completedBy: currentUserId,
-            Reason: reason
-          });
-          await updateDoc(userDocRef, {
-            notifications,
-            unreadNotifications: increment(1)
-          })
-        }else{
-          await updateDoc(transactionRef, {
-            status: selectedStatus,
-            completedBy: currentUserId,
-          });
+      const handleSaveStatus = async () => {
+        try {
+          console.log('Save fired...');
+          if (selectedTransaction && selectedTransaction.id) {
+            const transactionId = selectedTransaction.id;
+            console.log('id present');
+      
+            const transactionRef = doc(db, 'transactions', transactionId);
+            const userDocRef = doc(db, 'users', selectedTransaction.userId);
+            const userDoc = await getDoc(userDocRef);
+            const userData = userDoc.data();
+            const notifications = userData.notifications || [];
+            let message
+            if(selectedStatus === "Declined"){
+              message = `Your transaction has been marked ${selectedStatus} for the following reason: ${reason}`
+            }else{
+              message = `Your transaction has been marked ${selectedStatus}`
+            }
+            notifications.push({
+              message: message,
+              timestamp: new Date(), // Set the timestamp in your code
+            });
+      
+            if (selectedStatus === 'Declined') {
+              await Promise.all([
+                updateDoc(transactionRef, {
+                  status: selectedStatus,
+                  completedBy: currentUserId,
+                  Reason: reason,
+                }),
+                updateDoc(userDocRef, {
+                  notifications,
+                  unreadNotifications: increment(1),
+                }),
+              ]);
+            } else {
+              await updateDoc(transactionRef, {
+                status: selectedStatus,
+                completedBy: currentUserId,
+              });
+      
+              // Update notifications only for non-declined status
+              await updateDoc(userDocRef, {
+                notifications,
+                unreadNotifications: increment(1),
+              });
+            }
+      
+            console.log('Status updated successfully');
+            toast.success('Transaction updated');
+            setIsModalOpen(false);
+          }
+        } catch (error) {
+          console.error('Error updating status:', error);
+          toast.error('Error updating status');
         }
-       
-  
-        console.log('Status updated successfully');
-        toast.success('Transaction updated');
-        setIsModalOpen(false);
-      }
-    } catch (error) {
-      console.error('Error updating status:', error);
-      toast.error(error);
-    }
-  };
+      };
+      
   
   
   
@@ -212,17 +226,18 @@ const handleSaveStatus = async () => {
     overFlowX={'hidden'}
   >
     <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
-      <Card borderLeftRadius={'0px'}
-        ml={'-1.2%'} mt={'2px'} bg={useColorModeValue('gray.50', "#050223")}>
-        <CardBody>
-          <Flex gap={5} alignItems={'center'} justifyContent={'flex-end'}>
-            <MessageModal />
-            <NotificationModal/>
-            <Userbar />
+    <Card borderLeftRadius={'0px'}  w={['90vw', '70vw', '77vw']}  bg={useColorModeValue('gray.50', "#050223")}
+        ml={'-1.2%'} mt={'-1.5%'}>
+            <CardBody>
+                <Flex gap={5} alignItems={'center'} justifyContent={['space-around', 'space-around', 'flex-end']}>
+                    <MessageModal/>
+                    <NotificationModal />
+                   <Userbar/>
 
-          </Flex>
-        </CardBody>
-      </Card>
+                </Flex>
+            </CardBody>
+        </Card>
+
 
       <Flex gap={10} justifyContent={'space-between'} px={10} direction={'column'}>
         <Box>

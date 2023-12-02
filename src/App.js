@@ -48,6 +48,10 @@ import MainPay from "./Admin/Paypal/MainPay";
 import MainGif from "./Admin/Giftcards/MainGift";
 import MainCrypt from "./Admin/Crypto/MainCrypt";
 import Verify from "./Components/Verify";
+import AOS from "aos";
+import PageTransition from './PageTransition'
+
+
 
 
 
@@ -67,6 +71,27 @@ function App() {
 
     showText();
   }, []);
+
+  useEffect(() => {
+    // Initialize AOS with your configuration
+    AOS.init({
+      disable: false,
+      startEvent: 'DOMContentLoaded',
+      initClassName: 'aos-init',
+      animatedClassName: 'aos-animate',
+      useClassNames: false,
+      disableMutationObserver: false,
+      debounceDelay: 40,
+      throttleDelay: 70,
+      offset: 120,
+      delay: 30,
+      easing: 'ease-in-out',
+      once: false,
+      mirror: false,
+      anchorPlacement: 'top-bottom',
+    });
+  }, []);
+
 
   const db= getFirestore(app)
   const auth = getAuth(app)
@@ -151,10 +176,11 @@ function App() {
     <div className="App">
       <Routes>
         {/* Public Pages*/}
+        
         <Route path="/options" element={<Options />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/verify" element={<Verify />} />
@@ -197,9 +223,12 @@ function App() {
         <Route path='/admin/giftcards' element={<AdminPages><MainGif/></AdminPages>} />
         <Route path='/admin/paypal' element={<AdminPages><MainPay/></AdminPages>} />
         <Route path='/admin/crypto' element={<AdminPages><MainCrypt/></AdminPages>} />
+        
       </Routes>
+      
       <TransactionLoadBalancer />
       <ToastContainer />
+      
     </div>
   );
 }
@@ -302,7 +331,7 @@ emptyColor='gray.200' />
     )
   }
   if (
-    (userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Merchant') &&
+    (userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Crypto Merchant') &&
     userStatus === 'active'
   ) {
   return <>{children}</>

@@ -304,7 +304,7 @@ console.log(selectedRole)
                   <Button
                     variant={"outline"}
                     borderRadius={"full"}
-                    w={"9vw"}
+                    w={['35vw', '35vw', "9vw"]}
                     color={useColorModeValue("#585858", 'white')}
                     border={"1px solid #3F3F46"}
                     _hover={{
@@ -329,7 +329,7 @@ console.log(selectedRole)
                       _placeholderShown={{
                         color: "#3F3F46",
                       }}
-                      w={"12vw"}
+                      w={['33vw', '33vw', "12vw"]}
                       value={searchTerm}
                       onChange={handleSearchChange}
                       
@@ -596,7 +596,7 @@ console.log(selectedRole)
                     color={useColorModeValue("#12067A", "fff")}
                     bg="transparent"
                     border={useColorModeValue("2px solid #12067A", "2px solid #D92D20")}
-                    w={"12vw"}
+                    w={['25vw', '25vw', "12vw"]}
                     h={"7vh"}
                     borderRadius={"2xl"}
                     _hover={{
@@ -612,7 +612,7 @@ console.log(selectedRole)
                   <Button
                     bgColor={"#12067A"}
                     color={"#FFFFFF"}
-                    w={"12vw"}
+                    w={['25vw', '25vw', "12vw"]}
                     h={"7vh"}
                     borderRadius={"2xl"}
                     _hover={{
@@ -702,7 +702,7 @@ console.log(selectedRole)
                       <Radio value="Admin">Administrator</Radio>
                       <Radio value="Sub-Admin">Sub-Admin</Radio>
                       <Radio value="Customer Care">Customer Care</Radio>
-                      <Radio value="Merchant">Merchant</Radio>
+                      <Radio value="Crypto Merchant"> Crypto Merchant</Radio>
                       <Radio value="User">User</Radio>
                       </Stack>
                       </RadioGroup>
@@ -724,7 +724,7 @@ console.log(selectedRole)
                       color={useColorModeValue("#12067A", "fff")}
                       bg="transparent"
                       border={useColorModeValue("2px solid #12067A", "2px solid #D92D20")}
-                    w={"12vw"}
+                      w={['25vw', '25vw', "12vw"]}
                     h={"7vh"}
                     borderRadius={"2xl"}
                     _hover={{
@@ -740,7 +740,7 @@ console.log(selectedRole)
                   <Button
                     bgColor={"#12067A"}
                     color={"#FFFFFF"}
-                    w={"12vw"}
+                    w={['25vw', '25vw', "12vw"]}
                     h={"7vh"}
                     borderRadius={"2xl"}
                     _hover={{
