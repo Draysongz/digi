@@ -28,26 +28,28 @@ const Forgot = () => {
   
   const handleClick = async (e) => {
   e.preventDefault();
-  setIsLoading(true)
+  setIsLoading(true);
+
   const auth = getAuth(app);
   const actionCodeSettings = {
     url: `https://digimart-exchange.vercel.app/reset`,
     handleCodeInApp: true,
   };
+
   try {
-    await setTimeout(()=>{
-      setIsLoading(false)}, 3000)
-    const sent = await sendPasswordResetEmail(auth, email, actionCodeSettings);
+    await sendPasswordResetEmail(auth, email, actionCodeSettings);
+    setIsLoading(false);
     toast.success("Email verification sent");
-    navigate('/verify', {state : {email}})
-    console.log(sent)
+    navigate('/verify', { state: { email } });
   } catch (error) {
-    await setTimeout(()=>{
-      setIsLoading(false)}, 4000)
-    error.message === "Firebase: Error (auth/user-not-found)."? toast.error("User not found") : toast.error(error.message);
+    setIsLoading(false);
+    error.message === "Firebase: Error (auth/user-not-found)"
+      ? toast.error("User not found")
+      : toast.error(error.message);
     console.log(error.message);
   }
 };
+
 
   
   return (
