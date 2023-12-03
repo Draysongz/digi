@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import logo from './assets/logo.png'
 import logoWhite from './assets/digi.png'
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, fetchSignInMethodsForEmail } from "firebase/auth";
 import { app } from './firebase/Firebase';
 import {toast} from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
