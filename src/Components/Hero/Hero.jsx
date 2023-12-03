@@ -32,7 +32,7 @@ export default function SplitScreen() {
   const navigate = useNavigate();
   return (
     <Stack
-      maxH={"100vh"}
+      maxH={"120vh"}
       direction={{ base: "column", md: "row" }}
       bgImage="url('./images/map image.png')"
       bgPosition="center"

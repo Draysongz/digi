@@ -58,18 +58,19 @@ const HeroC = () => {
     minWidth={['97vw', '98vw', '98.8vw', "98.5vw"]}
     bg={useColorModeValue('', '#0B0449;')}
   >
-  <Flex direction='column'  mt={['20px', '20px', '0px']} >
+  <Flex direction='column'>
 
         {/* Why div */}
         <Box minWidth='97vw'
         color={useColorModeValue('', 'white')}
         bg={useColorModeValue("", "#080339")}>
-            <Flex direction='column' gap={10}>
+            <Flex direction='column' gap={5}>
                 <Box>
             <Heading 
              p={6}
             textAlign='center' 
             fontFamily='Hellix-medium' 
+            fontSize={['27px', '27px', '32px']}
             color={useColorModeValue('#080339', 'white')}>
                 Why trade with DigiMart
                 </Heading>
