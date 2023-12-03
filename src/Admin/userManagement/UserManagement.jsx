@@ -97,6 +97,11 @@ const UserManagement = () => {
   const [isUserModalOpen, setIsUserModalOpen]= useState(false)
   const [userStatus, setUserStatus] = useState('')
   const [selectedRole, setSelectedRole] = useState()
+  const [currentUser, setCurrentUser] = useState(null)
+
+  
+  const db = getFirestore(app);
+  const auth = getAuth(app);
 
   const handleFilterClick = (filter) => {
     setSelectedFilter(filter);
@@ -105,6 +110,16 @@ const UserManagement = () => {
   const handleUserStatusClick= (status)=>{
     setUserStatus(status)
   }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(()=>{
 console.log(selectedRole)
@@ -121,8 +136,6 @@ console.log(selectedRole)
     setUserStatus(null)
   }
 
-  const db = getFirestore(app);
-  const auth = getAuth(app);
 
   const getAllUsers = async () => {
     const userCollectionRef = collection(db, "users");
@@ -150,24 +163,29 @@ console.log(selectedRole)
   const handleSearchChange = (event) => {
     const newSearchTerm = event.target.value;
     setSearchTerm(newSearchTerm);
-
+  
     if (newSearchTerm === "") {
       // Reset the filteredUser state when the search input is empty
       setQueryUser([]);
     } else {
-      const filUser = users.filter((user) => {
-        if (
-          user.firstName.toLowerCase().includes(newSearchTerm.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(newSearchTerm.toLowerCase())
-        ) {
-          return user;
-        }
-      });
+      const filUser = users
+        .filter(user => user.id !== currentUser?.uid) // Exclude the logged-in user
+        .filter((user) => {
+          if (
+            user.firstName.toLowerCase().includes(newSearchTerm.toLowerCase()) ||
+            user.lastName.toLowerCase().includes(newSearchTerm.toLowerCase())
+          ) {
+            return user;
+          }
+        });
       setQueryUser(filUser);
     }
   };
+  
 
-  const sortedUsers = users.slice().sort((a, b) => {
+  const sortedUsers = users
+  .filter(user => user.id !== currentUser?.uid) // Exclude the logged-in user
+  .sort((a, b) => {
     // Define the order in which you want to sort the roles
     const roleOrder = ["Admin", "Sub-Admin", "Merchant", "Customer Care", "User"];
   
@@ -177,6 +195,7 @@ console.log(selectedRole)
     // Compare the roles using the defined order
     return roleOrder.indexOf(roleA) - roleOrder.indexOf(roleB);
   });
+
 
 
 

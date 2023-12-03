@@ -59,7 +59,7 @@ const Login = () => {
       const userDoc = await getDoc(userRef);
       const userRole = userDoc.data().role;
   
-      if(userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Crypto Merchant') {
+      if(userRole === 'Sub-Admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Crypto Merchant') {
         // Redirect to the admin dashboard
         navigate("/admin/dashboard");
       } else if (userRole === "User") {
@@ -131,12 +131,12 @@ const Login = () => {
       // Redirect based on user role
       const userRole = isNewUser ? 'User' : userDoc.data().role;
   
-      if (userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Merchant') {
+      if (userRole === 'Sub-Admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Merchant') {
         navigate("/admin/dashboard");
       } else if (userRole === "User") {
         navigate("/dashboard");
       } else {
-        console.log('Role not found');
+        navigate('/forbidden');
       }
   
       const userData = userDoc.data();

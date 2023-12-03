@@ -161,7 +161,7 @@ const AdminSidebar = () => {
     switch (userRole) {
       case "Admin":
         return adminLinks;
-      case "Sub-admin":
+      case "Sub-Admin":
         return adminLinks;
       case "Crypto Merchant":
         return cryptoLinks;

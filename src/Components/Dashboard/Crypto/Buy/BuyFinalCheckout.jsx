@@ -81,6 +81,7 @@ const BuyFinalCheckout = () => {
             walletAddress: wallet,
             status: 'pending',
             transactionType: 'buy',
+            service: 'Crypto',
             time: timestamp,
 
           });

@@ -317,9 +317,9 @@ const handleSaveStatus = async () => {
                           <Td color={'#71717A'}>{transaction.time && format(transaction.time.toMillis())}</Td>
                           <Td p={5}>
                             <HStack justifyContent={'center'} p={1} borderRadius={'2xl'} bg={transaction.status === 'processing' ? '#FEF9C3' :
-                              transaction.status === 'successful' ? '#DCFCE7' : '#FEE2E2'} alignItems={'center'}>
+                              transaction.status === 'pending' ? '#FEF9C3' : transaction.status === 'successful' ? '#DCFCE7' : '#FEE2E2'} alignItems={'center'}>
                               <Circle size={'10px'} bg={transaction.status === 'processing' ? '#FACC15' :
-                                transaction.status === 'successful' ? '#22C55E' : '#EF4444'}></Circle>
+                                transaction.status === 'pending' ? '#FACC15' :transaction.status === 'successful' ? '#22C55E' : '#EF4444'}></Circle>
                               <Text fontFamily={'Hellix-medium'} color={transaction.status === 'processing' ? '#713F12' :
                                 transaction.status === 'successful' ? '#14532D' : '#7F1D1D'}>{transaction.status}</Text>
                             </HStack></Td>

@@ -59,22 +59,31 @@ function TransactionLoadBalancer() {
 
   // Assign a transaction to a random online merchant based on transaction type
   const assignTransactionToMerchant = async (merchants, transaction, transactionId) => {
-    const { transactionType } = transaction;
-
-    if (!merchants[transactionType] || merchants[transactionType].length === 0) {
-      console.error(`No online ${transactionType} Merchant available to handle transactions of type ${transactionType}`);
+      console.log('Transaction details:', transaction);
+      console.log('Merchants available:', merchants);
+      
+    
+    const { service } = transaction;
+  
+    const matchingMerchants = Object.keys(merchants).filter((role) => service.includes(role));
+    if (matchingMerchants.length === 0) {
+      console.error(`No online Merchant available to handle transactions of type ${service}`);
       return;
+    }else{
+      console.log(`${service}, ${matchingMerchants}`)
     }
+    
+    const randomMerchantId = merchants[matchingMerchants[0]][Math.floor(Math.random() * merchants[matchingMerchants[0]].length)];
 
-    const randomMerchantId = merchants[transactionType][Math.floor(Math.random() * merchants[transactionType].length)];
-
+  
     // Update the transaction with the assigned merchant's ID
     const db = getFirestore();
     const transactionRef = doc(db, 'transactions', transactionId);
     await updateDoc(transactionRef, { assignedTo: randomMerchantId, status: 'processing' });
+    console.log('Assigned merchant ID:', randomMerchantId);
     await sendNotificationToMerchant(randomMerchantId, transactionId);
   };
-
+  
   const sendNotificationToMerchant = async (merchantId, transactionId) => {
     const db = getFirestore();
     const userRef = doc(db, 'users', merchantId);

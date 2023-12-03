@@ -277,7 +277,7 @@ emptyColor='gray.200' />
     )
   }
 
-  if((userRole === 'User' || 'sub-admin') && (userStatus === 'active') ){
+  if((userRole === 'User' || 'Sub-Admin') && (userStatus === 'active') ){
   return <>{children}</>
 }else{
  return  <Navigate to='/forbidden' />
@@ -331,7 +331,7 @@ emptyColor='gray.200' />
     )
   }
   if (
-    (userRole === 'Sub-admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Crypto Merchant') &&
+    (userRole === 'Sub-Admin' || userRole === 'Admin' || userRole === 'Customer Care' || userRole === 'Crypto Merchant') &&
     userStatus === 'active'
   ) {
   return <>{children}</>

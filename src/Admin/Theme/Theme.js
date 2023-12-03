@@ -30,7 +30,7 @@ const Theme = () => {
     color={useColorModeValue("gray.900", "white")}
     position={[null, null, null, null, 'absolute']}
     left={['0', '0', '0', "21%"]}
-    overFlow-X={'hidden'}
+    overFlowX={'hidden'}
   >
 <Flex justifyContent={'space-between'} direction="column" gap={10} position={[null, null, null, 'relative']}>
 <Card borderLeftRadius={'0px'}  w={['90vw', '70vw', '77vw']}  bg={useColorModeValue('gray.50', "#050223")}
