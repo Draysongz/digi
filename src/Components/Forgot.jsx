@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import logo from './assets/logo.png'
 import logoWhite from './assets/digi.png'
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, fetchSignInMethodsForEmail } from "firebase/auth";
 import { app } from './firebase/Firebase';
 import {toast} from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
@@ -28,26 +28,35 @@ const Forgot = () => {
   
   const handleClick = async (e) => {
   e.preventDefault();
-  setIsLoading(true)
+  setIsLoading(true);
+
   const auth = getAuth(app);
   const actionCodeSettings = {
     url: `https://digimart-exchange.vercel.app/reset`,
     handleCodeInApp: true,
   };
+
   try {
-    await setTimeout(()=>{
-      setIsLoading(false)}, 3000)
-    const sent = await sendPasswordResetEmail(auth, email, actionCodeSettings);
-    toast.success("Email verification sent");
-    navigate('/verify', {state : {email}})
-    console.log(sent)
+    // Check if the email corresponds to an existing user
+    const methods = await fetchSignInMethodsForEmail(auth, email);
+
+    if (methods && methods.length > 0) {
+      await sendPasswordResetEmail(auth, email, actionCodeSettings);
+      toast.success("Email verification sent");
+      navigate('/verify', { state: { email } });
+    } else {
+      toast.error("User not found");
+    }
+
   } catch (error) {
-    await setTimeout(()=>{
-      setIsLoading(false)}, 4000)
-    error.message === "Firebase: Error (auth/user-not-found)."? toast.error("User not found") : toast.error(error.message);
+    setIsLoading(false);
+    toast.error(error.message);
     console.log(error.message);
+  } finally {
+    setIsLoading(false);
   }
 };
+
 
   
   return (
