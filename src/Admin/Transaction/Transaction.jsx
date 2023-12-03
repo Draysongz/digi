@@ -400,7 +400,7 @@ const handleSaveStatus = async () => {
 
               <Box>
               <Text  color={transaction.transactionType === 'sell'? "red.500" : "#31CD31"}>
-            {transaction.transactionType === 'sell'? `-${transaction.coinUnit.toFixed(4)}`: `+${transaction.coinUnit.toFixed(4)}`}
+            {transaction.transactionType === 'sell'? `-${parseFloat(transaction.coinUnit).toFixed(6)}`: `+${parseFloat(transaction.coinUnit).toFixed(6)}`}
           </Text>
               </Box>
 

@@ -56,10 +56,9 @@ const HeroC = () => {
     <Box
     maxWidth="4xl"
     minWidth={['97vw', '98vw', '98.8vw', "98.5vw"]}
-    mt='0px'
     bg={useColorModeValue('', '#0B0449;')}
   >
-    <Flex direction='column' >
+  <Flex direction='column'  mt={['20px', '20px', '0px']} >
 
         {/* Why div */}
         <Box minWidth='97vw'
