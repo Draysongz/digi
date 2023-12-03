@@ -37,16 +37,23 @@ const Forgot = () => {
   };
 
   try {
-    await sendPasswordResetEmail(auth, email, actionCodeSettings);
-    setIsLoading(false);
-    toast.success("Email verification sent");
-    navigate('/verify', { state: { email } });
+    // Check if the email corresponds to an existing user
+    const methods = await fetchSignInMethodsForEmail(auth, email);
+
+    if (methods && methods.length > 0) {
+      await sendPasswordResetEmail(auth, email, actionCodeSettings);
+      toast.success("Email verification sent");
+      navigate('/verify', { state: { email } });
+    } else {
+      toast.error("User not found");
+    }
+
   } catch (error) {
     setIsLoading(false);
-    error.message === "Firebase: Error (auth/user-not-found)"
-      ? toast.error("User not found")
-      : toast.error(error.message);
+    toast.error(error.message);
     console.log(error.message);
+  } finally {
+    setIsLoading(false);
   }
 };
 
