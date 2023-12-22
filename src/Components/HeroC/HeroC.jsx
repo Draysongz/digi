@@ -15,9 +15,11 @@ import {
     Circle,
     Accordion,
     AccordionItem,
+    AccordionIcon,
     AccordionButton,
     AccordionPanel,
     useColorModeValue,
+    VStack,
   } from "@chakra-ui/react";
   import { AddIcon, MinusIcon } from '@chakra-ui/icons';
   import secure from '../assets/secure.svg'
@@ -35,6 +37,7 @@ import {
   import fb from '../assets/fb.png'
   import { Link } from 'react-router-dom';
   import linkedin from '../assets/linkedin.png'
+  import footer from '../assets/footer.png'
 
   const ButtonMailto = ({mailto, label})=>{
     return(
@@ -661,7 +664,7 @@ const HeroC = () => {
         </Box>
 
 
-        <Flex id='footer' bg={'#0E0562'} direction={['column-reverse', 'column', 'column', 'row']} minH={'60vh'} p='20px'  ml='-20px' w={['100vw', '95vw', '98.7vw', '98.7vw']}  justifyContent={'space-around'}>
+        <Flex id='footer' display={['none', 'none', 'flex', 'flex']} bg={'#0E0562'} direction={['column-reverse', 'column', 'column', 'row']} minH={'60vh'} p='20px'  ml='-20px' w={['100vw', '95vw', '98.7vw', '98.7vw']}  justifyContent={'space-around'}>
             {/* first side */}
             <Flex direction={'column'} gap={5} alignItems={['center', 'center', 'center', 'flex-start']}>
                 <Image src={newLogo} alt='DigiMart' width={['70%', '90%', '80%', '80%']} />
@@ -709,6 +712,110 @@ const HeroC = () => {
                 
               </Flex>
         </Flex>
+
+        <Flex bgImage={footer} display={['flex', 'flex', 'none', 'none']} id='footer' bgRepeat={'no-repeat'} minH={'60vh'} color={'white'} direction={'column'}>
+                <Box p={5} >
+                <Accordion allowToggle>
+  <AccordionItem border={'none'}>
+    <h2>
+      <AccordionButton>
+        <Box as="span" flex='1' textAlign='left'>
+          About
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    <Flex direction={'column'} gap={5}>
+        <Text><Link to='/about'>About DigiMart</Link></Text>
+      <Text><Link to='/blog'>Blog</Link></Text>
+      <Text><Link to='/news'>News</Link></Text>
+        </Flex>
+    </AccordionPanel>
+  </AccordionItem>
+
+  <AccordionItem border={'none'}>
+    <h2>
+      <AccordionButton>
+        <Box as="span" flex='1' textAlign='left'>
+          Help
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    <Flex direction={'column'} gap={5}>
+        <Text><Link to='/t&c'>Terms & Conditions</Link></Text>
+      <Text><Link to='/privacy'>Privacy Policy</Link></Text>
+        </Flex>
+    </AccordionPanel>
+  </AccordionItem>
+
+  <AccordionItem border={'none'}>
+    <h2>
+      <AccordionButton>
+        <Box as="span" flex='1' textAlign='left'>
+          Products
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+        <Flex direction={'column'} gap={5}>
+        <Text><Link to='/options'>Trade Crypto</Link></Text>
+      <Text><Link to='/options'>Buy Giftcards</Link></Text>
+      <Text><Link to='/options'>Buy Paypal Funds</Link></Text>
+        </Flex>
+     
+    </AccordionPanel>
+  </AccordionItem>
+
+  <AccordionItem border={'none'}>
+    <h2>
+      <AccordionButton>
+        <Box as="span" flex='1' textAlign='left'>
+          Contact Us
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h2>
+    <AccordionPanel pb={4}>
+    <Flex direction={'column'} gap={5}>
+        <VStack>
+            <Text>Email Address: </Text>
+        <ButtonMailto label={'hellodigimart@gmail.com'} mailto ={ 'mailto:hellodigimart@gmail.com'} />
+        </VStack>
+
+        <VStack>
+        <Text>Phone:</Text>
+        <Text>+2347042263619</Text>
+        </VStack>
+      
+
+        </Flex>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+                </Box>
+
+                <Flex direction={'column'} justifyContent={'center'} alignItems={'center'} gap={5}>
+                    <Box>
+                        <Image src={newLogo} alt={'digimart'} />
+                    </Box>
+                    
+                    <Flex justifyContent={['space-between', 'space-around', 'space-around','space-around' ] } minW={['30vw', '30vw', '10vw']} >
+                    <Image src={linkedin} alt='linkedin'/>
+                    <Link to= 'https://www.facebook.com/profile.php?id=100070728897129&mibextid=ZbWKwL'
+                     target="_blank" rel="noopener noreferrer">
+                        <Image src={fb} alt='facebook'/>
+                        </Link>
+                    <Link to='https://twitter.com/DigiMartExchang'
+                     target="_blank" rel="noopener noreferrer"><Image src={twitter}alt='twitter' /></Link>
+                </Flex>
+
+                <Text color={'white'} fontFamily={'Hellix-medium'}>© 2023 DigiMart, All rights reserved</Text>
+                </Flex>
+            </Flex>
     </Flex>
   </Box>
   )

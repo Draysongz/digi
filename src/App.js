@@ -50,6 +50,7 @@ import MainCrypt from "./Admin/Crypto/MainCrypt";
 import Verify from "./Components/Verify";
 import AOS from "aos";
 import PageTransition from './PageTransition'
+import About from "./Components/About";
 
 
 
@@ -184,6 +185,7 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="/about" element={<About />} />
 
             {/* Error Pages*/}
         <Route path="/forbidden" element={<ForbiddenPage/>} />
