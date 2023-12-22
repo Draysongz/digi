@@ -98,7 +98,7 @@ const Reset = () => {
     minWidth="100vw"
     bg={flexBg}
     color={flexCol}
-    overFlowX={'hidden'}
+    overflowX={'hidden'}
     direction={'column'}
     gap={3}>
        <Box alignSelf={'start'}>
@@ -137,7 +137,7 @@ const Reset = () => {
     minWidth="100vw"
     bg={flexBg}
     color={flexCol}
-    overFlowX={'hidden'}
+    overflowX={'hidden'}
     direction={'column'}
     gap={10}
     >

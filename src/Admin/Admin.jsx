@@ -155,7 +155,7 @@ const Admin = () => {
       color={useColorModeValue("gray.900", "white")}
       position={[null, null, null, null, "absolute"]}
       left={["0", "0", "0", "21%"]}
-      overFlowX={"hidden"}
+      overflowX={"hidden"}
     >
       <Flex
         justifyContent={"space-between"}

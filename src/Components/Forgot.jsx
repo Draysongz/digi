@@ -27,36 +27,27 @@ const Forgot = () => {
   const isDark = colorMode === "dark";
   
   const handleClick = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
-
-  const auth = getAuth(app);
-  const actionCodeSettings = {
-    url: `https://digimart-exchange.vercel.app/reset`,
-    handleCodeInApp: true,
-  };
-
-  try {
-    // Check if the email corresponds to an existing user
-    const methods = await fetchSignInMethodsForEmail(auth, email);
-
-    if (methods && methods.length > 0) {
+    e.preventDefault();
+    setIsLoading(true);
+  
+    const auth = getAuth(app);
+    const actionCodeSettings = {
+      url: `https://digimart-exchange.vercel.app/reset`,
+      handleCodeInApp: true,
+    };
+  
+    try {
+      // Attempt to send the password reset email
       await sendPasswordResetEmail(auth, email, actionCodeSettings);
-      toast.success("Email verification sent");
       navigate('/verify', { state: { email } });
-    } else {
-      toast.error("User not found");
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    } finally {
+      setIsLoading(false);
     }
-
-  } catch (error) {
-    setIsLoading(false);
-    toast.error(error.message);
-    console.log(error.message);
-  } finally {
-    setIsLoading(false);
-  }
-};
-
+  };
+  
 
   
   return (
@@ -67,7 +58,7 @@ const Forgot = () => {
     minWidth="100vw"
     bg={useColorModeValue("#F4F5F8", "#050223")}
     color={useColorModeValue("gray.900", "white")}
-    overFlowX={'hidden'}
+    overflowX={'hidden'}
     direction={'column'}
     gap={10}
     >

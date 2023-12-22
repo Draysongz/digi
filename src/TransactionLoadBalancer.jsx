@@ -63,9 +63,14 @@ function TransactionLoadBalancer() {
       console.log('Merchants available:', merchants);
       
     
-    const { service } = transaction;
+    const { service } = transaction
+    console.log('Service in transaction:', service);
+
   
-    const matchingMerchants = Object.keys(merchants).filter((role) => service.includes(role));
+    const matchingMerchants = Object.keys(merchants).filter((merchantKey) =>
+    merchantKey.toLowerCase().includes(service.toLowerCase())
+  );
+    
     if (matchingMerchants.length === 0) {
       console.error(`No online Merchant available to handle transactions of type ${service}`);
       return;

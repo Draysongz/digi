@@ -1,38 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
-  Container,
   Flex,
   Card,
   CardBody,
   Box,
   Text,
-  RadioGroup,
-  Radio,
   Heading,
-  Button,
   useColorModeValue,
-  Table,
-  Th,
-  Td,
-  TableContainer,
-  HStack,
-  Tr,
-  Tbody,
-  Thead,
   Image,
-  Link,
-  Icon,
   Wrap,
   WrapItem,
   Avatar,
-  Modal,
-  Circle,
-  ModalHeader,
-  ModalBody,
-  ModalContent,
-  Stack,
-  ModalOverlay,
-  ModalCloseButton,
   Accordion,
   AccordionButton,
   AccordionItem,
@@ -54,6 +32,7 @@ import Ceo from './assets/ceo.png'
 import newLogo from './assets/newlogo.png'
 import twitter from './assets/twitter.png'
 import fb from './assets/fb.png'
+import { Link } from 'react-router-dom';
 import linkedin from './assets/linkedin.png'
 import star from './assets/star.png'
 import ellipse from './assets/ellipse.png'
@@ -83,7 +62,8 @@ const About = () => {
 
       ];
   return (
-    <Flex direction={'column'} gap={5}>
+    <Flex direction={'column'} gap={5}
+    bg={useColorModeValue('', '#0B0449')}>
         <Flex direction={'column'}>
             <WithSubnavigation />
         </Flex>
@@ -109,7 +89,7 @@ const About = () => {
                </Flex>
             </Flex>
 
-            <Flex p={20} backgroundColor={'#F7F7FA'} justifyContent={'space-between'} alignItems={'center'}>
+            <Flex p={20} backgroundColor={useColorModeValue('#F7F7FA', '#080339')} justifyContent={'space-between'} alignItems={'center'}>
                 <Flex direction={'column'}>
                     <Heading>Our mission</Heading>
                     <Text w={'35vw'}>Digimart is a cryptocurrency exchange platform that provides a secure and user-friendly experience for both seasoned traders and newcomers. We offer a diverse range of trading options, including cryptocurrencies, gift cards, and PayPal funds. Our platform is designed to be intuitive and easy to use, so you can focus on trading and achieving your financial goals.
@@ -122,7 +102,7 @@ const About = () => {
                 </Box>
             </Flex>
 
-            <Flex p={20} backgroundColor={'#F7F7FA'} justifyContent={'space-between'} alignItems={'center'}>      
+            <Flex p={20} backgroundColor={useColorModeValue('#F7F7FA', '#080339')}  justifyContent={'space-between'} alignItems={'center'}>      
             <Box borderRadius={'md'}>
                     <Image src={mission} alt='mission' borderRadius={'2xl'} />
                 </Box>
@@ -138,8 +118,8 @@ const About = () => {
 
             <Flex p={10} justifyContent={'center'} direction={'column'} gap={10}>
                 <Heading textAlign={'center'}>What Sets Us Apart?</Heading>
-                <Flex p={10} justifyContent={'space-between'}>
-                    <Card bg={'#E8E6F6'} minH={'55vh'} w={'22vw'}>
+                <Flex p={10} justifyContent={'space-between'} >
+                    <Card  color={useColorModeValue('', 'black')} bg={'#E8E6F6'} minH={'55vh'} w={'22vw'}>
                         <CardBody>
                             <Flex  py={8} gap={6} direction={'column'}>
                                 <Image src={security} alt='security' width={'20%'} />
@@ -151,7 +131,7 @@ const About = () => {
                         </CardBody>
                     </Card>
 
-                    <Card bg={'#EAFAEA'} minH={'55vh'} w={'22vw'}>
+                    <Card color={useColorModeValue('', 'black')} bg={'#EAFAEA'} minH={'55vh'} w={'22vw'}>
                         <CardBody>
                         <Flex  py={8} gap={6} direction={'column'}>
                                 <Image src={userF} alt='security' width={'20%'} />
@@ -163,7 +143,7 @@ const About = () => {
                         </CardBody>
                     </Card>
 
-                    <Card bg={'#E8E6F6'} minH={'55vh'} w={'22vw'}>
+                    <Card color={useColorModeValue('', 'black')} bg={'#E8E6F6'} minH={'55vh'} w={'22vw'}>
                         <CardBody>
                         <Flex  py={8} gap={6} direction={'column'}>
                                 <Image src={trading} alt='security' width={'20%'} />
@@ -276,7 +256,7 @@ const About = () => {
 
 
             <Flex direction={'column'}>
-                <Flex p={3} direction={'column'} alignItems={'center'} bgColor={'#F7F7FA'} gap={5} justifyContent={'center'}>
+                <Flex p={3} direction={'column'} alignItems={'center'} backgroundColor={useColorModeValue('#F7F7FA', '#080339')} gap={5} justifyContent={'center'}>
                     <Heading>Our Mission</Heading>
                     <Text textAlign={'center'}>Digimart is a cryptocurrency exchange platform that provides a secure and user-friendly experience for both seasoned 
                         traders and newcomers. We offer a diverse range of trading options, including cryptocurrencies, 
@@ -291,7 +271,7 @@ const About = () => {
             </Flex>
 
             <Flex direction={'column'}>
-                <Flex p={3} direction={'column'} alignItems={'center'} bgColor={'#F7F7FA'} gap={5} justifyContent={'center'}>
+                <Flex p={3} direction={'column'} alignItems={'center'} backgroundColor={useColorModeValue('#F7F7FA', '#080339')}  gap={5} justifyContent={'center'}>
                     <Heading>Our Vision</Heading>
                     <Text textAlign={'center'}>Digimart is a cryptocurrency exchange platform that provides a secure and user-friendly experience for both seasoned 
                         traders and newcomers. We offer a diverse range of trading options, including cryptocurrencies, 
@@ -308,7 +288,7 @@ const About = () => {
             <Flex direction={'column'} p={3} gap={10} justifyContent={'center'}>
                 <Heading textAlign={'center'}>What Sets Us Apart?</Heading>
                 <Flex p={6} direction={'column'} gap={10}>
-                    <Card bg={'#E8E6F6'} h={'50vh'} w={'80vw'}>
+                    <Card bg={'#E8E6F6'} color={useColorModeValue('', 'black')} h={'50vh'} w={'80vw'}>
                         <CardBody>
                         <Flex  py={8} gap={6} direction={'column'} justifyContent={'center'} alignItems={'center'}> 
                                 <Image src={security} alt='security' width={'20%'} />
@@ -320,7 +300,7 @@ const About = () => {
                         </CardBody>
                     </Card>
 
-                    <Card bg={'#EAFAEA'} h={'50vh'} w={'80vw'}>
+                    <Card bg={'#EAFAEA'} color={useColorModeValue('', 'black')} h={'50vh'} w={'80vw'}>
                         <CardBody>
                         <Flex  py={8} gap={6} direction={'column'} justifyContent={'center'} alignItems={'center'}> 
                                 <Image src={userF} alt='security' width={'20%'} />
@@ -332,7 +312,7 @@ const About = () => {
                         </CardBody>
                     </Card>
 
-                    <Card bg={'#E8E6F6'} h={'50vh'} w={'80vw'}>
+                    <Card bg={'#E8E6F6'} color={useColorModeValue('', 'black')} h={'50vh'} w={'80vw'}>
                         <CardBody>
                         <Flex  py={8} gap={6} direction={'column'} justifyContent={'center'} alignItems={'center'}> 
                                 <Image src={trading} alt='trading' width={'20%'} />

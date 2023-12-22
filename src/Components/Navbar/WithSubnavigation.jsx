@@ -336,7 +336,7 @@ const NAV_ITEMS = [
   },
   {
     label: "About us",
-    href: "#footer",
+    href: "/about",
   },
   {
     label: "Contact",

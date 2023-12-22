@@ -51,6 +51,8 @@ import Verify from "./Components/Verify";
 import AOS from "aos";
 import PageTransition from './PageTransition'
 import About from "./Components/About";
+import Terms from "./Components/Terms";
+import Privacy from "./Components/Privacy";
 
 
 
@@ -186,6 +188,8 @@ function App() {
         <Route path="/reset" element={<Reset />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/about" element={<About />} />
+        <Route path="/t&c" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
 
             {/* Error Pages*/}
         <Route path="/forbidden" element={<ForbiddenPage/>} />
