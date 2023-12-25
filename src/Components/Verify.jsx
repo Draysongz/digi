@@ -71,7 +71,7 @@ const Verify = () => {
               exists, we've sent a verification email. Please check your inbox
               and click the link to complete the verification.
             </Text>
-          </Box>
+          </Box> 
         </Flex>
       </Flex>
     </Flex>
